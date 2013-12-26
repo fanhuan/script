@@ -1,6 +1,6 @@
 markdown: rdiscount
 permalink: /:year/:month/:title/
-url: http://daijiang.name/en
+url: http://daijiang.github.io/en
 author: Daijiang Li
 pygments: true
 
