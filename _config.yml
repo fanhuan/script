@@ -1,5 +1,5 @@
 markdown: rdiscount
-permalink: /:year/:month/:title/
+permalink: /:year/:month/:day/:title/
 url: http://daijiang.name/en
 author: Daijiang Li
 pygments: true
