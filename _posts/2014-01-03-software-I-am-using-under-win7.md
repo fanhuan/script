@@ -1,10 +1,10 @@
 ---
 layout: post
-title:  Software I am using under Windows 7
+title:  Softwares I am using under Windows 7
 categories: [software]
 tags: [software, R]
 ---
-A few days earlier, I switched to another computer for better CPU and larger RAM. Both of them are run with Windows 7. Although I would love to learn Linux/Ubuntu, I don't have that time to learn it by trial and error. So I just stick with Windows. The following is a list of the softwares  I am using and their settings. 
+A few days earlier, I switched to another computer for better CPU and larger RAM. Both of them are run with Windows 7. Although I would love to learn Linux/Ubuntu, I don't have that time to learn it by trial and error. So I just stick with Windows. The following is a list of the softwares I am using. 
 
 + Microsoft office: well, I do not like them at all, but sadly, I need to use them.
 + Ctex:MikTex: for LaTex.
