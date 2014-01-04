@@ -23,7 +23,7 @@ In `ggmap` the plotting process is broken into two pieces: 1. downloading the im
 ####Example
 Last summer, I resampled about 34 used-be Pine Barrens sites.  Here is the distribution map:
 
-{% highlight r %}
+{% highlight %}
 data=read.csv("lat.csv")
 library(ggplot2)
 library(ggmap)
