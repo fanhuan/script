@@ -4,7 +4,7 @@ title:  Key of some species
 categories: [field work, tips]
 tags: [plant ID, Field work]
 ---
-This is some note I made in summer of 2013. Post here as archive.
+This is a note I made in summer of 2013. Post here as archive.
 
 ####Diphasiastrum
 Branches appearing flattened, the leaves strongly appressed to stems primarily in one plane or at least squarrish in cross section. 
@@ -26,7 +26,7 @@ Branches appearing flattened, the leaves strongly appressed to stems primarily i
 + ***Quercus bicolor***: underside tomentosa, two types of hairs.
 
 ####Red oak group
-+ ***Quercus rubra*** the deepest sinuses extending 45-70% of the distance to the midvein; **the petioles and green branchlets sparsely hairy or glabrous when the leaves are just expanding**. Acorns.
++ ***Quercus rubra***: the deepest sinuses extending 45-70% of the distance to the midvein; **the petioles and green branchlets sparsely hairy or glabrous when the leaves are just expanding**. Acorns.
 
 + The petioles and green branchlets densely hairy when the leaves are just expanding. the deepest sinuses extending 65-90% of the distance to the midvein.
 
@@ -35,9 +35,9 @@ Branches appearing flattened, the leaves strongly appressed to stems primarily i
 	+ ***Quercus ellipsoidalis***: Lower surface of leaves **glabrous or nearly so**; buds glabrous, lustrous, only slightly angled in cross section; **stubs of dead branches persistent on lower trunk.**
 
 ####Poison ivy
-+ ***Toxicodendron radicans*** Tall branching shrub often > 2m tall, or vine climbing with aerial roots; **perioles moderately to densely hairy**; leaflets ovate, usually more than 1.5 times as long as wide. 
++ ***Toxicodendron radicans***: Tall branching shrub often > 2m tall, or vine climbing with aerial roots; **perioles moderately to densely hairy**; leaflets ovate, usually more than 1.5 times as long as wide. 
 
-+ ***Toxicodendron rydbergii*** Low shrubs with few if any branches and usually < 1m tall, not producing aerial roots; **petioles glabrous or sparsely hairy**; leaflet broadly ovate, usually less than 1.5 times as long as wide. 
++ ***Toxicodendron rydbergii***: Low shrubs with few if any branches and usually < 1m tall, not producing aerial roots; **petioles glabrous or sparsely hairy**; leaflet broadly ovate, usually less than 1.5 times as long as wide. 
    
 ####Osmunda cinnamomea
 + Only Cinnamon fern has the pale tan tufts of wool at the base of the pinnae.   
