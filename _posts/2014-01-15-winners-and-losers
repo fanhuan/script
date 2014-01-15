@@ -17,7 +17,7 @@ period.
 + `old.quad`: how many quadrats per site in the old date? One reason for this is that not all resurveys used the same method as before.
 + `new.quad`: how many quadrats per site in the new date?
 
-{% highlight %}
+{% highlight r%}
 repG = function(dataframe, nsite = 30, old.quad = 20, new.quad = 50) {
   rep.gtest = vector(mode = "list")
   library(plyr)
