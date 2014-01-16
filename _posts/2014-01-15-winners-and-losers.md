@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  Winners and losers -- replicated G-test
+title:  Winners and losers&#58; replicated G-test
 categories: [tips]
 tags: [R]
 ---
@@ -57,3 +57,5 @@ repG = function(dataframe, nsite = 30, old.quad = 20, new.quad = 50) {
 }
 repG(dataframe)
 {% endhighlight %}
+
+> I just found that if the post tile has colon in it, Jekyll cannot parse it correctly! One solution (weired) is to use `&#58;` instead, then you can get the colon.
