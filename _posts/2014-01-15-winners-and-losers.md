@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  Winners and losers: replicated G-test
+title:  Winners and losers -- replicated G-test
 categories: [tips]
 tags: [R]
 ---
