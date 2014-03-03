@@ -22,6 +22,13 @@ Here is a list of the most basic commends in Unix from what I learned today.
 + `less day1.R` only read a few part of day1.R. Press `q` to quit the reading.
 + `man command` to check what a command does. e.g. `man ls`. Press `q` to quit.
 + `command > file` dump the standard output into a file. e.g. `pwd > pwd.txt`, then you can use `cat pwd.txt` to have a look at the file.
++  `Ctrl+d` will send "end of file' and will often terminate the shell.
++  `ls /bin/*sh` will list all shells available.
++  `df -h` to get the disk of file system used, `-h` means return human readable numbers, e.g. 100Mb. 100Gb.
++  `du -hs /path/to/directory` get the total size of the directory. `du` means disk usage, `-h` as above, `-s` means summary.
+
+
+
 
 
 More later.
