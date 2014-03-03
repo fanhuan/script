@@ -26,6 +26,7 @@ Here is a list of the most basic commends in Unix from what I learned today.
 +  `ls /bin/*sh` will list all shells available.
 +  `df -h` to get the disk of file system used, `-h` means return human readable numbers, e.g. 100Mb. 100Gb.
 +  `du -hs /path/to/directory` get the total size of the directory. `du` means disk usage, `-h` as above, `-s` means summary.
++  `env` to view the current values of environment variables.
 
 
 
