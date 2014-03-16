@@ -22,4 +22,3 @@ After one week of trying the Ubuntu 12.04, I still have the following concerns a
 
 ### Wrap up
 Still cannot move to Ubuntu 100%. Any suggestions/help will be more than welcome!
-
