@@ -9,6 +9,7 @@ My six years old laptop shows its age more and more often this semester. Today, 
 
 ## List of softwares
 Here is the list of the softwares I installed today:
+
 #### Research relevant:
 - [R](http://www.r-project.org/): statistical software
 - [RStudio](http://www.rstudio.com/): IDE of R
@@ -38,6 +39,7 @@ Most of the above softwares I can find under Ubuntu, but the *Foxit pdf reader*,
 
 ## Environment variables
 One thing I really hate with Windows is that I need to set up environment variables by hand if I want to get them recongnized in the commend line. Here are a list of changes in environment variables I made today.
+
 - R: `R.home('bin')` then add the return `C:\Program Files\R\bin`.
 - Github: add `C:\Users\Li\AppData\Local\GitHub\PortableGit_...\bin`.
 - LaTex: no need to, already added when install.
