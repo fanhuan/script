@@ -13,7 +13,7 @@ As a result, I decide to create the txt table according to their website, with t
 2. Copy the page source into Sublime text, then we can see the species names are wrapped by `SpCode=` and `</A>`.
 3. In sublime text, `Ctrl+I`, turn on regular expression search (`Alt+R`), type `SpCode=.+</A`, then press `Alt+Enter`. All matches were selected! Cool! Then copy `Ctrl+C` all of them into a new file (`Ctrl+N`) in Sublime text! 
 4. Not done yet. In the new file, `Ctrl+I`, then type `SpCo.+>` first, then press `Alt+Enter`, then press `Delete`. We are half way there, we search `</A`, `Alt+Enter`, then press `Delete`. Awesome! We got the list of that page!
-5. Repeat this for each page... Fortunately, they are not too many for trees and shrubs!
+5. Repeat this for each page... Fortunately, they are not too many for trees and shrubs! Or copy and paste all page source into one file and then follow the step 2-4, for each growth habit.
 
 I put the list of [tree](http://daijiang.name/pdf/tree.txt), [shrub](http://daijiang.name/pdf/shrub.txt), [vine](http://daijiang.name/pdf/vine.txt), [fern/fern allies](http://daijiang.name/pdf/fern_fern_allies.txt), and [graminoids](http://daijiang.name/pdf/graminoids.txt) online. Downlaod them if you need.
 
