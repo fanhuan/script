@@ -16,3 +16,16 @@ As a result, I decide to create the txt table according to their website, with t
 5. Repeat this for each page... Fortunately, they are not too many for trees and shrubs!
 
 I put the list of [tree](http://daijiang.name/pdf/tree.txt), [shrub](http://daijiang.name/pdf/shrub.txt), [vine](http://daijiang.name/pdf/vine.txt), [fern/fern allies](http://daijiang.name/pdf/fern_fern_allies.txt), and [graminoids](http://daijiang.name/pdf/graminoids.txt) online. Downlaod them if you need.
+
+For each species, if you just want the genus and sp, not including the subsp/var info. You can read them in R and then using regular expression to extract them. Or you can do this in Sublime text. Here is my way doing in R:
+
+{% highlight r%}
+library(stringr)
+tree=read.table("data/tree.txt", sep="\n", stringsAsFactors=F, quote="")$V1
+tree=unlist(str_extract_all(tree, "^[A-Za-z]+\\s{1,1}X?\\s?[a-z]+"))
+tree=unique(tree)
+{% endhighlight %}
+
+In the regular expression part, `^` means at the begining of the string; `[A-Za-z]` means any letters; `+` means more than one times; `\\s` means any space, `{1,1}` means exactly one time; `?` means one time or not present. If you do this in Sublime text, replace `\\s` with `\s`.
+
+I hope this will be helpful if you are doing community ecological analysis.
