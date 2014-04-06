@@ -13,7 +13,7 @@ Here is the list of the softwares I installed today:
 #### Research relevant:
 - [R](http://www.r-project.org/): statistical software
 - [RStudio](http://www.rstudio.com/): IDE of R
-- [Github for Windows](http://windows.github.com/): Github
+- [Github for Windows](http://windows.github.com/): 
 - [Dropbox](https://www.dropbox.com/): sync files
 - [Evernote](http://evernote.com/): take notes
 - [miketex](http://miktex.org/): LaTex distribution
