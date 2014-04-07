@@ -29,3 +29,5 @@ tree=unique(tree)
 In the regular expression part, `^` means at the begining of the string; `[A-Za-z]` means any letters; `+` means more than one times; `\\s` means any space, `{1,1}` means exactly one time; `?` means one time or not present. If you do this in Sublime text, replace `\\s` with `\s`.
 
 I hope this will be helpful if you are doing community ecological analysis.
+
+>You can do all of these in R easily. I did not write the R code to extract the information at the beginning since there are only several pages and I can do them by hand. If you look at the page source, you will find that the pages' web address only differ with the number in the web address. As a result, you can get the web address for all of these pages, then read them in R using `readLines()`. Then extract the names you want by regular expressions.
