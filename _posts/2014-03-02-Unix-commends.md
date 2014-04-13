@@ -22,7 +22,8 @@ Here is a list of the most basic commends in Unix from what I learned today.
 + `tab` to autocomplete, e.g. `cd b<tab>` will autocomplete the directory name begin with `b` (if it exits).
 + `pwd` to print the path of the current working directory.
 + `ln -s` creates symbolic links. `ln -s Documents Docs`. Then Docs -> Documents.
-+ `ls -l` reveal where a symlink points and permission info. e.g. Docs -> Documents in the above example.
++ `ls -l` reveal where a symlink points and permission info. e.g. Docs -> Documents in the above example. `-S` sort files by size.
++ `ls /bin/*a* /bin/*b*` list all files in /bin that contain the letter a or b.
 + `man command` to check what a command does. e.g. `man ls`. Press `q` to quit. `man` use `less` internal, so you can use `/` to search for something.
 + `history` to check all commend used.
 + `!220` to rerun the 220th commend from history
@@ -40,6 +41,7 @@ Here is a list of the most basic commends in Unix from what I learned today.
 + `command > file` dump the standard output into a file. e.g. `pwd > pwd.txt`, then you can use `cat pwd.txt` to have a look at the file. `>` will rewrite a file if it already exits. `>>` will append to an exist file instead of rewrite it.
 + `mkdir /tmp/user` will create a new directory named as user. All files in `/tmp` will be deleted after computer shutdown.
 + `cat day1.R` have a look at a text file in within the current directory, e.g. day1.R. You can also use `cat day1.R day2.R` to print two files. `cat day*` will print all files begin with day. You can also use `cat day* > all.R` to save all files into one file.
++ `cat filefolder/*` print the contents of all of the files in the filefolder directory.
 + `less day1.R` only read a few part of day1.R. Press `q` to quit the reading, `space` to go forward, `b` to go backward, `g` to go to the begining, `G` to go to the end, `/` to search a word, but only forwardly.
 + `cp file file_backup` copy a file.
 + `mv file_backup /tmp/user` move the file into the /tmp/user directory.
@@ -54,15 +56,12 @@ Here is a list of the most basic commends in Unix from what I learned today.
 	* `find . -type f -name "*1*" -and -name "*2*" -print` names have 1 and 2.
 	* `find . -type f -print | xargs grep Volume` print volume line of each file.
 	* `find . -name "*NOTES*" | xargs rm` delete files whose names are NOTES.
-	* `find . -type f -exec mv {} {}.txt \;`
+	* `find . -type f -exec mv {} {}.txt \;` add all files with .txt at the end.
+	* `find . -type f -not -name "*.txt" -exec mv {} {}.txt \;` match all files do not end with .txt and then add .txt to their names.
 
 
-
-
+### Misc
 + `sudo apt-get install --only-upgrade r-base-dev` to upgrade (only) R to the latest version.
 
 
-
-
-
-More later.
+More later. 2014-04-13.
