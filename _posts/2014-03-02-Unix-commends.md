@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  Unix commends
+title:  Unix shell commends
 categories: [notes]
 tags: [computer]
 ---
