@@ -58,10 +58,14 @@ Here is a list of the most basic commends in Unix from what I learned today.
 	* `find . -name "*NOTES*" | xargs rm` delete files whose names are NOTES.
 	* `find . -type f -exec mv {} {}.txt \;` add all files with .txt at the end.
 	* `find . -type f -not -name "*.txt" -exec mv {} {}.txt \;` match all files do not end with .txt and then add .txt to their names.
++ `fdupes -d -r path/to/dire` to find and deal with duplicated files within a directory. You may need to `sudo apt-get install fdupes`.
++ `fdupes -r path/to/dire > dup.txt` to save all results in a txt file.
+
+
 
 
 ### Misc
 + `sudo apt-get install --only-upgrade r-base-dev` to upgrade (only) R to the latest version.
 
 
-More later. 2014-04-13.
+More later. 2014-04-14.
