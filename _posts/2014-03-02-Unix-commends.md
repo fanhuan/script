@@ -35,6 +35,8 @@ Here is a list of the most basic commends in Unix from what I learned today.
 + `env` to view the current values of environment variables.
 + `PATH` the environment path of a program. e.g. `echo $PATH` will print a list of places the shell will ONLY look for a program to run.
 + `which` print the location of a program. e.g. `which ls`.
++ `uname -a` print the system information.
++ `lsb_release -a` print Linux standard base distribution-specific information.
 
 
 ### File related
