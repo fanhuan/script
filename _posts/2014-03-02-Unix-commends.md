@@ -12,7 +12,7 @@ its website, I felt that it may be a good time to pick the Ubuntu up, again. And
 
 Here is a list of the most basic commends in Unix from my learning notes.
 
-### Basic system commends
+## Basic system commends
 + `/` is the root directory if at the beginning.
 + `.` means current directory.
 + `..` means one level up of current directory, i.e. parent directory.
@@ -42,7 +42,7 @@ Here is a list of the most basic commends in Unix from my learning notes.
 + `lsb_release -a` print Linux standard base distribution-specific information.
 
 
-### File related commends
+## File related commends
 + `command > file` dump the standard output into a file. e.g. `pwd > pwd.txt`, then you can use `cat pwd.txt` to have a look at the file. `>` will create a file if it does not exit or rewrites a file if it already exits. `>>` will append to an exist file instead of rewrite it.
 + `commend < input` e.g. `wc < file1`. This tells the computer that the input of `wc` is `file1`. This actually equals to `wc file1`.
 + `mkdir /tmp/user` will create a new directory named as user. All files in `/tmp` will be deleted after computer shutdown.
@@ -79,7 +79,7 @@ Here is a list of the most basic commends in Unix from my learning notes.
 + `fdupes -r path/to/dire > dup.txt` to save all results in a txt file.
 
 
-### Loops
+## Loops
 
 	for filename in *.txt
 	do 
@@ -95,7 +95,7 @@ Here is a list of the most basic commends in Unix from my learning notes.
 
 If file names have space in some of them, put `$filename` in quote to avoid problems. But the best way is to avoid putting space in any file names. If you are not sure about the commends you are using, put `echo mv $filename prefix-$filename` between `do` and `done` to check it.
 
-###Moving cursor inside bash
+##Moving cursor inside bash
 + `^` means `Ctrl` key, e.g. `^A` means `Ctrl+A`.
 + `^A` move to the beginning of a line in the shell.
 + `^E` move to the end of a line.
@@ -103,7 +103,7 @@ If file names have space in some of them, put `$filename` in quote to avoid prob
 + `^L` clean the screen of your shell.
 + 
 
-###Shell scripts
+##Shell scripts
 Example: put `head -20 file.txt | tail -5` in a file *commend.sh*; put `head $2 $1 | tail $3` in a file *commend2.sh*; put `wc -l $* | sort -n` in a file *commend3.sh*;
 + `shell scripts` a bunch of commends saved in a file.
 + `bash commend.sh` will run the commends saved in file *commend.sh*.
@@ -113,11 +113,12 @@ Example: put `head -20 file.txt | tail -5` in a file *commend.sh*; put `head $2 
 + `history | tail -4 | colrm 1 7 > useful.sh` will save your last 4 commends into *useful.sh* so you can recycle them later.
 
 
-### Misc
+## Misc
 + `sudo apt-get install --only-upgrade r-base-dev` to upgrade (only) R to the latest version.
 
 
 More later. 2014-04-21.
-###Reference
-+ [Software carpentry] (http://software-carpentry.org/v5/novice/shell/)
+
+##Reference
++ [Software carpentry](http://software-carpentry.org/v5/novice/shell/)
 + [Software carpentry UW-Madison](https://github.com/UW-Madison-ACI/boot-camps/blob/2014-01-uwmadison/shell/Readme.md)
