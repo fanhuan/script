@@ -68,6 +68,8 @@ Here is a list of the most basic commends in Unix from what I learned today.
 
 ### Misc
 + `sudo apt-get install --only-upgrade r-base-dev` to upgrade (only) R to the latest version.
++ `echo $GDMSESSION` check the OS info. In my machine, it returns *Lubuntu*.
++ `echo $XDG_CURRENT_DESKTOP` check the desktop window manager. My is *LXDE*.
 
 
 More later. 2014-04-14.
