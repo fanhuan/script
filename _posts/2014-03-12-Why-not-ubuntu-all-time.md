@@ -4,6 +4,7 @@ title:  Ubuntu and Windows
 categories: [notes]
 tags: [computer]
 ---
+>Never mind, I find myself using Ubuntu only for the past couple of weeks...
 
 After one week of trying the Ubuntu 12.04, I still have the following concerns about switching to Ubuntu, mainly about softwares I need to use.
 
@@ -22,3 +23,4 @@ After one week of trying the Ubuntu 12.04, I still have the following concerns a
 
 ### Wrap up
 Still cannot move to Ubuntu 100%. Any suggestions/help will be more than welcome!
+

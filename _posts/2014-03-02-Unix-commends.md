@@ -13,6 +13,7 @@ its website, I felt that it may be a good time to pick the Ubuntu up, again. And
 Here is a list of the most basic commends in Unix from my learning notes.
 
 ## Basic system commends
+
 + `/` is the root directory if at the beginning.
 + `.` means current directory.
 + `..` means one level up of current directory, i.e. parent directory.
@@ -43,6 +44,7 @@ Here is a list of the most basic commends in Unix from my learning notes.
 
 
 ## File related commends
+
 + `command > file` dump the standard output into a file. e.g. `pwd > pwd.txt`, then you can use `cat pwd.txt` to have a look at the file. `>` will create a file if it does not exit or rewrites a file if it already exits. `>>` will append to an exist file instead of rewrite it.
 + `commend < input` e.g. `wc < file1`. This tells the computer that the input of `wc` is `file1`. This actually equals to `wc file1`.
 + `mkdir /tmp/user` will create a new directory named as user. All files in `/tmp` will be deleted after computer shutdown.
@@ -104,6 +106,7 @@ If file names have space in some of them, put `$filename` in quote to avoid prob
 + 
 
 ##Shell scripts
+
 Example: put `head -20 file.txt | tail -5` in a file *commend.sh*; put `head $2 $1 | tail $3` in a file *commend2.sh*; put `wc -l $* | sort -n` in a file *commend3.sh*;
 + `shell scripts` a bunch of commends saved in a file.
 + `bash commend.sh` will run the commends saved in file *commend.sh*.
@@ -114,6 +117,7 @@ Example: put `head -20 file.txt | tail -5` in a file *commend.sh*; put `head $2 
 
 
 ## Misc
+
 + `sudo apt-get install --only-upgrade r-base-dev` to upgrade (only) R to the latest version.
 + `echo $GDMSESSION` check the OS info. In my machine, it returns *Lubuntu*.
 + `echo $XDG_CURRENT_DESKTOP` check the desktop window manager. My is *LXDE*.
@@ -122,5 +126,6 @@ Example: put `head -20 file.txt | tail -5` in a file *commend.sh*; put `head $2 
 More later. 2014-04-21.
 
 ##Reference
+
 + [Software carpentry](http://software-carpentry.org/v5/novice/shell/)
 + [Software carpentry UW-Madison](https://github.com/UW-Madison-ACI/boot-camps/blob/2014-01-uwmadison/shell/Readme.md)

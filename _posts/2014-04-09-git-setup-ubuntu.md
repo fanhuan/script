@@ -7,6 +7,7 @@ tags: [Git, computer]
 >This post will be update over time along with my git learning.
 
 ##Set up
+
 In Ubuntu, it is super easy to install and set up Git. Bascially, just follow the online [reference](http://git-scm.com/docs).
 
 	sudo apt-get install git
@@ -20,6 +21,7 @@ That's it! You can check all of your config information by `git config --list`. 
 ##Basic steps
 
 ####Initialization
+
 Then I want to create a directory named as "github" and clone my repositories into this directory. If your repository is private, then git will ask you for username and password.
 
 	mkdir github
@@ -35,6 +37,7 @@ If I already have a directory and want to version control that one, `cd` to the 
 	git commit -m 'initial project version'
 
 ####Track files
+
 After then, if you modified a file, you can use the following code to version control files.
 
 	git status # check the status of the project
@@ -47,6 +50,7 @@ After then, if you modified a file, you can use the following code to version co
 You can also rename files by using `git mv namea nameb`. This is equal to: `mv namea nameb; git rm namea; git add nameb`.
 
 ####Untrack files
+
 How about files you do not want to track? If you tracked them before, use `git rm filename` to untrack and delete it. If you want just to untrack it and want to keep it in the working directory, use `git rm --cached filename`. If you do not want track them at the beginning, put their names in the `.gitignore` file in the directory. Here is an example of the `.gitignore` file:
 
 	*.a # ignore all .a files
@@ -55,6 +59,7 @@ How about files you do not want to track? If you tracked them before, use `git r
 	dire/ # ignore all files in dire directory
 
 ####History
+
 `git log`: check history of a project. Here are some common options:
 
 	git log -p # show diff of each commit
@@ -83,3 +88,14 @@ How about files you do not want to track? If you tracked them before, use `git r
 	git add forgotten.file
 	got commit --amend # use the staged dire to edit the last commit
 
+####Branch
+Git will reset the working directory when you switch branches. Make sure to commit everything before switch branch.
+
+	git branch # check all branches list.
+	git checkout -b branch.name # create and switch to a new branch.
+	git commit -a -m "message here" #After finish working, commit all things.
+	git checkout master # back to the origin master branch
+	git merge branch.name # merge all changes to master branch if you want
+	git branch -d branch.name # delete it after merging. Since it equals with master now.
+
+If two branches changed the same part of a file, there will be merge confliction. Use `git status` to check unmerged file names. The confliction can be located between `<<<<<<<` and `>>>>>>>`, seperating by `=======`. You can choose one of them or edit by yourself. After then, `git add` to stage them and then `git commit` if satisfied.
