@@ -41,6 +41,7 @@ Here is a list of the most basic commends in Unix from my learning notes.
 + `which` print the location of a program. e.g. `which ls`.
 + `uname -a` print the system information.
 + `lsb_release -a` print Linux standard base distribution-specific information.
++ `finger` to check users inthe system.
 
 
 ## File related commends
@@ -114,6 +115,12 @@ Example: put `head -20 file.txt | tail -5` in a file *commend.sh*; put `head $2 
 + `bash commend3.sh *.txt backup/*.txt` will sort and list all files specified. `$*` means all parameters on the commend line.
 + `bash commend3.sh` will use stdin (i.e input from the commend line) as input.
 + `history | tail -4 | colrm 1 7 > useful.sh` will save your last 4 commends into *useful.sh* so you can recycle them later.
+
+## Remote
+
++ `scp filename user@server:filenameYouWant` on your local terminal to send local file to remote server. `scp filename user@server:.` if you do not want  to rename the file.youwant
++ `ssh -Y user@server` to connect a remote server.
+
 
 
 ## Misc
