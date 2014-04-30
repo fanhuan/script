@@ -17,3 +17,14 @@ Here is the plot:
 ![plot](http://i.imgur.com/h5GWmiW.png)
 
 I did not include my correct name, which is *Daijiang* because all of emails with my name in the signature and I do not know how to filter it from the search...
+
+{% highlight r%}
+data = data.frame(name = c("Daijaing", "Daijing", "Diajiang","Daijian", "Dajiang", "Diajing"),
+                  freq=c(46,30,27,11,3,2))
+data$name = factor(data$name, levels = rev(c("Daijaing", "Daijing", "Diajiang","Daijian", "Dajiang", "Diajing")))
+library(ggplot2)
+ggplot(data=data, aes(x=name, y=freq))+geom_bar(stat="identity")+
+  theme(axis.text=element_text(size=18, color="black"), axis.title=element_text(size=18),
+        title=element_text(size=18))+
+  labs(y="Frequency", x="Name", title="All of my 'names' from my Gmail inbox. Control: Daijiang")+coord_flip()
+{% endhighlight %}
