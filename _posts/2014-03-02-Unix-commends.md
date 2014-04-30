@@ -104,7 +104,7 @@ If file names have space in some of them, put `$filename` in quote to avoid prob
 + `^E` move to the end of a line.
 + `^C` cancel what you are doing.
 + `^L` clean the screen of your shell.
-+ 
+ 
 
 ##Shell scripts
 
