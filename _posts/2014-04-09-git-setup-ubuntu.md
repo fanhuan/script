@@ -109,6 +109,7 @@ In order to check an older version of a file:
 	got commit --amend # use the staged dire to edit the last commit
 
 ####Branch
+
 Git will reset the working directory when you switch branches. Make sure to commit everything before switch branch.
 
 	git checkout -b branch.name # create and switch to a new branch.
@@ -131,6 +132,7 @@ If two branches changed the same part of a file, there will be merge confliction
 	git branch -D branch.not.merged # dangerous! Are you sure? -D will force to delete.
 
 #####stashing
+
 When you work on some project which is not ready to commit, but at the same time you need to switch to another branch. You can use stashing: store the current working.
 
 	git stash # store current work
@@ -141,8 +143,12 @@ When you work on some project which is not ready to commit, but at the same time
 	git stash branch branch.name # create a branch, get the stashed work, apply changes,
 	  # drop stashed work if success.
 
+#### Pull from Github to update
+You can simply use `git pull` to update your local project from Github. If you changed something in your local project, and want to apply the online update first before you push your changes. You can use `git fetch origin` and then `git rebase origin`. This will include online changes whereas keep your changes on top.
+
 #### Push to Github
-GO to [github](https://github.com/), login, create a new repository, and follow their instruction.	 
+
+Go to [github](https://github.com/), login, create a new repository, and follow their instruction.	 
 
 ## Reference
 

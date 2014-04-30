@@ -41,7 +41,7 @@ Here is a list of the most basic commends in Unix from my learning notes.
 + `which` print the location of a program. e.g. `which ls`.
 + `uname -a` print the system information.
 + `lsb_release -a` print Linux standard base distribution-specific information.
-+ `finger` to check users inthe system.
++ `finger` to check users inthe system. You may need to install finger first.
 
 
 ## File related commends
