@@ -99,6 +99,7 @@ Here is a list of the most basic commends in Unix from my learning notes.
 If file names have space in some of them, put `$filename` in quote to avoid problems. But the best way is to avoid putting space in any file names. If you are not sure about the commends you are using, put `echo mv $filename prefix-$filename` between `do` and `done` to check it.
 
 ##Moving cursor inside bash
+
 + `^` means `Ctrl` key, e.g. `^A` means `Ctrl+A`.
 + `^A` move to the beginning of a line in the shell.
 + `^E` move to the end of a line.

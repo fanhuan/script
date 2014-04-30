@@ -144,7 +144,7 @@ When you work on some project which is not ready to commit, but at the same time
 	  # drop stashed work if success.
 
 #### Pull from Github to update
-You can simply use `git pull` to update your local project from Github. If you changed something in your local project, and want to apply the online update first before you push your changes. You can use `git fetch origin` and then `git rebase origin`. This will include online changes whereas keep your changes on top.
+You can simply use `git pull` to update your local project from Github. If you changed something in your local project, and want to apply the online update first before you push your changes. You can use `git fetch origin` and then `git rebase origin/master` or `git rebase origin/gh-pages` for webpages. This will include online changes whereas keep your changes on top.
 
 #### Push to Github
 
