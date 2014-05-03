@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  Unix shell commends
+title:  Linux shell commends
 categories: [notes]
 tags: [computer]
 ---
@@ -23,11 +23,14 @@ Here is a list of the most basic commends in Unix from my learning notes.
 + `cd Documents` to change to the Documents sub-folder.
 + `cd` to change to your home directory.
 + `cd ..` to change to the parent directory.
++ `cd -` to go back to previous directory.
 + `tab` to autocomplete, e.g. `cd b<tab>` will autocomplete the directory name begin with `b` (if it exits).
 + `pwd` to print the path of the current working directory.
 + `ln -s` creates symbolic links. `ln -s Documents Docs`. Then Docs -> Documents.
 + `ls -l` reveal where a symlink points and permission info. e.g. Docs -> Documents in the above example. `-S` sort files by size, `-F` means flag, add / at the end of directories. `-R` lists the contents of directories recursively.
-+ `ls /bin/*a* /bin/*b*` list all files in /bin that contain the letter a or b.
++ `ls /bin/*[ab]* ` list all files in /bin that contain the letter a or b. It is equal with `ls /bin/*a* /bin/*b*`.
++ `ls *.[cho]` = `ls *.{c,h,o}`, list all files with .c, .h, .o in current directory.
++ `echo b{ed,olt,ar}s`, print beds, bolts, bars.
 + `man command` to check what a command does. e.g. `man ls`. Press `q` to quit. `man` use `less` internal, so you can use `/` to search for something.
 + `history` to check all commend used.
 + `!220` to rerun the 220th commend from history
