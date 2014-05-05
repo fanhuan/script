@@ -1,8 +1,8 @@
 ---
 layout: post
-title:  Reading notes of *Functional and Phylogenetic Ecology in R*: Ch 2-3
+title:  Reading notes of Functional and Phylogenetic Ecology in R. Ch 2-3
 categories: [notes]
-tags: []
+tags: [research, R]
 ---
 > This is my reading notes for *Functional and Phylogenetic Ecology in R* by Nathan Swenson. All credits go to Nathan.
 
