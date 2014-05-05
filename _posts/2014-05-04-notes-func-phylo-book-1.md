@@ -5,14 +5,15 @@ categories: [notes]
 tags: [research, R]
 ---
 > This is my reading notes for *Functional and Phylogenetic Ecology in R* by Nathan Swenson. All credits go to Nathan.
+If you do not have time, just jump to the *sum up* part at the end.
 
 # Chapter 2: Reading and plotting tree.
 
 Possible packages needed.
 
 ```r
-install.packages(c("picante", "phylobase", "phylotools", "ecodist", "FD", "adephylo", 
-    "geiger"))
+install.packages(c("picante", "phylobase", "phylotools", "ecodist", "FD", 
+"adephylo", "geiger"))
 lapply(c("picante", "phylobase", "phylotools", "ecodist", "FD", "adephylo", 
     "geiger"), library, character.only = T)
 ```
@@ -60,7 +61,6 @@ my.di.phylo = multi2di(my.poly.phylo)  # multi2di()
 my.di.phylo
 plot(my.di.phylo)
 ```
-
 `multi2di()` solves the polynomy by randomly add a zero length branch within the polynomy.
 
 
@@ -70,7 +70,6 @@ plot(my.di.phylo)
 ```r
 branching.times(my.phylo)
 ```
-
 `branching.times()` returns branch times for all internodes, ordered from root to tips.
 
 ## Phylo distance between pairs of terminal taxa
@@ -82,7 +81,8 @@ vcv(my.phylo)
 ```
 
 + `cophenetic()` returns a phylogenetic distance species by species matrix. Values in the matrix are the sum of the branch lengths separating each pair of species.
-+ `vcv()` returns a species by species matrix also. But it is a phylogenetic variance-covariance (VCV) matrix. Diagonal values are the distance from the root to the tip; off-diagonal values are the amount of shared branch length between pairs of species. Or you can think it as a correlation matrix. The larger the values, the closer the species.
++ `vcv()` returns a species by species matrix also. But it is a phylogenetic variance-covariance (VCV) matrix. Diagonal values are the distance from the root to the tip; off-diagonal values are the amount of shared branch length between pairs of species. Or you can think it as a correlation matrix. The larger the values, the closer the species.  
+
 
 ## Simulating phylogenies in R
 
@@ -127,11 +127,7 @@ writesample(ra.matrix, "data/my.new.3col.data.txt")
 
 ## Faith's index of PD
 
-\[
-faith=\sum_{i}l_{i}
-\]
-
-is just the sum of branch length of all species in an assemblage. It will correlate with species richness, of course.
+`\(faith=\sum_{i}l_{i}\)` is just the sum of branch length of all species in an assemblage. It will correlate with species richness, of course.
 
 ```r
 my.sample = read.table("data/PD.example.sample.txt", sep = "\t", row.names = 1, 
@@ -215,10 +211,10 @@ vcv.matrix = vcv(my.phylo)  # from ape package.
 
 ### Mean pairwise distance
 
-\[
+`\[
 mpd=\frac{\sum_{i}^{n}\sum_{j}^{n}\delta_{i,j}}{n},i\neq j
-\]
-$\delta_{i,j}$ is the pd between species i and j. There are *n* species in the community.
+\]``
+`\(\delta_{i,j}\)` is the pd between species i and j. There are *n* species in the community.
 
 ```r
 com.1 = my.sample[1, my.sample[1, ] > 0]  # sp in site 1
@@ -237,9 +233,9 @@ mpd(samp = my.sample, dis = pd.matrix, abundance.weighted = TRUE)
 ### Weighted Mean pairwise distance and Rao
 
 As shown by above R code, we can also have abundance weighted mpd:
-\[
+`\[
 mpd.f=\frac{\sum_{i}^{n}\sum_{j}^{n}\delta_{i,j}f_{i}f_{j}}{\sum_{i}^{n}\sum_{j}^{n}f_{i}f_{j}},i\neq j
-\]
+\]`
 Rao's distance is similar as mpd.f, except that Rao's allow `i = j` in the above formula. Conceptually this night matter, but not matter for results. If, in the above formula, there is no denominator, then this become the phylogenetic diversity metrics proposed by **Hardy and Senterre**.
 
 ### Helmus et al based vcv matrix
@@ -264,15 +260,15 @@ Pairwise distance measures average across all species pairs and thus a lot of de
 
 ### mean nearest taxon distance (mntd)
 
-\[
+`\[
 mpd=\frac{\sum_{i}^{n}min\delta_{i,j}}{n},i\neq j
-\]
-$min\delta_{i,j}$ is the minimum phylogenetic distance between species *i* and all other species in the community. 
+\]`
+`\(min\delta_{i,j}\)` is the minimum phylogenetic distance between species *i* and all other species in the community. 
 
 We can also calculate the abundance weighted version:
-\[
+`\[
 mpd.a=\frac{\sum_{i}^{n}min\delta_{i,j}f_{i}}{n},i\neq j
-\]
+\]`
 
 ```r
 # library(picante)
