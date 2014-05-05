@@ -4,7 +4,7 @@ title:  Phylogenetic diversity in R
 categories: [notes]
 tags: [research, R]
 ---
-> This is my reading notes for *Functional and Phylogenetic Ecology in R* by Nathan Swenson. All credits go to Nathan.  
+> This is my reading notes for *Functional and Phylogenetic Ecology in R* by Nathan Swenson. All credits go to Nate.  
 If you do not have time, just jump to the *sum up* part at the end.  
 This post will be updated later when I learn more about this topic.
 
