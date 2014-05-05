@@ -8,7 +8,6 @@ tags: [research, R]
 If you do not have time, just jump to the *sum up* part at the end.  
 This post will be updated later when I learn more about this topic.
 
-
 # Chapter 3: Phylogenetic diversity
 
 + Plant names do not contain detailed information about their evolution history. We need phylogenetic trees.
@@ -18,7 +17,7 @@ This post will be updated later when I learn more about this topic.
 
 Get data at [here](http://link.springer.com/chapter/10.1007%2F978-1-4614-9542-0_3).
 
-```r
+{% highlight r%}
 # sep='\t' in the book does not work here.
 pa.matrix = read.table("data/pa.matrix.txt", sep = " ", header = T, row.names = 1)
 abund.matrix = read.table("data/abund.matrix.txt", sep = " ", header = T, row.names = 1)
@@ -26,7 +25,7 @@ ra.matrix = read.table("data/ra.matrix.txt", sep = " ", header = T, row.names = 
 library(picante)
 my.3.sample = readsample("data/matrix.3col.txt")
 writesample(ra.matrix, "data/my.new.3col.data.txt")
-```
+{% endhighlight %}
 
 `readsample` and `writesample` functions are nice. But usually, I prefer using `melt` and `dcast` function from `reshape2` package.
 
@@ -34,16 +33,16 @@ writesample(ra.matrix, "data/my.new.3col.data.txt")
 
 `\(faith=\sum_{i}l_{i}\)` is just the sum of branch length of all species in an assemblage. It will correlate with species richness, of course.
 
-```r
+{% highlight r%}
 my.sample = read.table("data/PD.example.sample.txt", sep = "\t", row.names = 1, 
     header = T)
 my.phylo = read.tree("data/PD.example.phylo.txt")
 plot(my.phylo)
-```
+{% endhighlight %}
 
 For the site by species matrix, suppose we want to calculate the Faith's index for site 1, we can prun the phylo tree first using `treedata()` from the `geiger` package.
 
-```r
+{% highlight r%}
 library(geiger)
 treedata(my.phylo, data = t(my.sample[1, my.sample[1, ] > 0]))
 # data=names(my.sample[1, my.sample[1,]>0]) in the book does not work.
@@ -53,32 +52,32 @@ sum(pruned.tree$edge.length)  # Faith's index
 apply(my.sample, 1, function(x) {
     sum(treedata(my.phylo, x[x > 0])$phy$edge.length, warnings = F)
 })
-```
+{% endhighlight %}
 
 Hey! Why `x[x>0]` within `apply()` works but does not when I use it alone, i.e. `treedata(my.phylo, my.sample[1,][my.sample[1,]>0])`? Well, in order to understand, check out `apply(my.sample, 1, identity)`. The output is identical with `t(my.sample)`! (but this is not the case for `apply(my.sample, 2, idenity)`)
 
 We can also use the `pd()` function from `picante` package. It is interesting that Nate claimed that `apply()` function can be MUCH faster than the `for()` loop. But actually, this is not the [case](http://stackoverflow.com/questions/2275896/is-rs-apply-family-more-than-syntactic-sugar) since `apply` uses for loop inside.
 
-```r
+{% highlight r%}
 library(picante)
 pd(my.sample, my.phylo, include.root = F)
-```
+{% endhighlight %}
 
 
 ## Abundance weighted Faith index
 
 For each site, we first prun the phylo tree to just include species at that site. Then we extract the edges from the pruned tree. We then find out all species subtended from each edge and get their mean abundance for each edge (for loop in the following code). For example, for the edge between node 8 and 9, we need to get average abundance of all species extended from node 9: all sp except spO. Then we can calculate the weighted faith index for that site. It will be very easy to write some function to extend this to all sites.
 
-```r
+{% highlight r%}
 com.1.phylo = treedata(my.phylo, t(my.sample[1, my.sample[1, ] > 0]))$phy
 plot.phylo(com.1.phylo)
 nodelabels()
 tiplabels()
-```
+{% endhighlight %}
 ![plot](http://i.imgur.com/2jWZkOy.png)
 
 
-```r
+{% highlight r%}
 branches = matrix(NA, nrow(com.1.phylo$edge), ncol = 4)
 branches[, 1:2] = com.1.phylo$edge
 branches[, 3] = com.1.phylo$edge.length
@@ -90,7 +89,7 @@ n.of.branches = nrow(com.1.phylo$edge)
 denominator = sum(branches[, 4])
 numerator = sum(branches[, 3] * branches[, 4])
 weighted.fatith = n.of.branches * (numerator/denominator)
-```
+{% endhighlight %}
 
 
 ## Distance-based PD
@@ -101,17 +100,17 @@ Most phylogenetic diversity metrics fall into one of two categories: *Pairwise* 
 
 Phylogenetic distance matrics are matrics with species names as row and column names, and values in the cells depicting the phylo branch length seperating each pair of species. Diagonal are all zero.
 
-```r
+{% highlight r%}
 pd.matrix = cophenetic(my.phylo)
-```
+{% endhighlight %}
 
 Phylogenetic variance-covariance matrix represents the expected variance and covariance between species assuming a model of trait evolution, usually a Brownian Motion model. The potential variance increases is propotional to the branch length from the root to the tip. Expected covariation increases with shared branch length .
 
-```r
+{% highlight r%}
 vcv.matrix = vcv(my.phylo)  # from ape package.
 # diag: all equal, root-to-tip distance off-diag: indicate the shared branch
 # length = root-to-tip dist minus half of phylo-dist between 2 sp.
-```
+{% endhighlight %}
 
 
 ### Mean pairwise distance
@@ -121,18 +120,18 @@ mpd=\frac{\sum_{i}^{n}\sum_{j}^{n}\delta_{i,j}}{n},i\neq j
 \]``
 `\(\delta_{i,j}\)` is the pd between species i and j. There are *n* species in the community.
 
-```r
+{% highlight r%}
 com.1 = my.sample[1, my.sample[1, ] > 0]  # sp in site 1
 dist.mat.com.1 = pd.matrix[names(com.1), names(com.1)]
 mean(as.dist(dist.mat.com.1))  # mpd of site 1
-```
+{% endhighlight %}
 
 `picante` package has a `mpd()` function to calculate mpd for all sites from a site by species matrix and phylo distance matrix.
 
-```r
+{% highlight r%}
 mpd(samp = my.sample, dis = pd.matrix, abundance.weighted = TRUE)
 # you can weight by sp abundance also.
-```
+{% endhighlight %}
 
 
 ### Weighted Mean pairwise distance and Rao
@@ -151,12 +150,12 @@ Rao's distance is similar as mpd.f, except that Rao's allow `i = j` in the above
 + Phylogenetic Sp Richness (PSR): = mpd times sp richness in the community.
 + Helmus et al. is potentially more flexible by using alternative models of trait evolution.
 
-```r
+{% highlight r%}
 # library(picante)
 psv(my.sample, my.phylo)
 pse(my.sample, my.phylo)
 psr(my.sample, my.phylo)
-```
+{% endhighlight %}
 
 
 ## Nearest Neighbor Measures
@@ -175,10 +174,10 @@ We can also calculate the abundance weighted version:
 mpd.a=\frac{\sum_{i}^{n}min\delta_{i,j}f_{i}}{n},i\neq j
 \]`
 
-```r
+{% highlight r%}
 # library(picante)
 mntd(my.sample, cophenetic(my.phylo), abundance.weighted = F)
-```
+{% endhighlight %}
 
 
 ## Sum up
