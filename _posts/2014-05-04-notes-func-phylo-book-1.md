@@ -118,7 +118,6 @@ vcv.matrix = vcv(my.phylo)  # from ape package.
 `\[
 mpd=\frac{\sum_{i}^{n}\sum_{j}^{n}\delta_{i,j}}{n},i\neq j
 \]`
-
 `\(\delta_{i,j}\)` is the pd between species i and j. There are *n* species in the community.
 
 {% highlight r%}
