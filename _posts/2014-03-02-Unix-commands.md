@@ -113,6 +113,7 @@ If file names have space in some of them, put `$filename` in quote to avoid prob
 ##Shell scripts
 
 Example: put `head -20 file.txt | tail -5` in a file *command.sh*; put `head $2 $1 | tail ${3:-10}` in a file *command2.sh*; put `wc -l $* | sort -n` in a file *command3.sh*;
+
 + `shell scripts` a bunch of commands saved in a file.
 + `bash command.sh` will run the commands saved in file *command.sh*.
 + `bash command2.sh filename.txt -20 -5` can specify filenames and lines. `$1` means the first parameter on the command line, etc. If `bash command2.sh filename.txt -20`, `:-` will give the last 10 lines.
