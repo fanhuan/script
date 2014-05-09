@@ -112,17 +112,18 @@ If file names have space in some of them, put `$filename` in quote to avoid prob
 
 ##Shell scripts
 
-Example: put `head -20 file.txt | tail -5` in a file *command.sh*; put `head $2 $1 | tail $3` in a file *command2.sh*; put `wc -l $* | sort -n` in a file *command3.sh*;
+Example: put `head -20 file.txt | tail -5` in a file *command.sh*; put `head $2 $1 | tail ${3:-10}` in a file *command2.sh*; put `wc -l $* | sort -n` in a file *command3.sh*;
 + `shell scripts` a bunch of commands saved in a file.
 + `bash command.sh` will run the commands saved in file *command.sh*.
-+ `bash command2.sh filename.txt -20 -5` can specify filenames and lines. `$1` means the first parameter on the command line, etc.
++ `bash command2.sh filename.txt -20 -5` can specify filenames and lines. `$1` means the first parameter on the command line, etc. If `bash command2.sh filename.txt -20`, `:-` will give the last 10 lines.
 + `bash command3.sh *.txt backup/*.txt` will sort and list all files specified. `$*` means all parameters on the command line.
 + `bash command3.sh` will use stdin (i.e input from the command line) as input.
 + `history | tail -4 | colrm 1 7 > useful.sh` will save your last 4 commands into *useful.sh* so you can recycle them later.
 
 ## Remote
 
-+ `scp filename user@server:filenameYouWant` on your local terminal to send local file to remote server. `scp filename user@server:.` if you do not want  to rename the file.youwant
++ `scp filename user@server:filenameYouWant` on your local terminal to send local file to remote server. `scp filename user@server:.` if you do not want  to rename the file.youwant.
++ `scp user@server:filename local.filename` copy file from remote server into local machine.
 + `ssh -Y user@server` to connect a remote server.
 
 ## Alias
