@@ -59,9 +59,9 @@ gowdis(traits)
 ### Trait dendrograms
 
 The first step is to build a distance matrix as the above section. Then using hierarchical clustering to divide clusters among species. The most common method is an Unweighted Pair Group Method with Arithmetic Mean (UPGMA). It will identify the two closest species in the trait distance matrix and put them in a cluster. Then calculate the two closest species in the remaining species to be the second cluster. So forth and so on. The branch lengths in the resulting dendrogram between two clusters can be calculated as:
-\[
+`\[
 cluster\, dist=\frac{\sum_{i}^{A}\sum_{j}^{B}d_{ij}}{A\times B}
-\]
+\]`
 where there are A species in cluster 1 and B species in cluster 2.
 
 {% highlight r%}
@@ -101,4 +101,4 @@ fundic$FRic
 
 The `dbFD()` function will perform an initial test to determine whether the trait data require a reduction in dimensionality. If so, it will remove redundant dimensions for you. But for other analyses, it is advised to test and reduce dimensionality by youself.
 
-The `dbFD()` returns the three FD indices of Villéger et al. (2008): functional richness (FRic), functional evenness (FEve), and functional divergence (FDiv), as well functional dispersion (FDis; Laliberté and Legendre 2010), Rao's quadratic entropy (Q) (Botta-Dukát 2005), a posteriori functional group richness (FGR) (Petchey and Gaston 2006), and the community-level weighted means of trait values (CWM; e.g. Lavorel et al. 2008). 
+The `dbFD()` returns the three FD indices of Villéger et al. (2008): functional richness (FRic), functional evenness (FEve), and functional divergence (FDiv), as well functional dispersion (FDis; Laliberté and Legendre 2010), Rao's quadratic entropy (Q) (Botta-Dukát 2005), a posteriori functional group richness (FGR) (Petchey and Gaston 2006), and the community-level weighted means of trait values (CWM; e.g. Lavorel et al. 2008). `?dbFD()` for more details.
