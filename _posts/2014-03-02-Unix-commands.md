@@ -67,6 +67,14 @@ Here is a list of the most basic commands in Unix from my learning notes.
 + `mv */* dire` move all files in each directory into one directory ('dire' here).
 + `rm file` to delete a file. By default, `rm` cannot delete a directory. In order to delete a directory and its conten, use `rm -r foo` where foo is a directory.
 + `colrm start end` remove columns of file. A column is a character.
++ `read` takes a line from the standard input and breaks it down into words delimited by any characters in the value of the environment variable **IFS**. The words are assigned to variables *var1*, *var2*, etc. 
+  	* On the other hand, it implies line-by-line processing, just like pipeline, but `read` is much slower. `while` loop read each line of the input into a variablesta. One example can be found at [here](http://stackoverflow.com/questions/23660233/grep-in-shell-does-not-work-as-expected/23661207#23661207):
+  		
+  		while (read a line) do  
+  			proess the line  
+  			print the processed line  
+  		end
+
 + `grep` stands for *global/regular expression/print*. It finds lines in a file.
 	* `grep -n pattern file` `-n` will number lines found.
 	* `man grep` for more options. e.g. `-i` matching case-insensive, `-V` inverts the match.
