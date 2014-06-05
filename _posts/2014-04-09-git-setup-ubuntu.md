@@ -108,6 +108,9 @@ In order to check an older version of a file:
 	git add forgotten.file
 	got commit --amend # use the staged dire to edit the last commit
 
+	# delete the last commit
+	git reset --hard HEAD~1
+
 ####Branch
 
 Git will reset the working directory when you switch branches. Make sure to commit everything before switch branch.
