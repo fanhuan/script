@@ -51,7 +51,7 @@ if options.gene2go:
         if line.split('.')[0] in genelist:
             handle_out_3.write(line)
 
-if options.gene2kegg
+if options.gene2kegg:
     handle_gene2kegg = open(options.gene2kegg)
     handle_out_4 = file('gene2kegg', 'w')
     KEGG={}
