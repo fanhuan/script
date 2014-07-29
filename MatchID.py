@@ -31,6 +31,7 @@ parser.add_option('-4', dest = 'gene2kegg', help = 'a data frame with two column
 (options, args) = parser.parse_args()
 
 handle_DE = open(options.DEGenes)
+genes_sorted = open('genes_sorted','w')
 genelist = []
 for line in handle_DE:
     genelist.append(line.rstrip())
@@ -42,6 +43,7 @@ if options.LengthData:
     for line in handle_length:
         if line.split('.')[0] in genelist:
             handle_out_2.write(line)
+            genes_sorted.write(line.split('.')[0]+'\n')
 
 if options.gene2go:
     handle_gene2go = open(options.gene2go)
