@@ -21,48 +21,72 @@
 #  MA 02110-1301, USA.
 #  
 
-import sys, gzip, bz2, os, time
+import sys, gzip, bz2, os, time, math
 import multiprocessing as mp
 from optparse import OptionParser
 
 def smartopen(filename,*args,**kwargs):
-    if filename.endswith('gz'):
-        return gzip.open(filename,*args,**kwargs)
-    elif filename.endswith('bz2'):
-        return bz2.BZ2File(filename,*args,**kwargs)
-    else:
-        return open(filename,*args,**kwargs)
+	'''opens with open unless file ends in .gz, then use gzip.open
+		in theory should transparently allow reading of files regardless of
+		compression'''
+	if filename.endswith('gz'):
+		return gzip.open(filename,*args,**kwargs)
+	elif filename.endswith('bz2'):
+		return bz2.BZ2File(filename,*args,**kwargs)
+	else:
+		return open(filename,*args,**kwargs)
 
 def is_exe(fpath):
     return os.path.isfile(fpath) and os.access(fpath, os.X_OK)
 
+def countShared(lines, sn): #count nshare only, for shared kmer table
+	shared = [[0] * sn for i in xrange(sn)]
+	for line in lines:
+		line = line.split()
+		if len(line) == sn+1:
+			line = line[1:]
+		line = [int(i) for i in line]
+		for i in xrange(sn):
+			for j in xrange(i + 1, sn):
+				if line[i] > 0 and line[j] > 0:
+					shared[i][j] += 1
+	return shared
 
 usage = "usage: %prog [options]"
-version = '%prog 20150317.1'
+version = '%prog 20150319.1'
 parser = OptionParser(usage = usage, version = version)
-parser.add_option("-k", dest = "kLen", type = int, default = 25, 
+parser.add_option("-k", dest = "kLen", type = float, default = 25,
                   help = "k-mer length, default = 25")
 parser.add_option("-o", dest = "outFile", default = 'phylokmer.dat',
                   help = "output file, default = phylokmer.dat.gz")
 parser.add_option("-i", dest = "phyloSimFile",
                   help = "the alignment file simulated by phylosim")
-parser.add_option("-G", dest = "memSize", type = int, default = 4,
-                  help = "total memory limit (in GB), default = 4")
+parser.add_option("-G", dest = "memSize", type = int, default = 1,
+                  help = "memory limit per simulation(in GB), default = 1")
 parser.add_option("-W", dest = "withKmer", action = 'store_true',
                   help = "include k-mers in the shared k-mer table")
 
 (options, args) = parser.parse_args()
     
-
+kl = options.kLen
 ###check the input simfile:
 if not os.path.exists(options.phyloSimFile):
     print 'Cannot find phyloSim file {}'.format(options.phyloSimFile)
     sys.exit(2)
 
+#Check the output file
+if os.path.exists(options.outFile):
+	s = raw_input('{} is already in your data directory, overwrite it? Y/N '
+				  .format(options.outFile))
+	if s == 'Y' or s == 'y':
+		print'{} is going to be overwritten'.format(options.outFile)
+	else:
+		print'No overwritting, exit'
+		sys.exit(2)
 
 ###check for the executable files:
 #kmer_countx
-if options.kLen > 25:
+if kl > 25:
     if os.system('which kmer_countx > /dev/null'):
         kmerCount = './kmer_countx'
         if not is_exe(kmerCount):
@@ -93,16 +117,19 @@ if os.system('which kmer_merge > /dev/null'):
 else:
     filt = 'kmer_merge'
 
-if os.path.exists(options.outFile):
-	s = raw_input('{} is already in your data directory, overwrite it? Y/N '
-                      .format(options.outFile))
-	if s == 'Y' or s == 'y':
-		print'{} is going to be overwritten'.format(options.outFile)
-	else:
-		print'No overwritting, exit'
-		sys.exit(2)
+#fitch_kmerX
+if os.system('which fitch_kmerX > /dev/null'):
+	fitch = './fitch_kmerX'
+	if not is_exe(fitch):
+		print 'fitch_kmerX not found. Make sure it is in your PATH or the'
+		print 'current directory, and that it is executable'
+		sys.exit()
+else:
+	fitch = 'fitch_kmerX'
 
-###Get sample list and split alignment file into seperate fasta files for each node:
+###aaf_phylokmer.py
+
+#Get sample list and split alignment file into seperate fasta files for each node:
 dir_name = options.phyloSimFile.split('.')[0]
 os.system('mkdir {}'.format(dir_name))
 samples = []
@@ -122,13 +149,13 @@ samples.sort()
 print 'SPECIES LIST:'
 for sample in samples:
     print sample
-
-###Prepare kmer_count jobs. Here we use single core since the other cores will be used for parallele simulation
+print time.strftime('%c'),"counting kmers"
+#Prepare kmer_count jobs. Here we use single core since the other cores will be used for parallele simulation
 jobList = []
 for sample in samples:
 	outFile = '{}/{}.pkdat'.format(dir_name,sample)
-	command = '{} -l {} -G {} -o {}'.format(kmerCount, options.kLen,
-			options.memSize, outFile)
+	command = '{} -l {} -G {} -o {}'.format(kmerCount, kl,
+											options.memSize, outFile)
 	if os.path.exists(dir_name+"/"+sample+".temp.fa"):
 		command += ' -i {}/{}.temp.fa'.format(dir_name, sample)
 	else:
@@ -139,13 +166,13 @@ for sample in samples:
 	jobList.append(command)
 jobList = jobList[::-1]
 
-###Run jobs (1 thread)
-print time.strftime('%c')
+#Run jobs (1 thread)
 for job in jobList:
-	os.system(job)
 	print job
+	os.system(job)
 
-###Merge output wc files
+
+#Merge output wc files
 divFile = os.path.join(dir_name, 'kmer_diversity.wc')
 handle = open(divFile, 'w')
 for sample in samples:
@@ -157,14 +184,8 @@ for sample in samples:
 	os.remove(kmerFile)
 handle.close()
 
-###Run kmer_merge
+#Run kmer_merge
 outFile = os.path.join(dir_name, options.outFile)
-handle = smartopen(outFile, 'w')
-print >> handle, '#-k {}'.format(options.kLen)
-for i, sample in enumerate(samples):
-    print >> handle, '#sample{}: {}'.format(i + 1, sample)
-handle.close()
-
 command = "{} -k s -c -d '0' -a 'T,M,F'".format(filt)
 cut = []
 for i, sample in enumerate(samples):
@@ -173,10 +194,130 @@ for i, sample in enumerate(samples):
         cut.append('1')
     cut.append(str((i + 1) * 2))
 if options.outFile.endswith('.gz'):
-    command += ' | cut -f {} | gzip >> {}'.format(','.join(cut), outFile)
+    command += ' | cut -f {} | gzip > {}'.format(','.join(cut), outFile)
 else:
-    command += ' | cut -f {} >> {}'.format(','.join(cut), outFile)
-print '\n', time.strftime('%c')
+    command += ' | cut -f {} > {}'.format(','.join(cut), outFile)
+print '\n', time.strftime('%c'), "generating shared kmer table"
 print command
 os.system(command)
-print time.strftime('%c')
+print time.strftime('%c'), 'Compute the distance matrix'
+
+###aaf_distance.py
+os.chdir("./{}".format(dir_name))
+#Check input files
+try:
+	total = open("kmer_diversity.wc")
+except IOError:
+	print 'Cannot open file {}/kmerdiversity.wc'.format(dir_name)
+	sys.exit()
+
+#Check output files
+try:
+	nsnt = file(dir_name+'_nshare.csv','w')
+except IOError:
+	print 'Cannot open',dir_name+'_nshare.csv', 'for writing'
+	sys.exit()
+
+
+#Compute shared kmer matrix
+sn = len(samples)    #species number
+handle = smartopen(options.outFile)
+lines = handle.readlines()
+nshare = countShared(lines, sn)
+handle.close()
+
+#Compute distance matrix
+ntotal = [0.0] * sn
+
+for i in xrange(sn):
+	ntotal[i] = float(total.readline().split()[1])
+	if i < sn - 1:
+		nsnt.write('%s%s' % (samples[i], ',')) # First line for the nshare csv file
+	else:
+		nsnt.write('%s\n' % samples[i]) #no extra comma at the end of the line
+
+dist = [[0] * sn for i in xrange(sn)]
+
+for i in xrange(sn):
+	for j in xrange(i + 1, sn):
+		mintotal = min(ntotal[i], ntotal[j])
+		if nshare[i][j] == 0:
+			dist[j][i] = dist[i][j] = 1
+		else:
+			distance = (-1 / kl) * math.log(nshare[i][j] / mintotal)
+			dist[j][i] = dist[i][j] = distance
+			nshare[j][i] = nshare[i][j]
+
+total.close()
+
+#Write infile
+try:
+	infile = open('infile','w')
+except IOError:
+	print 'Cannot open infile for writing'
+	sys.exit()
+
+infile.write('{} {}'.format(sn, sn))
+namedic = {}
+for i in xrange(sn):
+	lsl = len(samples[i])
+	if lsl >= 10:
+		ssl = samples[i][:10]
+		appendix = 1
+		while ssl in namedic:
+			ssl = samples[i][:9]+str(appendix)
+			appendix += 1
+	else:
+		ssl = samples[i] + ' ' * (10 - lsl)
+	namedic[ssl] = samples[i]
+	infile.write('\n{}'.format(ssl))
+	for j in xrange(sn):
+		infile.write('\t{}'.format(dist[i][j]))
+		if i==j:
+			if j == sn - 1:
+				nsnt.write('{}\n'.format(ntotal[i]))
+			else:
+				nsnt.write('%s%s' % (ntotal[i], ','))
+		else:
+			if j == sn - 1:
+				nsnt.write('{}\n'.format(nshare[i][j]))
+			else:
+				nsnt.write('%s%s' % (nshare[i][j], ','))
+
+infile.close()
+nsnt.close()
+
+###Run fitch_kmer
+print time.strftime("%c"), 'building tree'
+if os.path.exists("./outfile"):
+	os.system("rm -f outfile outtree")
+command = 'printf "K\n{}\nY" | {} > /dev/null'.format(int(kl),fitch)
+os.system(command)
+fh = open('outtree')
+fh1 = open(dir_name+'.tre','w')
+
+for line in fh:
+	for key in namedic:
+		if key.rstrip()+":" in line:
+			newline = line.replace(key,namedic[key].rstrip(),1)
+			line = newline
+	fh1.write(newline)
+fh.close()
+fh1.close()
+fh = open('infile')
+fh1 = open(dir_name+'.dist','w')
+for line in fh:
+	for key in namedic:
+		if line.startswith(key):
+			newline = line.replace(key,namedic[key],1)
+			line = newline
+			break
+	fh1.write(newline)
+
+
+fh.close()
+fh1.close()
+os.system('rm -f outfile infile outtree')
+
+print time.strftime("%c"), 'end'
+
