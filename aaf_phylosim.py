@@ -21,7 +21,7 @@
 #  MA 02110-1301, USA.
 #  
 
-import sys, gzip, bz2, os, time, math
+import sys, gzip, bz2, os, time, math, re
 import multiprocessing as mp
 from optparse import OptionParser
 
@@ -140,10 +140,10 @@ for seq_record in SeqIO.parse(input,"fasta"):
 		samples.append(seq_record.id)
 		fh=open(dir_name+"/"+seq_record.id+".temp.fa","w")
 		fh.write(">"+seq_record.id+"\n")
+		seq_record.seq = re.sub("-","",seq_record.seq)
 		fh.write(str(seq_record.seq))
 		fh.close()
 input.close()
-
 samples.sort()
 
 print 'SPECIES LIST:'
