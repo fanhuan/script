@@ -64,7 +64,7 @@ parser.add_option("-i", dest = "phyloSimFile",
 parser.add_option("-G", dest = "memSize", type = int, default = 1,
                   help = "memory limit per simulation(in GB), default = 1")
 parser.add_option("-W", dest = "withKmer", action = 'store_true',
-                  help = "include k-mers in the shared k-mer table")
+                  help = "include k-mers in the shared k-mer table, default = True")
 
 (options, args) = parser.parse_args()
     

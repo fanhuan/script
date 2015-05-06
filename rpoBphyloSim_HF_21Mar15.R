@@ -108,11 +108,17 @@ k<-5
 
 #Function to process a single fas file
 aaf.replicate<-function(i){
-	simFile=paste("rpoB_GY84_",i,".fas",sep="")
+	simFile=paste("rpoB_GY84_",i,".fas",sep=“")
+	outfile<-paste(phylokmer_",as.character(i),".dat",sep=“")
 	aaf_phylosim.call<-paste("python aaf_phylosim.py -k ",
-	as.character(k)," -i ", simFile," -G ", memPerSim,sep="")
+	as.character(k)," -i ", simFile," -G ", memPerSim, " -o ",
+	outfile,sep="")
 	print(aaf_phylosim.call)
 	system(aaf_phylosim.call, ignore.stdout = T)
+	kmer_pattern.call<-paste("python kmer_pattern.py -i ", outfile,
+	"-t 10 -G ",memPerSim," -o kmerPattern_",as.character(i), ".stats",sep="")
+	print(kmer_pattern.call)
+	system(kmer_pattern.call, ignore.stdout = T)
 }
 
 #Run replication in parallel
