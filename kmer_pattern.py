@@ -32,18 +32,28 @@ def present(x,n):
         return 0
 
 def Pattern(lines,n):
-    pattern = {}
-    for line in lines:
-        kmer = line.split()[0]
-        line = line.split()[1:]
-        line_pattern = [present(i,n) for i in line]
-        if p < sum(line_pattern) < len(line_pattern)-p:
-            outline = ''.join(str(x) for x in line_pattern)
-            if outline in pattern:
-                pattern[outline] += 1
-            else:
-                pattern[outline] = 1
-    return pattern
+	pattern = {}
+	if lines[0].startswith(tuple('0123456789')):#no kmer
+		for line in lines:
+			line = line.split()
+			line_pattern = [present(i,n) for i in line]
+			if p < sum(line_pattern) < len(line_pattern)-p:
+				outline = ''.join(str(x) for x in line_pattern)
+				if outline in pattern:
+					pattern[outline] += 1
+				else:
+					pattern[outline] = 1
+	else:#with kmer
+		for line in lines:
+			line = line.split()[1:]
+			line_pattern = [present(i,n) for i in line]
+			if p < sum(line_pattern) < len(line_pattern)-p:
+				outline = ''.join(str(x) for x in line_pattern)
+				if outline in pattern:
+					pattern[outline] += 1
+				else:
+					pattern[outline] = 1
+	return pattern
 
 def smartopen(filename,*args,**kwargs):
     '''opens with open unless file ends in .gz, then use gzip.open
@@ -58,7 +68,7 @@ def is_exe(fpath):
     return os.path.isfile(fpath) and os.access(fpath, os.X_OK)
 
 Usage = "%prog [options] -i <input filename>"
-version = '%prog 20150430.1'
+version = '%prog 20150508.1'
 parser = OptionParser(Usage, version = version)
 parser.add_option("-i", dest = "iptf", 
                   help = "input file, default = phylokmer.dat(.gz) ")
@@ -66,7 +76,7 @@ parser.add_option("-t", dest = "nThreads", type = int, default = 1,
                   help = "number of threads to use, default = 1")
 parser.add_option("-G", dest = "memsize", type = float, default = 1,
                   help = "max memory to use (in GB), default = 1")
-parser.add_option("-o", dest = "otpf",
+parser.add_option("-o", dest = "otpf", default="aaf",
                   help = "prefix of the output files, default = aaf")
 parser.add_option("-n", dest = "filter", type = int, default = 1,
                   help = "k-mer filtering threshold, default = 1")
@@ -91,6 +101,10 @@ nThreads = options.nThreads
 memory = options.memsize
 n = options.filter
 p = options.pfilter
+
+###detect whether there is header or not
+
+
 ###Read header
 sl = []                 #species list
 while True:     
@@ -172,15 +186,7 @@ except IOError:
     print 'Cannot open infile for writing'
     sys.exit()
 for item in sorted_PATTERN:
-    species_pt = []
-    i = 0
-    for num in item[0]:
-        if int(num) == 1:
-            species_pt.append(sl[i])
-        else:
-            species_pt.append('*')
-        i += 1
-    outfile.write('\n{}: {}\t'.format(item[0], item[1]))
+	outfile.write('{}\t{}\n'.format(item[0], item[1]))
 
 print time.strftime("%c"), 'end'
 outfile.close()

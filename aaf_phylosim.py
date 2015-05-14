@@ -53,7 +53,7 @@ def countShared(lines, sn): #count nshare only, for shared kmer table
 	return shared
 
 usage = "usage: %prog [options]"
-version = '%prog 20150319.1'
+version = '%prog 20150514.1'
 parser = OptionParser(usage = usage, version = version)
 parser.add_option("-k", dest = "kLen", type = float, default = 25,
                   help = "k-mer length, default = 25")
@@ -64,7 +64,7 @@ parser.add_option("-i", dest = "phyloSimFile",
 parser.add_option("-G", dest = "memSize", type = int, default = 1,
                   help = "memory limit per simulation(in GB), default = 1")
 parser.add_option("-W", dest = "withKmer", action = 'store_true',
-                  help = "include k-mers in the shared k-mer table, default = True")
+                  help = "include k-mers in the shared k-mer table, otherwise not")
 
 (options, args) = parser.parse_args()
     
@@ -140,7 +140,7 @@ for seq_record in SeqIO.parse(input,"fasta"):
 		samples.append(seq_record.id)
 		fh=open(dir_name+"/"+seq_record.id+".temp.fa","w")
 		fh.write(">"+seq_record.id+"\n")
-		seq_record.seq = re.sub("-","",seq_record.seq)
+		seq_record.seq = re.sub("-","",str(seq_record.seq))
 		fh.write(str(seq_record.seq))
 		fh.close()
 input.close()
@@ -188,10 +188,10 @@ handle.close()
 outFile = os.path.join(dir_name, options.outFile)
 command = "{} -k s -c -d '0' -a 'T,M,F'".format(filt)
 cut = []
+if options.withKmer:
+	cut.append('1')
 for i, sample in enumerate(samples):
     command += ' {}.pkdat'.format(os.path.join(dir_name, sample))
-    if options.withKmer:
-        cut.append('1')
     cut.append(str((i + 1) * 2))
 if options.outFile.endswith('.gz'):
     command += ' | cut -f {} | gzip > {}'.format(','.join(cut), outFile)
