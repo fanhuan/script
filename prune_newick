@@ -1,0 +1,80 @@
+#!/usr/bin/perl
+# prune_newick - simple script to prune one or more from a newick formatted tree(s)
+# 
+# Usage: prune_newick <tree_file> <taxon_to_remove> [ <taxon2> ... ] 
+# 
+# prints tree to STDOUT
+
+use strict;
+use warnings;
+use Bio::TreeIO;
+use Bio::ArjunUtils qw(comment_usage);
+
+
+# just handle printing out a help message
+if (!@ARGV or grep /^-[hH]/, @ARGV) {
+    open IN, $0 or die "Couldn't read source ($0): $!";
+    $_ = <IN>;
+    while (<IN>) {
+        if (s/^#[ \t]?//) {
+            print STDERR $_;
+        } else {
+            close(IN);
+            exit(1);
+        }
+    }
+}
+
+# get the command line options
+my $tree_file = shift;
+my @taxa_to_remove = @ARGV;
+
+# file to read
+my $input = Bio::TreeIO->new(-file      => $tree_file,
+                             -format    => 'newick');
+
+my $output = Bio::TreeIO->new(-format => 'newick',
+                              -fh     => \*STDOUT);  
+
+# now remove the taxa and print out the trees
+while (my $tree = $input->next_tree()) {
+    foreach my $taxon (@taxa_to_remove) {
+        $tree->remove_Node($taxon);
+    }
+    $output->write_tree($tree);
+}
+
+
+# Legal stuff I have to include:
+#########################################################################
+##                                                                     ##
+##     PUBLIC DOMAIN NOTICE                                            ##
+##                                                                     ##
+##     This software/database is ``United States Government            ##
+##     Work'' under the terms of the United States Copyright Act.      ##
+##     It was written as part of the authors' official duties for      ##
+##     the United States Government and thus cannot be                 ##
+##     copyrighted. This software/database is freely available to      ##
+##     the public for use without a copyright notice.                  ##
+##     Restrictions cannot be placed on its present or future          ##
+##     use.                                                            ##
+##                                                                     ##
+##     Although all reasonable efforts have been taken to ensure       ##
+##     the accuracy and reliability of the software and data, the      ##
+##     National Human Genome Research Institute (NHGRI) and the        ##
+##     U.S. Government does not and cannot warrant the                 ##
+##     performance or results that may be obtained by using this       ##
+##     software or data.  NHGRI and the U.S. Government disclaims      ##
+##     all warranties as to performance, merchantability or            ##
+##     fitness for any particular purpose.                             ##
+##                                                                     ##
+##     In any work or product derived from this material, proper       ##
+##     attribution of the authors as the source of the software        ##
+##     or data should be made, using:                                  ##
+##        Prasad, Arjun B. 2008 "prune_newick",                        ##
+##        http://arjunprasad.net/scripts/prune_newick                  ##
+##     as the citation.                                                ##
+##                                                                     ##
+#########################################################################
+
+
