@@ -3,7 +3,7 @@
 #
 #  filter_kmer_from_pattern.py
 #
-#  Copyright 2014 Huan Fan <hfan22@wisc.edu>
+#  Copyright 2015 Huan Fan <hfan22@wisc.edu>
 #
 #  This program is free software; you can redistribute it and/or modify
 #  it under the terms of the GNU General Public License as published by
@@ -35,7 +35,7 @@ def smartopen(filename,*args,**kwargs):
         return open(filename,*args,**kwargs)
 
 Usage = "%prog pattern sample_name_file"
-version = '%prog 20140509.1'
+version = '%prog 20150709.1'
 
 pattern = sys.argv[1] #the pattern that's concerned.
 sample_fh = smartopen(sys.argv[2]) #a file contens the pkdat data in order of the pattern
@@ -72,6 +72,7 @@ if sn < 27:
         elif pattern[i] == '0':
             command += '-{} N '.format(abc[i])
     command += '{}| cut -f 1 > {}.kmer'.format(samples,sys.argv[1])
+    print command
     os.system(command)
 else:
     batch = sn/26
