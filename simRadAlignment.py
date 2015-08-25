@@ -7,9 +7,10 @@ from scipy.stats import poisson
 
 #Get command-line arguments
 Usage = "%prog [options] -i <input filename>"
-version = '%prog 20150812.1'
+version = '%prog 20150825.1'
 parser = OptionParser()
-parser.add_option('-i', dest='infile', help='input file (stdin if none)', default=False)
+#parser.add_option('-i', dest='infile', help='input file (stdin if none)', default=False)
+parser.add_option('-i', dest='infile', help='prefix of infiles', default=False)
 parser.add_option('-d', dest='outdir', help='directory for output files', default=False)
 parser.add_option('-e', dest='enzyme', help='restriction enzyme, SbfI(default), EcoRI, PstI, ApeKI or MseI', default='SbfI')
 parser.add_option('-r', dest='rate', type = float, help='rate of drop one tag', default=0.1)
@@ -53,6 +54,8 @@ if outdir in os.listdir('./'):
         sys.exit(2)
 else:
     os.system('mkdir {}'.format(outdir))
+
+'''
 #split the input file into half, fasta and alignment
 splitLine = int(subprocess.check_output('grep -n Alignment {}'.format(infile),shell=True).split(':')[0])
 treeline = int(subprocess.check_output('grep -n PHYLIP {}'.format(infile),shell=True).split(':')[0])
@@ -61,25 +64,29 @@ totaline = int(subprocess.check_output('wc -l {}'.format(infile),shell=True).spl
 command = 'head -n {} {} > {}'.format(splitLine-1, infile, infile+'.fa')
 print command
 os.system(command)
-command = 'tail -n {} {} > {}'.format(totaline-splitLine+1,infile, infile+'.temp')
+command = 'tail -n {} {} > {}'.format(totaline-splitLine,infile, infile+'.temp')
 print command
 os.system(command)
 command = 'head -n {} {} > {}'.format(treeline-splitLine-1, infile+'.temp', infile+'.alignment')
 print command
 os.system(command)
 os.system('rm -f {}'.format(infile+'.temp'))
-
-alignment = open(infile+'.alignment')
+'''
+alignment = open(infile+'.phy')
 
 sample = [] #sample list
 dic = {} #dash dictionary dictionary
 dashtotal = {}
 print 'construct the dash dictionary: where the dashes are'
-alignment.readline()
+
 # read the number of species on the second line
 sn = int(alignment.readline().split()[0])
-block = (treeline-splitLine+1)/(sn+1)
+lines = alignment.readlines()
+block = (len(lines)-1)/(sn+1)
+alignment.close()
+alignment = open(infile+'.phy')
 # read the first sn rows with sample names
+alignment.readline() #skip the first row with the number of samples and characters
 for i in range(sn):
     row = alignment.readline().split()
     sample.append(row[0])
@@ -104,11 +111,12 @@ for j in range(1,block):
         else:
             print 'Did not skip the empty line properly at block'
             print j,i
+
 print 'Species list:\n'
 print sample
 alignment.close()
 print 'START PROCESSING THE FASTA FILE'
-handle = open(infile+'.fa')
+handle = open(infile+'.fas')
 dashDic_r = {} # real
 dashDic_s = {} # after drop some random site
 for record in SeqIO.parse(handle, 'fasta'):
