@@ -148,14 +148,19 @@ for record in SeqIO.parse(handle, 'fasta'):
         fragments = fragments[1:-1]
         k = 0
         for f in fragments:
-            tags.append(f[:100])
-            taglist.append(str(dashlist[k])+'_R')
-            tags.append(f[-100:])
-            k += 1
-            taglist.append(str(dashlist[k])+'_L')
+            if len(f) > 100:
+                tags.append(f[:100])
+                taglist.append(str(dashlist[k])+'_R')
+                tags.append(f[-100:])
+                k += 1
+                taglist.append(str(dashlist[k])+'_L')
+            #if the fragment is too short, we still need to move to the next
+            #restriction site
+            else:
+                k += 1
         
         
-        #we take the first 90bp of the last fragment if it is > 200bp long
+        #we take the first 100bp of the last fragment if it is long enough
         if len(last) > 100:
             taglist.append(str(dashlist[-1])+'_R')
             tags.append(last[:100])
