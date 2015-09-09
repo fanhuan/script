@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 #
-#  bwa2count.py
+#  Ficuspecies2section.py
 #  
 #  Copyright 2015 Huan Fan <hfan22@wisc.edu>
 #  
@@ -22,7 +22,7 @@
 #  
 
 
-import sys, gzip, bz2
+import sys, re
 from optparse import OptionParser
 
 def smartopen(filename,*args,**kwargs):
@@ -34,51 +34,44 @@ def smartopen(filename,*args,**kwargs):
         return open(filename,*args,**kwargs)
 
 Usage = "%prog [options] -i <input filename>"
-version = '%prog 20150706.1'
+version = '%prog 20150718.1'
 parser = OptionParser()
-parser.add_option('-q', dest='quality', help='Minimum match quality (default 20)', default=20)
-parser.add_option('-p', dest='paired', help='input the same file of the paired read bwa result')
-parser.add_option('-s', dest='single', help='input the sam file of single read bwa result' )
-#parser.add_option('-H', dest='header', action='store_true', help='keep SAM header')
+parser.add_option('-i', dest='infile', help='input the newick file saved from MEGA')
+
 (options, args) = parser.parse_args()
 
-#if args:
-#    handle = smartopen(args[0])
+if not options.infile:
+	print 'No tree file input, abort.'
+	sys.exit(2)
 
-if options.paired:
-	handle_paired = smartopen(options.paired)
-if options.single:
-	handle_single = smartopen(options.single)
+tree = open(options.infile)
+outtree = file(options.infile.split(".")[0]+"_section.tre", 'w')
 
-dic={}
-if options.paired:
-	for line in handle_paired:
-		if line[0] != '@':
-			line = line.split()
-			if int(line[4]) >= int(options.quality):
-				if line[6] != '=':
-					if line[2] in dic:
-						dic[line[2]] += 1
-					else:
-						dic[line[2]] =1
+dic1 = dic={'Ficus_altissima': 'Conosycea',
+'Ficus_paracamptophylla': 'Conosycea_p',
+'Ficus_glandifera': 'Malvanthera',
+'Ficus_lutea': 'Galoglychia',
+'Ficus_petiolaris': 'Americana',
+'Ficus_concinna': 'Urostigma',
+'Ficus_sarmentosa': 'Synoecia',
+'Ficus_ischnopoda': 'Frutescentiae',
+'Ficus_carica': 'Ficus',
+'Ficus_hirta': 'Eriosycea',
+'Ficus_nervosa': 'Oreosycea',
+'Ficus_tinctoria': 'Sycidium',
+'Ficus_fistulosa': 'Sycocarpus',
+'Ficus_racemosa': 'Sycomorus',
+'Ficus_itoana': 'Adenosperma',
+'Ficus_tonduzii': 'Pharmacosycea'}
+
+	
+for line in tree:
 	for key in dic:
-		dic[key] = dic[key]/2
+		if key in line:
+			line = re.sub(key, dic[key], line, count=1)
+#			dic1.pop(key, None)
+#	dic = dic1
+	outtree.write(line+'\n')
 
-if options.single:
-	for line in handle_single:
-		if line[0] != '@':
-			line = line.split()
-			if int(line[4]) >= int(options.quality):
-					if line[2] in dic:
-						dic[line[2]] += 1 
-					else:
-						dic[line[2]] =1
-
-
-for key in dic :
-    print '{}\t{}'.format(key, dic[key])
-
-if options.paired:
-	handle_paired.close()
-if options.single:
-	handle_single.close()
+tree.close()
+outtree.close()
