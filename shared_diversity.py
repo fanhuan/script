@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=1020">
     
     
-    <title>script/filter_kmer_from_pattern.py at master · fanhuan/script</title>
+    <title>script/shared_diversity.py at master · fanhuan/script</title>
     <link rel="search" type="application/opensearchdescription+xml" href="/opensearch.xml" title="GitHub">
     <link rel="fluid-icon" href="https://github.com/fluidicon.png" title="GitHub">
     <link rel="apple-touch-icon" sizes="57x57" href="/apple-touch-icon-114.png">
@@ -24,7 +24,7 @@
       <meta name="browser-stats-url" content="https://api.github.com/_private/browser/stats">
     <meta name="browser-errors-url" content="https://api.github.com/_private/browser/errors">
     <link rel="assets" href="https://assets-cdn.github.com/">
-    <link rel="web-socket" href="wss://live.github.com/_sockets/NzE2NzcxOTpiYjdkMGQxNWQzMTYxZWY3MTVlMjViYjUwOWRiZDMzYTplM2RjOTU1NDEzNjM4M2NjYmYxNzVjM2U5NmYwNTk3NmY1NWJhZGFhMWIwNDQ1MDVlNGJkY2JjMjE5NTRhNWZi--6d7b09238067cdbcf23989d9d94c59f8f2398f31">
+    <link rel="web-socket" href="wss://live.github.com/_sockets/NzE2NzcxOTpiYjdkMGQxNWQzMTYxZWY3MTVlMjViYjUwOWRiZDMzYTozYzQyZTFlMmNkZWRkYzg1YzY5NzhiYWU2NTczNTVhNzEwNzYzYmJmYzU1Y2FkNWQ3NDZhNGI5MzA5ZmQ4MTIx--601c469d43e83459713ec2b07c59bca5832b697e">
     <meta name="pjax-timeout" content="1000">
     <link rel="sudo-modal" href="/sessions/sudo_modal">
 
@@ -35,7 +35,7 @@
     <meta name="google-site-verification" content="KT5gs8h0wvaagLKAVWq8bbeNwnZZK1r1XQysX3xurLU">
         <meta name="google-analytics" content="UA-3769691-2">
 
-    <meta content="collector.githubapp.com" name="octolytics-host" /><meta content="collector-cdn.github.com" name="octolytics-script-host" /><meta content="github" name="octolytics-app-id" /><meta content="18F1E0C4:4F99:4BAF52D:55F029C4" name="octolytics-dimension-request_id" /><meta content="7167719" name="octolytics-actor-id" /><meta content="fanhuan" name="octolytics-actor-login" /><meta content="d70d99787ddbdc877579b66816a70f5360c0b918a277d902a6086d3334905407" name="octolytics-actor-hash" />
+    <meta content="collector.githubapp.com" name="octolytics-host" /><meta content="collector-cdn.github.com" name="octolytics-script-host" /><meta content="github" name="octolytics-app-id" /><meta content="18F1E0C4:3C3D:8769A5F:55F029FD" name="octolytics-dimension-request_id" /><meta content="7167719" name="octolytics-actor-id" /><meta content="fanhuan" name="octolytics-actor-login" /><meta content="d70d99787ddbdc877579b66816a70f5360c0b918a277d902a6086d3334905407" name="octolytics-actor-hash" />
     
     <meta content="Rails, view, blob#show" data-pjax-transient="true" name="analytics-event" />
     <meta class="js-ga-set" name="dimension1" content="Logged In">
@@ -48,7 +48,7 @@
       <link rel="icon" type="image/x-icon" href="https://assets-cdn.github.com/favicon.ico">
 
     <!-- </textarea> --><!-- '"` --><meta content="authenticity_token" name="csrf-param" />
-<meta content="V/g/IgFcdIY30DvRbS3OzKvWfq+8aqtJ55iZFbQDuVlJ4wwPWmTr5PZCwAgrnt6TFWbJ6DBNEpZYx2IOPpfAvA==" name="csrf-token" />
+<meta content="j9fHxhRqdmTfpkS/Fq4uY9PxvVbSDWAEy2KKIXCm0XESdK7zSaDroZvG6CeMg1LZNSDz0syBkkq/6Z+O7EnjGw==" name="csrf-token" />
     <meta content="b10121f19a46527e439a7da81cfb23b2abe00845" name="form-nonce" />
 
     <link crossorigin="anonymous" href="https://assets-cdn.github.com/assets/github-297f62b515917a9f8880b23160a0cb5073573d140c9fa1b8c36c54eef056537d.css" media="all" rel="stylesheet" />
@@ -201,7 +201,7 @@
           Settings
         </a>
 
-        <!-- </textarea> --><!-- '"` --><form accept-charset="UTF-8" action="/logout" class="logout-form" data-form-nonce="b10121f19a46527e439a7da81cfb23b2abe00845" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /><input name="authenticity_token" type="hidden" value="IFiSzHg3XRtL7kpSrsbaAig+7OtlvDDvrFZAtV5k6+OV8up3OSOeDlmJmQjzfD6jr4Mebja36k6eNIjAMroz5w==" /></div>
+        <!-- </textarea> --><!-- '"` --><form accept-charset="UTF-8" action="/logout" class="logout-form" data-form-nonce="b10121f19a46527e439a7da81cfb23b2abe00845" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /><input name="authenticity_token" type="hidden" value="OATy2C78uhFnCKH8+t1ofpy+NmD8AQYfTt50Q8Wgd0vMzG5haBSZeJhTackQKHwIEkYz4ZChrP6YJuMnUyrFjw==" /></div>
           <button class="dropdown-item dropdown-signout" data-ga-click="Header, sign out, icon:logout">
             Sign out
           </button>
@@ -235,7 +235,7 @@
 <ul class="pagehead-actions">
 
   <li>
-      <!-- </textarea> --><!-- '"` --><form accept-charset="UTF-8" action="/notifications/subscribe" class="js-social-container" data-autosubmit="true" data-form-nonce="b10121f19a46527e439a7da81cfb23b2abe00845" data-remote="true" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /><input name="authenticity_token" type="hidden" value="NNwqQ1fDzxfsG6yQQ350wNHkCf9HC6bThVtPCr+AzutCbr1jtt1cBzNNmPRSsHMldBjt48UyHJdG5yHzJm2VNQ==" /></div>    <input id="repository_id" name="repository_id" type="hidden" value="22117033" />
+      <!-- </textarea> --><!-- '"` --><form accept-charset="UTF-8" action="/notifications/subscribe" class="js-social-container" data-autosubmit="true" data-form-nonce="b10121f19a46527e439a7da81cfb23b2abe00845" data-remote="true" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /><input name="authenticity_token" type="hidden" value="SFGM032GHIEOFbX5Y5+Y8k5v2fSlOkR+Dqjlsf7KgUE/GB5RN9H+BWT5HTBRuyiRvyvnpsT63Vyoz3ZPyxI85g==" /></div>    <input id="repository_id" name="repository_id" type="hidden" value="22117033" />
 
       <div class="select-menu js-menu-container js-select-menu">
         <a href="/fanhuan/script/subscription"
@@ -310,7 +310,7 @@
     
   <div class="js-toggler-container js-social-container starring-container ">
 
-    <!-- </textarea> --><!-- '"` --><form accept-charset="UTF-8" action="/fanhuan/script/unstar" class="js-toggler-form starred js-unstar-button" data-form-nonce="b10121f19a46527e439a7da81cfb23b2abe00845" data-remote="true" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /><input name="authenticity_token" type="hidden" value="YU/9AyiKT8wgNwKAVNFOYaxwiVm87yLMXqVmTEMFZ8cYALB0aTQVWM+Fly0fmNGuSoI8dOHnl5VSP6u4X87ryw==" /></div>
+    <!-- </textarea> --><!-- '"` --><form accept-charset="UTF-8" action="/fanhuan/script/unstar" class="js-toggler-form starred js-unstar-button" data-form-nonce="b10121f19a46527e439a7da81cfb23b2abe00845" data-remote="true" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /><input name="authenticity_token" type="hidden" value="88OUeDnWiIYA4breXyi+KarkKOFgYx4JKveidm/0SGwKk1IaGeDy4P72jkho3vfd5dEkPKVeu7toHw9z3ujk/w==" /></div>
       <button
         class="btn btn-sm btn-with-count js-toggler-target"
         aria-label="Unstar this repository" title="Unstar fanhuan/script"
@@ -322,7 +322,7 @@
           0
         </a>
 </form>
-    <!-- </textarea> --><!-- '"` --><form accept-charset="UTF-8" action="/fanhuan/script/star" class="js-toggler-form unstarred js-star-button" data-form-nonce="b10121f19a46527e439a7da81cfb23b2abe00845" data-remote="true" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /><input name="authenticity_token" type="hidden" value="IUNOU7ruszZ9KL1F8lzLrfsE3FDAmSQf+ASpTfV+LZXGIowbuMa35eufFj6t33zuiftmMFzZNDA0xlXi6npoEg==" /></div>
+    <!-- </textarea> --><!-- '"` --><form accept-charset="UTF-8" action="/fanhuan/script/star" class="js-toggler-form unstarred js-star-button" data-form-nonce="b10121f19a46527e439a7da81cfb23b2abe00845" data-remote="true" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /><input name="authenticity_token" type="hidden" value="Pm6dADKtADpwffX2c0kRopXKbwshqIG9v0LNn1AtANrNh0SXxW0fQO1vX2gUagfx37M86cr5bfmcnjGuiQzI2g==" /></div>
       <button
         class="btn btn-sm btn-with-count js-toggler-target"
         aria-label="Star this repository" title="Star fanhuan/script"
@@ -338,7 +338,7 @@
   </li>
 
         <li>
-          <!-- </textarea> --><!-- '"` --><form accept-charset="UTF-8" action="/fanhuan/script/fork" data-form-nonce="b10121f19a46527e439a7da81cfb23b2abe00845" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /><input name="authenticity_token" type="hidden" value="Gxvh226319hByZ8V6OzDbLnOfaPMlW1c3ZipqPT4HNYc6aMKJPayG7swDy7AzsqS8WufFlAvti+FB4QoYcnYcg==" /></div>
+          <!-- </textarea> --><!-- '"` --><form accept-charset="UTF-8" action="/fanhuan/script/fork" data-form-nonce="b10121f19a46527e439a7da81cfb23b2abe00845" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /><input name="authenticity_token" type="hidden" value="JWi4DDpeM+7JJxsaEFu8dpKbo+WFSeNkPSkHgRoed6o799nUS5L5R7BqLXz4IvtGDrWFXTl2uMsb2B12Nuvabg==" /></div>
             <button
                 type="submit"
                 class="btn btn-sm btn-with-count"
@@ -474,7 +474,7 @@
 
 
   <div class="clone-options">You can clone with
-    <!-- </textarea> --><!-- '"` --><form accept-charset="UTF-8" action="/users/set_protocol?protocol_selector=http&amp;protocol_type=push" class="inline-form js-clone-selector-form is-enabled" data-form-nonce="b10121f19a46527e439a7da81cfb23b2abe00845" data-remote="true" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /><input name="authenticity_token" type="hidden" value="kCqEHjy2JCRD+iz6B++bDo08VuMWVBw5jf0wGSJhdq8ZFWTwsnuCJ+lUpDGjEjol6ARwnbpFbEy0V6FNy4oHQQ==" /></div><button class="btn-link js-clone-selector" data-protocol="http" type="submit">HTTPS</button></form>, <!-- </textarea> --><!-- '"` --><form accept-charset="UTF-8" action="/users/set_protocol?protocol_selector=ssh&amp;protocol_type=push" class="inline-form js-clone-selector-form is-enabled" data-form-nonce="b10121f19a46527e439a7da81cfb23b2abe00845" data-remote="true" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /><input name="authenticity_token" type="hidden" value="/a90Yk5oB8do+jxeh9mXa8kh5oEeC5UD6oM/5c1hQfshg6u+TeK/z0rwMcl+a6EahXqHKzp5RmGpceYeE140cg==" /></div><button class="btn-link js-clone-selector" data-protocol="ssh" type="submit">SSH</button></form>, or <!-- </textarea> --><!-- '"` --><form accept-charset="UTF-8" action="/users/set_protocol?protocol_selector=subversion&amp;protocol_type=push" class="inline-form js-clone-selector-form is-enabled" data-form-nonce="b10121f19a46527e439a7da81cfb23b2abe00845" data-remote="true" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /><input name="authenticity_token" type="hidden" value="AlVNN6bladDzje99Tr5lT2tecESLOzmiDtnr+AvxDZ+vZHwJhUKbRFjqk1xMN4WBO7cy9x5whmHNVVk7Dt6oOw==" /></div><button class="btn-link js-clone-selector" data-protocol="subversion" type="submit">Subversion</button></form>.
+    <!-- </textarea> --><!-- '"` --><form accept-charset="UTF-8" action="/users/set_protocol?protocol_selector=http&amp;protocol_type=push" class="inline-form js-clone-selector-form is-enabled" data-form-nonce="b10121f19a46527e439a7da81cfb23b2abe00845" data-remote="true" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /><input name="authenticity_token" type="hidden" value="aiRSNvd9AwOXMbJBBQ6mGyado20QMgOdJH6V+SnahlZhevaEH6YBgjneyGaNXPTTCKxWOJIIldC4HsN9nWcssw==" /></div><button class="btn-link js-clone-selector" data-protocol="http" type="submit">HTTPS</button></form>, <!-- </textarea> --><!-- '"` --><form accept-charset="UTF-8" action="/users/set_protocol?protocol_selector=ssh&amp;protocol_type=push" class="inline-form js-clone-selector-form is-enabled" data-form-nonce="b10121f19a46527e439a7da81cfb23b2abe00845" data-remote="true" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /><input name="authenticity_token" type="hidden" value="wGVWGILQybt3P6hNvFvhRJEH8wX4Zarzp0HOjp1PGcLHGh9Bu6O/ZoDnH6JTfm7H5QX/lJ/3ZTCKg6C1YmtwMA==" /></div><button class="btn-link js-clone-selector" data-protocol="ssh" type="submit">SSH</button></form>, or <!-- </textarea> --><!-- '"` --><form accept-charset="UTF-8" action="/users/set_protocol?protocol_selector=subversion&amp;protocol_type=push" class="inline-form js-clone-selector-form is-enabled" data-form-nonce="b10121f19a46527e439a7da81cfb23b2abe00845" data-remote="true" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /><input name="authenticity_token" type="hidden" value="NIY1HBrXyU6gYpWaP/j1gjzVvlIxpp/LMDAthgG0QIn2GDyDjAIV/nGTIltFhyPWiVdZm8nKkoJU+TRuKWZ5CA==" /></div><button class="btn-link js-clone-selector" data-protocol="subversion" type="submit">Subversion</button></form>.
     <a href="https://help.github.com/articles/which-remote-url-should-i-use" class="help tooltipped tooltipped-n" aria-label="Get help on which URL is right for you.">
       <span class="octicon octicon-question"></span>
     </a>
@@ -498,9 +498,9 @@
 
           
 
-<a href="/fanhuan/script/blob/1813ce5b9421f2aac02cec0c01b3805706d65646/filter_kmer_from_pattern.py" class="hidden js-permalink-shortcut" data-hotkey="y">Permalink</a>
+<a href="/fanhuan/script/blob/1813ce5b9421f2aac02cec0c01b3805706d65646/shared_diversity.py" class="hidden js-permalink-shortcut" data-hotkey="y">Permalink</a>
 
-<!-- blob contrib key: blob_contributors:v21:26cedf350188da81e7c86a8b5d90b89b -->
+<!-- blob contrib key: blob_contributors:v21:34eb1c866616d17d1d988df93ba5ea79 -->
 
   <div class="file-navigation js-zeroclipboard-container">
     
@@ -543,7 +543,7 @@
 
 
             <a class="select-menu-item js-navigation-item js-navigation-open selected"
-               href="/fanhuan/script/blob/master/filter_kmer_from_pattern.py"
+               href="/fanhuan/script/blob/master/shared_diversity.py"
                data-name="master"
                data-skip-pjax="true"
                rel="nofollow">
@@ -554,7 +554,7 @@
             </a>
         </div>
 
-          <!-- </textarea> --><!-- '"` --><form accept-charset="UTF-8" action="/fanhuan/script/branches" class="js-create-branch select-menu-item select-menu-new-item-form js-navigation-item js-new-item-form" data-form-nonce="b10121f19a46527e439a7da81cfb23b2abe00845" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /><input name="authenticity_token" type="hidden" value="Y/7AmPC4VgT2e6qKVjdHJJB80thUPoZPsiRZQ/GSP1I83xm7Gj7N2NBWRFVgL/Dn0tE/iwF+7LTf3Du2Jxhm0A==" /></div>
+          <!-- </textarea> --><!-- '"` --><form accept-charset="UTF-8" action="/fanhuan/script/branches" class="js-create-branch select-menu-item select-menu-new-item-form js-navigation-item js-new-item-form" data-form-nonce="b10121f19a46527e439a7da81cfb23b2abe00845" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /><input name="authenticity_token" type="hidden" value="5UYZyGGkX/qvNcAwW+R1c9QfT9mXVMWB/eZYjHVgxZNBn7iEgdzM+Xx3cVZAbnunXe8YFDgdVA9BdxVF3fZuGg==" /></div>
             <span class="octicon octicon-git-branch select-menu-item-icon"></span>
             <div class="select-menu-item-text">
               <span class="select-menu-item-heading">Create branch: <span class="js-new-item-name"></span></span>
@@ -562,7 +562,7 @@
             </div>
             <input type="hidden" name="name" id="name" class="js-new-item-value">
             <input type="hidden" name="branch" id="branch" value="master">
-            <input type="hidden" name="path" id="path" value="filter_kmer_from_pattern.py">
+            <input type="hidden" name="path" id="path" value="shared_diversity.py">
 </form>
       </div>
 
@@ -591,64 +591,43 @@
     </div>
 
     <div class="breadcrumb js-zeroclipboard-target">
-      <span class="repo-root js-repo-root"><span itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb"><a href="/fanhuan/script" class="" data-branch="master" data-pjax="true" itemscope="url"><span itemprop="title">script</span></a></span></span><span class="separator">/</span><strong class="final-path">filter_kmer_from_pattern.py</strong>
+      <span class="repo-root js-repo-root"><span itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb"><a href="/fanhuan/script" class="" data-branch="master" data-pjax="true" itemscope="url"><span itemprop="title">script</span></a></span></span><span class="separator">/</span><strong class="final-path">shared_diversity.py</strong>
     </div>
   </div>
 
-
-  <div class="commit file-history-tease">
-    <div class="file-history-tease-header">
-        <img alt="@fanhuan" class="avatar" height="24" src="https://avatars3.githubusercontent.com/u/7167719?v=3&amp;s=48" width="24" />
-        <span class="author"><a href="/fanhuan" rel="author">fanhuan</a></span>
-        <time datetime="2015-08-12T16:36:54Z" is="relative-time">Aug 12, 2015</time>
-        <div class="commit-title">
-            <a href="/fanhuan/script/commit/1ea4f8c294b8cb2b8de04d69cae11d1bd57b6db0" class="message" data-pjax="true" title="simRadAlignment.py">simRadAlignment.py</a>
-        </div>
-    </div>
-
-    <div class="participation">
-      <p class="quickstat">
-        <a href="#blob_contributors_box" rel="facebox">
-          <strong>1</strong>
-           contributor
-        </a>
-      </p>
-      
-    </div>
-    <div id="blob_contributors_box" style="display:none">
-      <h2 class="facebox-header" data-facebox-id="facebox-header">Users who have contributed to this file</h2>
-      <ul class="facebox-user-list" data-facebox-id="facebox-description">
-          <li class="facebox-user-list-item">
-            <img alt="@fanhuan" height="24" src="https://avatars3.githubusercontent.com/u/7167719?v=3&amp;s=48" width="24" />
-            <a href="/fanhuan">fanhuan</a>
-          </li>
-      </ul>
-    </div>
+<include-fragment class="commit commit-loader file-history-tease" src="/fanhuan/script/contributors/master/shared_diversity.py">
+  <div class="file-history-tease-header">
+    Fetching contributors&hellip;
   </div>
 
+  <div class="participation">
+    <p class="loader-loading"><img alt="" height="16" src="https://assets-cdn.github.com/images/spinners/octocat-spinner-32-EAF2F5.gif" width="16" /></p>
+    <p class="loader-error">Cannot retrieve contributors at this time</p>
+  </div>
+</include-fragment>
 <div class="file">
   <div class="file-header">
     <div class="file-actions">
 
       <div class="btn-group">
-        <a href="/fanhuan/script/raw/master/filter_kmer_from_pattern.py" class="btn btn-sm " id="raw-url">Raw</a>
-          <a href="/fanhuan/script/blame/master/filter_kmer_from_pattern.py" class="btn btn-sm js-update-url-with-hash">Blame</a>
-        <a href="/fanhuan/script/commits/master/filter_kmer_from_pattern.py" class="btn btn-sm " rel="nofollow">History</a>
+        <a href="/fanhuan/script/raw/master/shared_diversity.py" class="btn btn-sm " id="raw-url">Raw</a>
+          <a href="/fanhuan/script/blame/master/shared_diversity.py" class="btn btn-sm js-update-url-with-hash">Blame</a>
+        <a href="/fanhuan/script/commits/master/shared_diversity.py" class="btn btn-sm " rel="nofollow">History</a>
       </div>
 
         <a class="octicon-btn tooltipped tooltipped-nw"
-           href="github-mac://openRepo/https://github.com/fanhuan/script?branch=master&amp;filepath=filter_kmer_from_pattern.py"
+           href="github-mac://openRepo/https://github.com/fanhuan/script?branch=master&amp;filepath=shared_diversity.py"
            aria-label="Open this file in GitHub Desktop"
            data-ga-click="Repository, open with desktop, type:mac">
             <span class="octicon octicon-device-desktop"></span>
         </a>
 
-            <!-- </textarea> --><!-- '"` --><form accept-charset="UTF-8" action="/fanhuan/script/edit/master/filter_kmer_from_pattern.py" class="inline-form" data-form-nonce="b10121f19a46527e439a7da81cfb23b2abe00845" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /><input name="authenticity_token" type="hidden" value="9HJUquFEs1wpr447+WFKYf2EiL3lN69GSwZCdJO7QaIdVhsa1vbq0w4Ulut7We7fYuDV9dkh3zH6Fcpvpi1/eA==" /></div>
+            <!-- </textarea> --><!-- '"` --><form accept-charset="UTF-8" action="/fanhuan/script/edit/master/shared_diversity.py" class="inline-form" data-form-nonce="b10121f19a46527e439a7da81cfb23b2abe00845" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /><input name="authenticity_token" type="hidden" value="C66vG6pTDVSpH6b9a48bv34Zg9DTltlIMu2J/TfqW4EuNbQuEzODwRKxRyfyBsOpRw8bQXtXb8bx0jABEontMg==" /></div>
               <button class="octicon-btn tooltipped tooltipped-n" type="submit" aria-label="Edit this file" data-hotkey="e" data-disable-with>
                 <span class="octicon octicon-pencil"></span>
               </button>
 </form>
-          <!-- </textarea> --><!-- '"` --><form accept-charset="UTF-8" action="/fanhuan/script/delete/master/filter_kmer_from_pattern.py" class="inline-form" data-form-nonce="b10121f19a46527e439a7da81cfb23b2abe00845" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /><input name="authenticity_token" type="hidden" value="hQxrih6759fW/kNsfZH18UxCJKoKtq7z4iHHmi7M8XvUg/wVFJ8dmqSC9dzJlKegS6ShjQo9IzvGKTyaXjaFnw==" /></div>
+          <!-- </textarea> --><!-- '"` --><form accept-charset="UTF-8" action="/fanhuan/script/delete/master/shared_diversity.py" class="inline-form" data-form-nonce="b10121f19a46527e439a7da81cfb23b2abe00845" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /><input name="authenticity_token" type="hidden" value="QDyUnCLU+AzNDE2nO9fjd3PwMPCypUzQwIUZZ9E3UFip0jnQFLJY62NdhZYZSmt+0Bvt89c64XqCjwMF4eAVfg==" /></div>
             <button class="octicon-btn octicon-btn-danger tooltipped tooltipped-n" type="submit" aria-label="Delete this file" data-disable-with>
               <span class="octicon octicon-trashcan"></span>
             </button>
@@ -657,9 +636,9 @@
     <div class="file-info">
         <span class="file-mode" title="File mode">executable file</span>
         <span class="file-info-divider"></span>
-        113 lines (100 sloc)
+        172 lines (150 sloc)
         <span class="file-info-divider"></span>
-      3.881 kB
+      5.121 kB
     </div>
   </div>
   
@@ -680,11 +659,11 @@
       </tr>
       <tr>
         <td id="L4" class="blob-num js-line-number" data-line-number="4"></td>
-        <td id="LC4" class="blob-code blob-code-inner js-file-line"><span class="pl-c">#  filter_kmer_from_pattern.py</span></td>
+        <td id="LC4" class="blob-code blob-code-inner js-file-line"><span class="pl-c">#  shared_diversity.py</span></td>
       </tr>
       <tr>
         <td id="L5" class="blob-num js-line-number" data-line-number="5"></td>
-        <td id="LC5" class="blob-code blob-code-inner js-file-line"><span class="pl-c">#</span></td>
+        <td id="LC5" class="blob-code blob-code-inner js-file-line"><span class="pl-c">#  </span></td>
       </tr>
       <tr>
         <td id="L6" class="blob-num js-line-number" data-line-number="6"></td>
@@ -692,7 +671,7 @@
       </tr>
       <tr>
         <td id="L7" class="blob-num js-line-number" data-line-number="7"></td>
-        <td id="LC7" class="blob-code blob-code-inner js-file-line"><span class="pl-c">#</span></td>
+        <td id="LC7" class="blob-code blob-code-inner js-file-line"><span class="pl-c">#  </span></td>
       </tr>
       <tr>
         <td id="L8" class="blob-num js-line-number" data-line-number="8"></td>
@@ -712,7 +691,7 @@
       </tr>
       <tr>
         <td id="L12" class="blob-num js-line-number" data-line-number="12"></td>
-        <td id="LC12" class="blob-code blob-code-inner js-file-line"><span class="pl-c">#</span></td>
+        <td id="LC12" class="blob-code blob-code-inner js-file-line"><span class="pl-c">#  </span></td>
       </tr>
       <tr>
         <td id="L13" class="blob-num js-line-number" data-line-number="13"></td>
@@ -732,7 +711,7 @@
       </tr>
       <tr>
         <td id="L17" class="blob-num js-line-number" data-line-number="17"></td>
-        <td id="LC17" class="blob-code blob-code-inner js-file-line"><span class="pl-c">#</span></td>
+        <td id="LC17" class="blob-code blob-code-inner js-file-line"><span class="pl-c">#  </span></td>
       </tr>
       <tr>
         <td id="L18" class="blob-num js-line-number" data-line-number="18"></td>
@@ -752,7 +731,7 @@
       </tr>
       <tr>
         <td id="L22" class="blob-num js-line-number" data-line-number="22"></td>
-        <td id="LC22" class="blob-code blob-code-inner js-file-line"><span class="pl-c">#</span></td>
+        <td id="LC22" class="blob-code blob-code-inner js-file-line"><span class="pl-c">#  </span></td>
       </tr>
       <tr>
         <td id="L23" class="blob-num js-line-number" data-line-number="23"></td>
@@ -761,369 +740,615 @@
       </tr>
       <tr>
         <td id="L24" class="blob-num js-line-number" data-line-number="24"></td>
-        <td id="LC24" class="blob-code blob-code-inner js-file-line"><span class="pl-k">import</span> sys,os</td>
+        <td id="LC24" class="blob-code blob-code-inner js-file-line"><span class="pl-k">import</span> sys, os, math, gzip, time, operator</td>
       </tr>
       <tr>
         <td id="L25" class="blob-num js-line-number" data-line-number="25"></td>
-        <td id="LC25" class="blob-code blob-code-inner js-file-line"><span class="pl-k">from</span> optparse <span class="pl-k">import</span> OptionParser</td>
+        <td id="LC25" class="blob-code blob-code-inner js-file-line"><span class="pl-k">import</span> multiprocessing <span class="pl-k">as</span> mp</td>
       </tr>
       <tr>
         <td id="L26" class="blob-num js-line-number" data-line-number="26"></td>
-        <td id="LC26" class="blob-code blob-code-inner js-file-line">
-</td>
+        <td id="LC26" class="blob-code blob-code-inner js-file-line"><span class="pl-k">from</span> optparse <span class="pl-k">import</span> OptionParser</td>
       </tr>
       <tr>
         <td id="L27" class="blob-num js-line-number" data-line-number="27"></td>
-        <td id="LC27" class="blob-code blob-code-inner js-file-line"><span class="pl-k">def</span> <span class="pl-en">smartopen</span>(<span class="pl-smi">filename</span>,*<span class="pl-smi">args</span>,**<span class="pl-smi">kwargs</span>):</td>
+        <td id="LC27" class="blob-code blob-code-inner js-file-line">
+</td>
       </tr>
       <tr>
         <td id="L28" class="blob-num js-line-number" data-line-number="28"></td>
-        <td id="LC28" class="blob-code blob-code-inner js-file-line">    <span class="pl-s"><span class="pl-pds">&#39;&#39;&#39;</span>opens with open unless file ends in .gz, then use gzip.open</span></td>
+        <td id="LC28" class="blob-code blob-code-inner js-file-line"><span class="pl-k">def</span> <span class="pl-en">diversity</span>(<span class="pl-smi">lines</span>,<span class="pl-smi">n</span>,<span class="pl-smi">sn</span>):</td>
       </tr>
       <tr>
         <td id="L29" class="blob-num js-line-number" data-line-number="29"></td>
-        <td id="LC29" class="blob-code blob-code-inner js-file-line"><span class="pl-s">        </span></td>
+        <td id="LC29" class="blob-code blob-code-inner js-file-line">	diversity <span class="pl-k">=</span> [<span class="pl-c1">0</span>]<span class="pl-k">*</span>sn</td>
       </tr>
       <tr>
         <td id="L30" class="blob-num js-line-number" data-line-number="30"></td>
-        <td id="LC30" class="blob-code blob-code-inner js-file-line"><span class="pl-s">        in theory should transparently allow reading of files regardless of compression</span></td>
+        <td id="LC30" class="blob-code blob-code-inner js-file-line">	<span class="pl-k">if</span> lines[<span class="pl-c1">0</span>].startswith(<span class="pl-c1">tuple</span>(<span class="pl-s"><span class="pl-pds">&#39;</span>0123456789<span class="pl-pds">&#39;</span></span>)):<span class="pl-c">#no kmer</span></td>
       </tr>
       <tr>
         <td id="L31" class="blob-num js-line-number" data-line-number="31"></td>
-        <td id="LC31" class="blob-code blob-code-inner js-file-line"><span class="pl-s">        <span class="pl-pds">&#39;&#39;&#39;</span></span></td>
+        <td id="LC31" class="blob-code blob-code-inner js-file-line">		<span class="pl-k">for</span> line <span class="pl-k">in</span> lines:</td>
       </tr>
       <tr>
         <td id="L32" class="blob-num js-line-number" data-line-number="32"></td>
-        <td id="LC32" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">if</span> filename.endswith(<span class="pl-s"><span class="pl-pds">&#39;</span>.gz<span class="pl-pds">&#39;</span></span>):</td>
+        <td id="LC32" class="blob-code blob-code-inner js-file-line">            		line <span class="pl-k">=</span> line.split()</td>
       </tr>
       <tr>
         <td id="L33" class="blob-num js-line-number" data-line-number="33"></td>
-        <td id="LC33" class="blob-code blob-code-inner js-file-line">        <span class="pl-k">return</span> gzip.open(filename,<span class="pl-k">*</span>args,<span class="pl-k">**</span>kwargs)</td>
+        <td id="LC33" class="blob-code blob-code-inner js-file-line">            		<span class="pl-k">for</span> i <span class="pl-k">in</span> <span class="pl-c1">range</span>(sn):</td>
       </tr>
       <tr>
         <td id="L34" class="blob-num js-line-number" data-line-number="34"></td>
-        <td id="LC34" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">else</span>:</td>
+        <td id="LC34" class="blob-code blob-code-inner js-file-line">                		<span class="pl-k">if</span> <span class="pl-c1">int</span>(line[i]) <span class="pl-k">&gt;=</span>n:</td>
       </tr>
       <tr>
         <td id="L35" class="blob-num js-line-number" data-line-number="35"></td>
-        <td id="LC35" class="blob-code blob-code-inner js-file-line">        <span class="pl-k">return</span> <span class="pl-c1">open</span>(filename,<span class="pl-k">*</span>args,<span class="pl-k">**</span>kwargs)</td>
+        <td id="LC35" class="blob-code blob-code-inner js-file-line">                    			diversity[i]<span class="pl-k">+=</span><span class="pl-c1">1</span></td>
       </tr>
       <tr>
         <td id="L36" class="blob-num js-line-number" data-line-number="36"></td>
-        <td id="LC36" class="blob-code blob-code-inner js-file-line">
-</td>
+        <td id="LC36" class="blob-code blob-code-inner js-file-line">	<span class="pl-k">else</span>:<span class="pl-c">#with kmer</span></td>
       </tr>
       <tr>
         <td id="L37" class="blob-num js-line-number" data-line-number="37"></td>
-        <td id="LC37" class="blob-code blob-code-inner js-file-line">Usage <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">&quot;</span><span class="pl-c1">%p</span>rog pattern sample_name_file<span class="pl-pds">&quot;</span></span></td>
+        <td id="LC37" class="blob-code blob-code-inner js-file-line">		<span class="pl-k">for</span> line <span class="pl-k">in</span> lines:</td>
       </tr>
       <tr>
         <td id="L38" class="blob-num js-line-number" data-line-number="38"></td>
-        <td id="LC38" class="blob-code blob-code-inner js-file-line">version <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">&#39;</span><span class="pl-c1">%p</span>rog 20150709.1<span class="pl-pds">&#39;</span></span></td>
+        <td id="LC38" class="blob-code blob-code-inner js-file-line">			line <span class="pl-k">=</span> line.split()[<span class="pl-c1">1</span>:]</td>
       </tr>
       <tr>
         <td id="L39" class="blob-num js-line-number" data-line-number="39"></td>
-        <td id="LC39" class="blob-code blob-code-inner js-file-line">
-</td>
+        <td id="LC39" class="blob-code blob-code-inner js-file-line">            		<span class="pl-k">for</span> i <span class="pl-k">in</span> <span class="pl-c1">range</span>(sn):</td>
       </tr>
       <tr>
         <td id="L40" class="blob-num js-line-number" data-line-number="40"></td>
-        <td id="LC40" class="blob-code blob-code-inner js-file-line">pattern <span class="pl-k">=</span> sys.argv[<span class="pl-c1">1</span>] <span class="pl-c">#the pattern that&#39;s concerned.</span></td>
+        <td id="LC40" class="blob-code blob-code-inner js-file-line">                		<span class="pl-k">if</span> <span class="pl-c1">int</span>(line[i]) <span class="pl-k">&gt;=</span>n:</td>
       </tr>
       <tr>
         <td id="L41" class="blob-num js-line-number" data-line-number="41"></td>
-        <td id="LC41" class="blob-code blob-code-inner js-file-line">sample_fh <span class="pl-k">=</span> smartopen(sys.argv[<span class="pl-c1">2</span>]) <span class="pl-c">#a file contens the pkdat data in order of the pattern</span></td>
+        <td id="LC41" class="blob-code blob-code-inner js-file-line">                    			diversity[i]<span class="pl-k">+=</span><span class="pl-c1">1</span></td>
       </tr>
       <tr>
         <td id="L42" class="blob-num js-line-number" data-line-number="42"></td>
-        <td id="LC42" class="blob-code blob-code-inner js-file-line">parser <span class="pl-k">=</span> OptionParser(Usage, <span class="pl-smi">version</span> <span class="pl-k">=</span> version)</td>
+        <td id="LC42" class="blob-code blob-code-inner js-file-line">
+</td>
       </tr>
       <tr>
         <td id="L43" class="blob-num js-line-number" data-line-number="43"></td>
-        <td id="LC43" class="blob-code blob-code-inner js-file-line">parser.add_option(<span class="pl-s"><span class="pl-pds">&quot;</span>-d<span class="pl-pds">&quot;</span></span>, <span class="pl-smi">dest</span> <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">&quot;</span>dir<span class="pl-pds">&quot;</span></span>,</td>
+        <td id="LC43" class="blob-code blob-code-inner js-file-line">	<span class="pl-k">return</span> diversity</td>
       </tr>
       <tr>
         <td id="L44" class="blob-num js-line-number" data-line-number="44"></td>
-        <td id="LC44" class="blob-code blob-code-inner js-file-line">                  <span class="pl-smi">help</span> <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">&quot;</span>the directory that contains the pkdat files, default<span class="pl-cce">\</span></span></td>
+        <td id="LC44" class="blob-code blob-code-inner js-file-line">
+</td>
       </tr>
       <tr>
         <td id="L45" class="blob-num js-line-number" data-line-number="45"></td>
-        <td id="LC45" class="blob-code blob-code-inner js-file-line"><span class="pl-s">                         is set to be the current directory.<span class="pl-pds">&quot;</span></span>)</td>
+        <td id="LC45" class="blob-code blob-code-inner js-file-line"><span class="pl-k">def</span> <span class="pl-en">smartopen</span>(<span class="pl-smi">filename</span>,*<span class="pl-smi">args</span>,**<span class="pl-smi">kwargs</span>):</td>
       </tr>
       <tr>
         <td id="L46" class="blob-num js-line-number" data-line-number="46"></td>
-        <td id="LC46" class="blob-code blob-code-inner js-file-line">(options, args) <span class="pl-k">=</span> parser.parse_args()</td>
+        <td id="LC46" class="blob-code blob-code-inner js-file-line">    <span class="pl-s"><span class="pl-pds">&#39;&#39;&#39;</span>opens with open unless file ends in .gz, then use gzip.open</span></td>
       </tr>
       <tr>
         <td id="L47" class="blob-num js-line-number" data-line-number="47"></td>
-        <td id="LC47" class="blob-code blob-code-inner js-file-line">
-</td>
+        <td id="LC47" class="blob-code blob-code-inner js-file-line"><span class="pl-s">    in theory should transparently allow reading of files regardless of </span></td>
       </tr>
       <tr>
         <td id="L48" class="blob-num js-line-number" data-line-number="48"></td>
-        <td id="LC48" class="blob-code blob-code-inner js-file-line"><span class="pl-k">if</span> options.dir:</td>
+        <td id="LC48" class="blob-code blob-code-inner js-file-line"><span class="pl-s">    compression<span class="pl-pds">&#39;&#39;&#39;</span></span></td>
       </tr>
       <tr>
         <td id="L49" class="blob-num js-line-number" data-line-number="49"></td>
-        <td id="LC49" class="blob-code blob-code-inner js-file-line">    kmer_dir <span class="pl-k">=</span> options.dir</td>
+        <td id="LC49" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">if</span> filename.endswith(<span class="pl-s"><span class="pl-pds">&#39;</span>.gz<span class="pl-pds">&#39;</span></span>):</td>
       </tr>
       <tr>
         <td id="L50" class="blob-num js-line-number" data-line-number="50"></td>
-        <td id="LC50" class="blob-code blob-code-inner js-file-line"><span class="pl-k">else</span>:</td>
+        <td id="LC50" class="blob-code blob-code-inner js-file-line">        <span class="pl-k">return</span> gzip.open(filename,<span class="pl-k">*</span>args,<span class="pl-k">**</span>kwargs)</td>
       </tr>
       <tr>
         <td id="L51" class="blob-num js-line-number" data-line-number="51"></td>
-        <td id="LC51" class="blob-code blob-code-inner js-file-line">    kmer_dir <span class="pl-k">=</span> os.getcwd()</td>
+        <td id="LC51" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">else</span>:</td>
       </tr>
       <tr>
         <td id="L52" class="blob-num js-line-number" data-line-number="52"></td>
-        <td id="LC52" class="blob-code blob-code-inner js-file-line">abc <span class="pl-k">=</span> [<span class="pl-s"><span class="pl-pds">&#39;</span>A<span class="pl-pds">&#39;</span></span>,<span class="pl-s"><span class="pl-pds">&#39;</span>B<span class="pl-pds">&#39;</span></span>,<span class="pl-s"><span class="pl-pds">&#39;</span>C<span class="pl-pds">&#39;</span></span>,<span class="pl-s"><span class="pl-pds">&#39;</span>D<span class="pl-pds">&#39;</span></span>,<span class="pl-s"><span class="pl-pds">&#39;</span>E<span class="pl-pds">&#39;</span></span>,<span class="pl-s"><span class="pl-pds">&#39;</span>F<span class="pl-pds">&#39;</span></span>,<span class="pl-s"><span class="pl-pds">&#39;</span>G<span class="pl-pds">&#39;</span></span>,<span class="pl-s"><span class="pl-pds">&#39;</span>H<span class="pl-pds">&#39;</span></span>,<span class="pl-s"><span class="pl-pds">&#39;</span>I<span class="pl-pds">&#39;</span></span>,<span class="pl-s"><span class="pl-pds">&#39;</span>J<span class="pl-pds">&#39;</span></span>,<span class="pl-s"><span class="pl-pds">&#39;</span>K<span class="pl-pds">&#39;</span></span>,<span class="pl-s"><span class="pl-pds">&#39;</span>L<span class="pl-pds">&#39;</span></span>,<span class="pl-s"><span class="pl-pds">&#39;</span>M<span class="pl-pds">&#39;</span></span>,<span class="pl-s"><span class="pl-pds">&#39;</span>N<span class="pl-pds">&#39;</span></span>,<span class="pl-s"><span class="pl-pds">&#39;</span>O<span class="pl-pds">&#39;</span></span>,<span class="pl-s"><span class="pl-pds">&#39;</span>P<span class="pl-pds">&#39;</span></span>,<span class="pl-s"><span class="pl-pds">&#39;</span>Q<span class="pl-pds">&#39;</span></span>,\</td>
+        <td id="LC52" class="blob-code blob-code-inner js-file-line">        <span class="pl-k">return</span> <span class="pl-c1">open</span>(filename,<span class="pl-k">*</span>args,<span class="pl-k">**</span>kwargs)</td>
       </tr>
       <tr>
         <td id="L53" class="blob-num js-line-number" data-line-number="53"></td>
-        <td id="LC53" class="blob-code blob-code-inner js-file-line">       <span class="pl-s"><span class="pl-pds">&#39;</span>R<span class="pl-pds">&#39;</span></span>,<span class="pl-s"><span class="pl-pds">&#39;</span>S<span class="pl-pds">&#39;</span></span>,<span class="pl-s"><span class="pl-pds">&#39;</span>T<span class="pl-pds">&#39;</span></span>,<span class="pl-s"><span class="pl-pds">&#39;</span>U<span class="pl-pds">&#39;</span></span>,<span class="pl-s"><span class="pl-pds">&#39;</span>V<span class="pl-pds">&#39;</span></span>,<span class="pl-s"><span class="pl-pds">&#39;</span>W<span class="pl-pds">&#39;</span></span>,<span class="pl-s"><span class="pl-pds">&#39;</span>X<span class="pl-pds">&#39;</span></span>,<span class="pl-s"><span class="pl-pds">&#39;</span>Y<span class="pl-pds">&#39;</span></span>,<span class="pl-s"><span class="pl-pds">&#39;</span>Z<span class="pl-pds">&#39;</span></span>]</td>
+        <td id="LC53" class="blob-code blob-code-inner js-file-line">
+</td>
       </tr>
       <tr>
         <td id="L54" class="blob-num js-line-number" data-line-number="54"></td>
-        <td id="LC54" class="blob-code blob-code-inner js-file-line">
-</td>
+        <td id="LC54" class="blob-code blob-code-inner js-file-line"><span class="pl-k">def</span> <span class="pl-en">is_exe</span>(<span class="pl-smi">fpath</span>):</td>
       </tr>
       <tr>
         <td id="L55" class="blob-num js-line-number" data-line-number="55"></td>
-        <td id="LC55" class="blob-code blob-code-inner js-file-line">sample_list <span class="pl-k">=</span> []</td>
+        <td id="LC55" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">return</span> os.path.isfile(fpath) <span class="pl-k">and</span> os.access(fpath, os.X_OK)</td>
       </tr>
       <tr>
         <td id="L56" class="blob-num js-line-number" data-line-number="56"></td>
-        <td id="LC56" class="blob-code blob-code-inner js-file-line"><span class="pl-k">for</span> sample <span class="pl-k">in</span> sample_fh:</td>
+        <td id="LC56" class="blob-code blob-code-inner js-file-line">
+</td>
       </tr>
       <tr>
         <td id="L57" class="blob-num js-line-number" data-line-number="57"></td>
-        <td id="LC57" class="blob-code blob-code-inner js-file-line">    sample_list.append(kmer_dir<span class="pl-k">+</span><span class="pl-s"><span class="pl-pds">&#39;</span>/<span class="pl-pds">&#39;</span></span><span class="pl-k">+</span>sample.rstrip())</td>
+        <td id="LC57" class="blob-code blob-code-inner js-file-line">Usage <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">&quot;</span><span class="pl-c1">%p</span>rog [options] -i &lt;input filename&gt;<span class="pl-pds">&quot;</span></span></td>
       </tr>
       <tr>
         <td id="L58" class="blob-num js-line-number" data-line-number="58"></td>
-        <td id="LC58" class="blob-code blob-code-inner js-file-line">
-</td>
+        <td id="LC58" class="blob-code blob-code-inner js-file-line">version <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">&#39;</span><span class="pl-c1">%p</span>rog 20150716.1<span class="pl-pds">&#39;</span></span></td>
       </tr>
       <tr>
         <td id="L59" class="blob-num js-line-number" data-line-number="59"></td>
-        <td id="LC59" class="blob-code blob-code-inner js-file-line"><span class="pl-k">if</span> <span class="pl-c1">len</span>(sample_list) <span class="pl-k">!=</span> <span class="pl-c1">len</span>(pattern):</td>
+        <td id="LC59" class="blob-code blob-code-inner js-file-line">parser <span class="pl-k">=</span> OptionParser(Usage, <span class="pl-smi">version</span> <span class="pl-k">=</span> version)</td>
       </tr>
       <tr>
         <td id="L60" class="blob-num js-line-number" data-line-number="60"></td>
-        <td id="LC60" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">print</span>(<span class="pl-s"><span class="pl-pds">&#39;</span># of samples does not match with length of pattern,<span class="pl-pds">&#39;</span></span>)</td>
+        <td id="LC60" class="blob-code blob-code-inner js-file-line">parser.add_option(<span class="pl-s"><span class="pl-pds">&quot;</span>-i<span class="pl-pds">&quot;</span></span>, <span class="pl-smi">dest</span> <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">&quot;</span>iptf<span class="pl-pds">&quot;</span></span>, </td>
       </tr>
       <tr>
         <td id="L61" class="blob-num js-line-number" data-line-number="61"></td>
-        <td id="LC61" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">print</span>(<span class="pl-s"><span class="pl-pds">&#39;</span>quiting program.<span class="pl-pds">&#39;</span></span>)</td>
+        <td id="LC61" class="blob-code blob-code-inner js-file-line">                  <span class="pl-smi">help</span> <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">&quot;</span>input file, default = phylokmer.dat(.gz) <span class="pl-pds">&quot;</span></span>)</td>
       </tr>
       <tr>
         <td id="L62" class="blob-num js-line-number" data-line-number="62"></td>
-        <td id="LC62" class="blob-code blob-code-inner js-file-line">    sys.exit()</td>
+        <td id="LC62" class="blob-code blob-code-inner js-file-line">parser.add_option(<span class="pl-s"><span class="pl-pds">&quot;</span>-t<span class="pl-pds">&quot;</span></span>, <span class="pl-smi">dest</span> <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">&quot;</span>nThreads<span class="pl-pds">&quot;</span></span>, <span class="pl-smi">type</span> <span class="pl-k">=</span> <span class="pl-c1">int</span>, <span class="pl-smi">default</span> <span class="pl-k">=</span> <span class="pl-c1">1</span>, </td>
       </tr>
       <tr>
         <td id="L63" class="blob-num js-line-number" data-line-number="63"></td>
-        <td id="LC63" class="blob-code blob-code-inner js-file-line"><span class="pl-k">else</span>:</td>
+        <td id="LC63" class="blob-code blob-code-inner js-file-line">                  <span class="pl-smi">help</span> <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">&quot;</span>number of threads to use, default = 1<span class="pl-pds">&quot;</span></span>)</td>
       </tr>
       <tr>
         <td id="L64" class="blob-num js-line-number" data-line-number="64"></td>
-        <td id="LC64" class="blob-code blob-code-inner js-file-line">    sn <span class="pl-k">=</span> <span class="pl-c1">len</span>(pattern)</td>
+        <td id="LC64" class="blob-code blob-code-inner js-file-line">parser.add_option(<span class="pl-s"><span class="pl-pds">&quot;</span>-G<span class="pl-pds">&quot;</span></span>, <span class="pl-smi">dest</span> <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">&quot;</span>memsize<span class="pl-pds">&quot;</span></span>, <span class="pl-smi">type</span> <span class="pl-k">=</span> <span class="pl-c1">float</span>, <span class="pl-smi">default</span> <span class="pl-k">=</span> <span class="pl-c1">1</span>,</td>
       </tr>
       <tr>
         <td id="L65" class="blob-num js-line-number" data-line-number="65"></td>
-        <td id="LC65" class="blob-code blob-code-inner js-file-line">
-</td>
+        <td id="LC65" class="blob-code blob-code-inner js-file-line">                  <span class="pl-smi">help</span> <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">&quot;</span>max memory to use (in GB), default = 1<span class="pl-pds">&quot;</span></span>)</td>
       </tr>
       <tr>
         <td id="L66" class="blob-num js-line-number" data-line-number="66"></td>
-        <td id="LC66" class="blob-code blob-code-inner js-file-line">command <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">&#39;</span>kmer_merge -k s -c <span class="pl-pds">&#39;</span></span></td>
+        <td id="LC66" class="blob-code blob-code-inner js-file-line">parser.add_option(<span class="pl-s"><span class="pl-pds">&quot;</span>-o<span class="pl-pds">&quot;</span></span>, <span class="pl-smi">dest</span> <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">&quot;</span>otpf<span class="pl-pds">&quot;</span></span>, <span class="pl-smi">default</span><span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">&quot;</span>RAD<span class="pl-pds">&quot;</span></span>,</td>
       </tr>
       <tr>
         <td id="L67" class="blob-num js-line-number" data-line-number="67"></td>
-        <td id="LC67" class="blob-code blob-code-inner js-file-line"><span class="pl-k">if</span> sn <span class="pl-k">&lt;</span> <span class="pl-c1">27</span>:</td>
+        <td id="LC67" class="blob-code blob-code-inner js-file-line">                  <span class="pl-smi">help</span> <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">&quot;</span>prefix of the output shared diversity file, default = RAD<span class="pl-pds">&quot;</span></span>)</td>
       </tr>
       <tr>
         <td id="L68" class="blob-num js-line-number" data-line-number="68"></td>
-        <td id="LC68" class="blob-code blob-code-inner js-file-line">    samples <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">&#39;</span> <span class="pl-pds">&#39;</span></span>.join(sample_list)</td>
+        <td id="LC68" class="blob-code blob-code-inner js-file-line">parser.add_option(<span class="pl-s"><span class="pl-pds">&quot;</span>-n<span class="pl-pds">&quot;</span></span>, <span class="pl-smi">dest</span> <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">&quot;</span>filter<span class="pl-pds">&quot;</span></span>, <span class="pl-smi">type</span> <span class="pl-k">=</span> <span class="pl-c1">int</span>, <span class="pl-smi">default</span> <span class="pl-k">=</span> <span class="pl-c1">1</span>,</td>
       </tr>
       <tr>
         <td id="L69" class="blob-num js-line-number" data-line-number="69"></td>
-        <td id="LC69" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">for</span> i <span class="pl-k">in</span> <span class="pl-c1">xrange</span>(sn):</td>
+        <td id="LC69" class="blob-code blob-code-inner js-file-line">                  <span class="pl-smi">help</span> <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">&quot;</span>k-mer filtering threshold, default = 1<span class="pl-pds">&quot;</span></span>)</td>
       </tr>
       <tr>
         <td id="L70" class="blob-num js-line-number" data-line-number="70"></td>
-        <td id="LC70" class="blob-code blob-code-inner js-file-line">        <span class="pl-k">if</span> pattern[i] <span class="pl-k">==</span> <span class="pl-s"><span class="pl-pds">&#39;</span>1<span class="pl-pds">&#39;</span></span>:</td>
+        <td id="LC70" class="blob-code blob-code-inner js-file-line">
+</td>
       </tr>
       <tr>
         <td id="L71" class="blob-num js-line-number" data-line-number="71"></td>
-        <td id="LC71" class="blob-code blob-code-inner js-file-line">            command <span class="pl-k">+=</span> <span class="pl-s"><span class="pl-pds">&#39;</span>-<span class="pl-c1">{}</span> A <span class="pl-pds">&#39;</span></span>.format(abc[i])</td>
+        <td id="LC71" class="blob-code blob-code-inner js-file-line">
+</td>
       </tr>
       <tr>
         <td id="L72" class="blob-num js-line-number" data-line-number="72"></td>
-        <td id="LC72" class="blob-code blob-code-inner js-file-line">        <span class="pl-k">elif</span> pattern[i] <span class="pl-k">==</span> <span class="pl-s"><span class="pl-pds">&#39;</span>0<span class="pl-pds">&#39;</span></span>:</td>
+        <td id="LC72" class="blob-code blob-code-inner js-file-line">(options, args) <span class="pl-k">=</span> parser.parse_args()</td>
       </tr>
       <tr>
         <td id="L73" class="blob-num js-line-number" data-line-number="73"></td>
-        <td id="LC73" class="blob-code blob-code-inner js-file-line">            command <span class="pl-k">+=</span> <span class="pl-s"><span class="pl-pds">&#39;</span>-<span class="pl-c1">{}</span> N <span class="pl-pds">&#39;</span></span>.format(abc[i])</td>
+        <td id="LC73" class="blob-code blob-code-inner js-file-line">
+</td>
       </tr>
       <tr>
         <td id="L74" class="blob-num js-line-number" data-line-number="74"></td>
-        <td id="LC74" class="blob-code blob-code-inner js-file-line">    command <span class="pl-k">+=</span> <span class="pl-s"><span class="pl-pds">&#39;</span><span class="pl-c1">{}</span>| cut -f 1 &gt; <span class="pl-c1">{}</span>.kmer<span class="pl-pds">&#39;</span></span>.format(samples,sys.argv[<span class="pl-c1">1</span>])</td>
+        <td id="LC74" class="blob-code blob-code-inner js-file-line"><span class="pl-k">if</span> <span class="pl-k">not</span> options.iptf:</td>
       </tr>
       <tr>
         <td id="L75" class="blob-num js-line-number" data-line-number="75"></td>
-        <td id="LC75" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">print</span> command</td>
+        <td id="LC75" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">print</span> <span class="pl-s"><span class="pl-pds">&#39;</span>Input file (-i) is required<span class="pl-pds">&#39;</span></span></td>
       </tr>
       <tr>
         <td id="L76" class="blob-num js-line-number" data-line-number="76"></td>
-        <td id="LC76" class="blob-code blob-code-inner js-file-line">    os.system(command)</td>
+        <td id="LC76" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">print</span> Usage</td>
       </tr>
       <tr>
         <td id="L77" class="blob-num js-line-number" data-line-number="77"></td>
-        <td id="LC77" class="blob-code blob-code-inner js-file-line"><span class="pl-k">else</span>:</td>
+        <td id="LC77" class="blob-code blob-code-inner js-file-line">    sys.exit()</td>
       </tr>
       <tr>
         <td id="L78" class="blob-num js-line-number" data-line-number="78"></td>
-        <td id="LC78" class="blob-code blob-code-inner js-file-line">    batch <span class="pl-k">=</span> sn<span class="pl-k">/</span><span class="pl-c1">26</span></td>
+        <td id="LC78" class="blob-code blob-code-inner js-file-line">
+</td>
       </tr>
       <tr>
         <td id="L79" class="blob-num js-line-number" data-line-number="79"></td>
-        <td id="LC79" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">for</span> b <span class="pl-k">in</span> <span class="pl-c1">xrange</span>(batch):</td>
+        <td id="LC79" class="blob-code blob-code-inner js-file-line"><span class="pl-k">try</span>:</td>
       </tr>
       <tr>
         <td id="L80" class="blob-num js-line-number" data-line-number="80"></td>
-        <td id="LC80" class="blob-code blob-code-inner js-file-line">        <span class="pl-k">for</span> i <span class="pl-k">in</span> <span class="pl-c1">range</span>(<span class="pl-c1">26</span><span class="pl-k">*</span>b,<span class="pl-c1">26</span><span class="pl-k">*</span>(b<span class="pl-k">+</span><span class="pl-c1">1</span>)):</td>
+        <td id="LC80" class="blob-code blob-code-inner js-file-line">    iptf <span class="pl-k">=</span> smartopen(options.iptf)</td>
       </tr>
       <tr>
         <td id="L81" class="blob-num js-line-number" data-line-number="81"></td>
-        <td id="LC81" class="blob-code blob-code-inner js-file-line">            <span class="pl-k">if</span> pattern[i] <span class="pl-k">==</span> <span class="pl-s"><span class="pl-pds">&#39;</span>1<span class="pl-pds">&#39;</span></span>:</td>
+        <td id="LC81" class="blob-code blob-code-inner js-file-line"><span class="pl-k">except</span> <span class="pl-c1">IOError</span>:</td>
       </tr>
       <tr>
         <td id="L82" class="blob-num js-line-number" data-line-number="82"></td>
-        <td id="LC82" class="blob-code blob-code-inner js-file-line">                command <span class="pl-k">+=</span> <span class="pl-s"><span class="pl-pds">&#39;</span>-<span class="pl-c1">{}</span> A <span class="pl-pds">&#39;</span></span>.format(abc[i])</td>
+        <td id="LC82" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">print</span> <span class="pl-s"><span class="pl-pds">&#39;</span>Cannot open file<span class="pl-pds">&#39;</span></span>, options.iptf</td>
       </tr>
       <tr>
         <td id="L83" class="blob-num js-line-number" data-line-number="83"></td>
-        <td id="LC83" class="blob-code blob-code-inner js-file-line">            <span class="pl-k">elif</span> pattern[i] <span class="pl-k">==</span> <span class="pl-s"><span class="pl-pds">&#39;</span>0<span class="pl-pds">&#39;</span></span>:</td>
+        <td id="LC83" class="blob-code blob-code-inner js-file-line">    sys.exit()</td>
       </tr>
       <tr>
         <td id="L84" class="blob-num js-line-number" data-line-number="84"></td>
-        <td id="LC84" class="blob-code blob-code-inner js-file-line">                command <span class="pl-k">+=</span> <span class="pl-s"><span class="pl-pds">&#39;</span>-<span class="pl-c1">{}</span> N <span class="pl-pds">&#39;</span></span>.format(abc[i])</td>
+        <td id="LC84" class="blob-code blob-code-inner js-file-line">
+</td>
       </tr>
       <tr>
         <td id="L85" class="blob-num js-line-number" data-line-number="85"></td>
-        <td id="LC85" class="blob-code blob-code-inner js-file-line">        samples <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">&#39;</span> <span class="pl-pds">&#39;</span></span>.join(sample_list[b<span class="pl-k">*</span><span class="pl-c1">26</span>:(b<span class="pl-k">+</span><span class="pl-c1">1</span>)<span class="pl-k">*</span><span class="pl-c1">26</span>])</td>
+        <td id="LC85" class="blob-code blob-code-inner js-file-line">nThreads <span class="pl-k">=</span> options.nThreads</td>
       </tr>
       <tr>
         <td id="L86" class="blob-num js-line-number" data-line-number="86"></td>
-        <td id="LC86" class="blob-code blob-code-inner js-file-line">        command <span class="pl-k">+=</span> <span class="pl-s"><span class="pl-pds">&#39;</span><span class="pl-c1">{}</span> | cut -f 1 &gt; temp_<span class="pl-c1">{}</span>.kmer<span class="pl-pds">&#39;</span></span>.format(samples, b)</td>
+        <td id="LC86" class="blob-code blob-code-inner js-file-line">memory <span class="pl-k">=</span> options.memsize</td>
       </tr>
       <tr>
         <td id="L87" class="blob-num js-line-number" data-line-number="87"></td>
-        <td id="LC87" class="blob-code blob-code-inner js-file-line">        <span class="pl-k">print</span> command</td>
+        <td id="LC87" class="blob-code blob-code-inner js-file-line">n <span class="pl-k">=</span> options.filter</td>
       </tr>
       <tr>
         <td id="L88" class="blob-num js-line-number" data-line-number="88"></td>
-        <td id="LC88" class="blob-code blob-code-inner js-file-line">        os.system(command)</td>
+        <td id="LC88" class="blob-code blob-code-inner js-file-line">
+</td>
       </tr>
       <tr>
         <td id="L89" class="blob-num js-line-number" data-line-number="89"></td>
-        <td id="LC89" class="blob-code blob-code-inner js-file-line">    last_batch <span class="pl-k">=</span> sn<span class="pl-k">%</span><span class="pl-c1">26</span></td>
+        <td id="LC89" class="blob-code blob-code-inner js-file-line"><span class="pl-c">###detect whether there is header or not</span></td>
       </tr>
       <tr>
         <td id="L90" class="blob-num js-line-number" data-line-number="90"></td>
-        <td id="LC90" class="blob-code blob-code-inner js-file-line">    last_sample <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">&#39;</span> <span class="pl-pds">&#39;</span></span>.join(sample_list[<span class="pl-k">-</span>last_batch:])</td>
+        <td id="LC90" class="blob-code blob-code-inner js-file-line">
+</td>
       </tr>
       <tr>
         <td id="L91" class="blob-num js-line-number" data-line-number="91"></td>
-        <td id="LC91" class="blob-code blob-code-inner js-file-line">    last_pattern <span class="pl-k">=</span> pattern[<span class="pl-k">-</span>last_batch:]</td>
+        <td id="LC91" class="blob-code blob-code-inner js-file-line">
+</td>
       </tr>
       <tr>
         <td id="L92" class="blob-num js-line-number" data-line-number="92"></td>
-        <td id="LC92" class="blob-code blob-code-inner js-file-line">    command <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">&#39;</span>kmer_merge -k s -c <span class="pl-pds">&#39;</span></span></td>
+        <td id="LC92" class="blob-code blob-code-inner js-file-line"><span class="pl-c">###Read header</span></td>
       </tr>
       <tr>
         <td id="L93" class="blob-num js-line-number" data-line-number="93"></td>
-        <td id="LC93" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">for</span> i <span class="pl-k">in</span> <span class="pl-c1">xrange</span>(last_batch):</td>
+        <td id="LC93" class="blob-code blob-code-inner js-file-line">sl <span class="pl-k">=</span> []                 <span class="pl-c">#species list</span></td>
       </tr>
       <tr>
         <td id="L94" class="blob-num js-line-number" data-line-number="94"></td>
-        <td id="LC94" class="blob-code blob-code-inner js-file-line">        <span class="pl-k">if</span> last_pattern[i] <span class="pl-k">==</span> <span class="pl-s"><span class="pl-pds">&#39;</span>1<span class="pl-pds">&#39;</span></span>:</td>
+        <td id="LC94" class="blob-code blob-code-inner js-file-line"><span class="pl-k">while</span> <span class="pl-c1">True</span>:     </td>
       </tr>
       <tr>
         <td id="L95" class="blob-num js-line-number" data-line-number="95"></td>
-        <td id="LC95" class="blob-code blob-code-inner js-file-line">            command <span class="pl-k">+=</span> <span class="pl-s"><span class="pl-pds">&#39;</span>-<span class="pl-c1">{}</span> A <span class="pl-pds">&#39;</span></span>.format(abc[i])</td>
+        <td id="LC95" class="blob-code blob-code-inner js-file-line">    line <span class="pl-k">=</span> iptf.readline()</td>
       </tr>
       <tr>
         <td id="L96" class="blob-num js-line-number" data-line-number="96"></td>
-        <td id="LC96" class="blob-code blob-code-inner js-file-line">        <span class="pl-k">elif</span> last_pattern[i] <span class="pl-k">==</span> <span class="pl-s"><span class="pl-pds">&#39;</span>0<span class="pl-pds">&#39;</span></span>:</td>
+        <td id="LC96" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">if</span> line.startswith(<span class="pl-s"><span class="pl-pds">&#39;</span>#-<span class="pl-pds">&#39;</span></span>):</td>
       </tr>
       <tr>
         <td id="L97" class="blob-num js-line-number" data-line-number="97"></td>
-        <td id="LC97" class="blob-code blob-code-inner js-file-line">            command <span class="pl-k">+=</span> <span class="pl-s"><span class="pl-pds">&#39;</span>-<span class="pl-c1">{}</span> N <span class="pl-pds">&#39;</span></span>.format(abc[i])</td>
+        <td id="LC97" class="blob-code blob-code-inner js-file-line">        <span class="pl-k">continue</span></td>
       </tr>
       <tr>
         <td id="L98" class="blob-num js-line-number" data-line-number="98"></td>
-        <td id="LC98" class="blob-code blob-code-inner js-file-line">    command <span class="pl-k">+=</span> <span class="pl-s"><span class="pl-pds">&#39;</span><span class="pl-c1">{}</span> | cut -f 1 &gt; last_batch.kmer<span class="pl-pds">&#39;</span></span>.format(last_sample)</td>
+        <td id="LC98" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">elif</span> line.startswith(<span class="pl-s"><span class="pl-pds">&#39;</span>#sample<span class="pl-pds">&#39;</span></span>):</td>
       </tr>
       <tr>
         <td id="L99" class="blob-num js-line-number" data-line-number="99"></td>
-        <td id="LC99" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">print</span> command</td>
+        <td id="LC99" class="blob-code blob-code-inner js-file-line">        ll <span class="pl-k">=</span> line.split()</td>
       </tr>
       <tr>
         <td id="L100" class="blob-num js-line-number" data-line-number="100"></td>
-        <td id="LC100" class="blob-code blob-code-inner js-file-line">    os.system(command)</td>
+        <td id="LC100" class="blob-code blob-code-inner js-file-line">        sl.append(ll[<span class="pl-c1">1</span>])</td>
       </tr>
       <tr>
         <td id="L101" class="blob-num js-line-number" data-line-number="101"></td>
-        <td id="LC101" class="blob-code blob-code-inner js-file-line">    final_command <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">&#39;</span>kmer_merge -k s -c <span class="pl-pds">&#39;</span></span></td>
+        <td id="LC101" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">else</span>:</td>
       </tr>
       <tr>
         <td id="L102" class="blob-num js-line-number" data-line-number="102"></td>
-        <td id="LC102" class="blob-code blob-code-inner js-file-line">    final_sample <span class="pl-k">=</span> []</td>
+        <td id="LC102" class="blob-code blob-code-inner js-file-line">        <span class="pl-k">break</span></td>
       </tr>
       <tr>
         <td id="L103" class="blob-num js-line-number" data-line-number="103"></td>
-        <td id="LC103" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">for</span> b <span class="pl-k">in</span> <span class="pl-c1">xrange</span>(batch):</td>
+        <td id="LC103" class="blob-code blob-code-inner js-file-line">
+</td>
       </tr>
       <tr>
         <td id="L104" class="blob-num js-line-number" data-line-number="104"></td>
-        <td id="LC104" class="blob-code blob-code-inner js-file-line">        final_command <span class="pl-k">+=</span> <span class="pl-s"><span class="pl-pds">&#39;</span>-<span class="pl-c1">{}</span> A <span class="pl-pds">&#39;</span></span>.format(abc[b])</td>
+        <td id="LC104" class="blob-code blob-code-inner js-file-line"><span class="pl-k">if</span> sl<span class="pl-k">==</span>[]:</td>
       </tr>
       <tr>
         <td id="L105" class="blob-num js-line-number" data-line-number="105"></td>
-        <td id="LC105" class="blob-code blob-code-inner js-file-line">        final_sample.append(<span class="pl-s"><span class="pl-pds">&#39;</span>temp_<span class="pl-c1">{}</span>.kmer<span class="pl-pds">&#39;</span></span>.format(b))</td>
+        <td id="LC105" class="blob-code blob-code-inner js-file-line">    sn <span class="pl-k">=</span> <span class="pl-c1">len</span>(line.split())</td>
       </tr>
       <tr>
         <td id="L106" class="blob-num js-line-number" data-line-number="106"></td>
-        <td id="LC106" class="blob-code blob-code-inner js-file-line">    final_samples <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">&#39;</span> <span class="pl-pds">&#39;</span></span>.join(final_sample)</td>
+        <td id="LC106" class="blob-code blob-code-inner js-file-line"><span class="pl-k">else</span>:</td>
       </tr>
       <tr>
         <td id="L107" class="blob-num js-line-number" data-line-number="107"></td>
-        <td id="LC107" class="blob-code blob-code-inner js-file-line">    final_command <span class="pl-k">+=</span> <span class="pl-s"><span class="pl-pds">&#39;</span>-<span class="pl-c1">{}</span> A <span class="pl-c1">{}</span> last_batch.kmer | cut -f 1 &gt; <span class="pl-c1">{}</span>.kmer<span class="pl-pds">&#39;</span></span>.format(abc[b<span class="pl-k">+</span><span class="pl-c1">1</span>],final_samples,sys.argv[<span class="pl-c1">1</span>])</td>
+        <td id="LC107" class="blob-code blob-code-inner js-file-line">    sn <span class="pl-k">=</span> <span class="pl-c1">len</span>(sl)</td>
       </tr>
       <tr>
         <td id="L108" class="blob-num js-line-number" data-line-number="108"></td>
-        <td id="LC108" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">print</span> final_command</td>
+        <td id="LC108" class="blob-code blob-code-inner js-file-line"><span class="pl-c"># initiate the final big diversity list</span></td>
       </tr>
       <tr>
         <td id="L109" class="blob-num js-line-number" data-line-number="109"></td>
-        <td id="LC109" class="blob-code blob-code-inner js-file-line">    os.system(final_command)</td>
+        <td id="LC109" class="blob-code blob-code-inner js-file-line">DIVERSITY <span class="pl-k">=</span> [<span class="pl-c1">0</span>]<span class="pl-k">*</span>sn</td>
       </tr>
       <tr>
         <td id="L110" class="blob-num js-line-number" data-line-number="110"></td>
-        <td id="LC110" class="blob-code blob-code-inner js-file-line">
-</td>
+        <td id="LC110" class="blob-code blob-code-inner js-file-line"><span class="pl-c">###Compute the number of lines to process per thread</span></td>
       </tr>
       <tr>
         <td id="L111" class="blob-num js-line-number" data-line-number="111"></td>
-        <td id="LC111" class="blob-code blob-code-inner js-file-line">
-</td>
+        <td id="LC111" class="blob-code blob-code-inner js-file-line">line_size <span class="pl-k">=</span> sys.getsizeof(line)</td>
       </tr>
       <tr>
         <td id="L112" class="blob-num js-line-number" data-line-number="112"></td>
-        <td id="LC112" class="blob-code blob-code-inner js-file-line">
+        <td id="LC112" class="blob-code blob-code-inner js-file-line"><span class="pl-k">if</span> memory<span class="pl-k">/</span>nThreads <span class="pl-k">&gt;</span> <span class="pl-c1">1</span>:</td>
+      </tr>
+      <tr>
+        <td id="L113" class="blob-num js-line-number" data-line-number="113"></td>
+        <td id="LC113" class="blob-code blob-code-inner js-file-line">    chunkLength <span class="pl-k">=</span> <span class="pl-c1">int</span>(<span class="pl-c1">1024</span> <span class="pl-k">**</span> <span class="pl-c1">3</span> <span class="pl-k">/</span> line_size)</td>
+      </tr>
+      <tr>
+        <td id="L114" class="blob-num js-line-number" data-line-number="114"></td>
+        <td id="LC114" class="blob-code blob-code-inner js-file-line"><span class="pl-k">else</span>:</td>
+      </tr>
+      <tr>
+        <td id="L115" class="blob-num js-line-number" data-line-number="115"></td>
+        <td id="LC115" class="blob-code blob-code-inner js-file-line">    chunkLength <span class="pl-k">=</span> <span class="pl-c1">int</span>(memory <span class="pl-k">*</span> <span class="pl-c1">1024</span> <span class="pl-k">**</span> <span class="pl-c1">3</span> <span class="pl-k">/</span> nThreads <span class="pl-k">/</span> line_size)</td>
+      </tr>
+      <tr>
+        <td id="L116" class="blob-num js-line-number" data-line-number="116"></td>
+        <td id="LC116" class="blob-code blob-code-inner js-file-line"><span class="pl-k">print</span> <span class="pl-s"><span class="pl-pds">&#39;</span>chunkLength =<span class="pl-pds">&#39;</span></span>, chunkLength</td>
+      </tr>
+      <tr>
+        <td id="L117" class="blob-num js-line-number" data-line-number="117"></td>
+        <td id="LC117" class="blob-code blob-code-inner js-file-line">
 </td>
+      </tr>
+      <tr>
+        <td id="L118" class="blob-num js-line-number" data-line-number="118"></td>
+        <td id="LC118" class="blob-code blob-code-inner js-file-line"><span class="pl-c">###Compute pattern dictionary</span></td>
+      </tr>
+      <tr>
+        <td id="L119" class="blob-num js-line-number" data-line-number="119"></td>
+        <td id="LC119" class="blob-code blob-code-inner js-file-line">nJobs <span class="pl-k">=</span> <span class="pl-c1">0</span></td>
+      </tr>
+      <tr>
+        <td id="L120" class="blob-num js-line-number" data-line-number="120"></td>
+        <td id="LC120" class="blob-code blob-code-inner js-file-line">pool <span class="pl-k">=</span> mp.Pool(nThreads)</td>
+      </tr>
+      <tr>
+        <td id="L121" class="blob-num js-line-number" data-line-number="121"></td>
+        <td id="LC121" class="blob-code blob-code-inner js-file-line">results <span class="pl-k">=</span> []</td>
+      </tr>
+      <tr>
+        <td id="L122" class="blob-num js-line-number" data-line-number="122"></td>
+        <td id="LC122" class="blob-code blob-code-inner js-file-line"><span class="pl-k">print</span> time.strftime(<span class="pl-s"><span class="pl-pds">&#39;</span><span class="pl-c1">%c</span><span class="pl-pds">&#39;</span></span>), <span class="pl-s"><span class="pl-pds">&#39;</span>start running jobs<span class="pl-pds">&#39;</span></span></td>
+      </tr>
+      <tr>
+        <td id="L123" class="blob-num js-line-number" data-line-number="123"></td>
+        <td id="LC123" class="blob-code blob-code-inner js-file-line"><span class="pl-k">print</span> <span class="pl-s"><span class="pl-pds">&#39;</span><span class="pl-c1">{}</span> running <span class="pl-c1">{}</span> jobs<span class="pl-pds">&#39;</span></span>.format(time.strftime(<span class="pl-s"><span class="pl-pds">&#39;</span><span class="pl-c1">%c</span><span class="pl-pds">&#39;</span></span>), nThreads)</td>
+      </tr>
+      <tr>
+        <td id="L124" class="blob-num js-line-number" data-line-number="124"></td>
+        <td id="LC124" class="blob-code blob-code-inner js-file-line"><span class="pl-k">while</span> <span class="pl-c1">True</span>:</td>
+      </tr>
+      <tr>
+        <td id="L125" class="blob-num js-line-number" data-line-number="125"></td>
+        <td id="LC125" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">if</span> nJobs <span class="pl-k">==</span> nThreads:</td>
+      </tr>
+      <tr>
+        <td id="L126" class="blob-num js-line-number" data-line-number="126"></td>
+        <td id="LC126" class="blob-code blob-code-inner js-file-line">        pool.close()</td>
+      </tr>
+      <tr>
+        <td id="L127" class="blob-num js-line-number" data-line-number="127"></td>
+        <td id="LC127" class="blob-code blob-code-inner js-file-line">        pool.join()</td>
+      </tr>
+      <tr>
+        <td id="L128" class="blob-num js-line-number" data-line-number="128"></td>
+        <td id="LC128" class="blob-code blob-code-inner js-file-line">        <span class="pl-k">for</span> job <span class="pl-k">in</span> results:</td>
+      </tr>
+      <tr>
+        <td id="L129" class="blob-num js-line-number" data-line-number="129"></td>
+        <td id="LC129" class="blob-code blob-code-inner js-file-line">            diver <span class="pl-k">=</span> job.get()</td>
+      </tr>
+      <tr>
+        <td id="L130" class="blob-num js-line-number" data-line-number="130"></td>
+        <td id="LC130" class="blob-code blob-code-inner js-file-line">            DIVERSITY<span class="pl-k">=</span>[x<span class="pl-k">+</span>y <span class="pl-k">for</span> x,y <span class="pl-k">in</span> <span class="pl-c1">zip</span>(DIVERSITY,diver)]</td>
+      </tr>
+      <tr>
+        <td id="L131" class="blob-num js-line-number" data-line-number="131"></td>
+        <td id="LC131" class="blob-code blob-code-inner js-file-line">        pool <span class="pl-k">=</span> mp.Pool(nThreads)</td>
+      </tr>
+      <tr>
+        <td id="L132" class="blob-num js-line-number" data-line-number="132"></td>
+        <td id="LC132" class="blob-code blob-code-inner js-file-line">        nJobs <span class="pl-k">=</span> <span class="pl-c1">0</span></td>
+      </tr>
+      <tr>
+        <td id="L133" class="blob-num js-line-number" data-line-number="133"></td>
+        <td id="LC133" class="blob-code blob-code-inner js-file-line">        results <span class="pl-k">=</span> []</td>
+      </tr>
+      <tr>
+        <td id="L134" class="blob-num js-line-number" data-line-number="134"></td>
+        <td id="LC134" class="blob-code blob-code-inner js-file-line">        <span class="pl-k">print</span> <span class="pl-s"><span class="pl-pds">&#39;</span><span class="pl-c1">{}</span> running <span class="pl-c1">{}</span> jobs<span class="pl-pds">&#39;</span></span>.format(time.strftime(<span class="pl-s"><span class="pl-pds">&#39;</span><span class="pl-c1">%c</span><span class="pl-pds">&#39;</span></span>), nThreads)</td>
+      </tr>
+      <tr>
+        <td id="L135" class="blob-num js-line-number" data-line-number="135"></td>
+        <td id="LC135" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="L136" class="blob-num js-line-number" data-line-number="136"></td>
+        <td id="LC136" class="blob-code blob-code-inner js-file-line">    lines <span class="pl-k">=</span> []</td>
+      </tr>
+      <tr>
+        <td id="L137" class="blob-num js-line-number" data-line-number="137"></td>
+        <td id="LC137" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">for</span> nLines <span class="pl-k">in</span> <span class="pl-c1">xrange</span>(chunkLength):</td>
+      </tr>
+      <tr>
+        <td id="L138" class="blob-num js-line-number" data-line-number="138"></td>
+        <td id="LC138" class="blob-code blob-code-inner js-file-line">        <span class="pl-k">if</span> <span class="pl-k">not</span> line: <span class="pl-c">#if empty</span></td>
+      </tr>
+      <tr>
+        <td id="L139" class="blob-num js-line-number" data-line-number="139"></td>
+        <td id="LC139" class="blob-code blob-code-inner js-file-line">            <span class="pl-k">break</span></td>
+      </tr>
+      <tr>
+        <td id="L140" class="blob-num js-line-number" data-line-number="140"></td>
+        <td id="LC140" class="blob-code blob-code-inner js-file-line">        lines.append(line)</td>
+      </tr>
+      <tr>
+        <td id="L141" class="blob-num js-line-number" data-line-number="141"></td>
+        <td id="LC141" class="blob-code blob-code-inner js-file-line">        line <span class="pl-k">=</span> iptf.readline()</td>
+      </tr>
+      <tr>
+        <td id="L142" class="blob-num js-line-number" data-line-number="142"></td>
+        <td id="LC142" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">if</span> <span class="pl-k">not</span> lines: <span class="pl-c">#if empty</span></td>
+      </tr>
+      <tr>
+        <td id="L143" class="blob-num js-line-number" data-line-number="143"></td>
+        <td id="LC143" class="blob-code blob-code-inner js-file-line">        <span class="pl-k">break</span> </td>
+      </tr>
+      <tr>
+        <td id="L144" class="blob-num js-line-number" data-line-number="144"></td>
+        <td id="LC144" class="blob-code blob-code-inner js-file-line">    job <span class="pl-k">=</span> pool.apply_async(diversity, <span class="pl-smi">args</span><span class="pl-k">=</span>[lines, n, sn])</td>
+      </tr>
+      <tr>
+        <td id="L145" class="blob-num js-line-number" data-line-number="145"></td>
+        <td id="LC145" class="blob-code blob-code-inner js-file-line">    results.append(job)</td>
+      </tr>
+      <tr>
+        <td id="L146" class="blob-num js-line-number" data-line-number="146"></td>
+        <td id="LC146" class="blob-code blob-code-inner js-file-line">    nJobs <span class="pl-k">+=</span> <span class="pl-c1">1</span></td>
+      </tr>
+      <tr>
+        <td id="L147" class="blob-num js-line-number" data-line-number="147"></td>
+        <td id="LC147" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="L148" class="blob-num js-line-number" data-line-number="148"></td>
+        <td id="LC148" class="blob-code blob-code-inner js-file-line"><span class="pl-k">if</span> nJobs:</td>
+      </tr>
+      <tr>
+        <td id="L149" class="blob-num js-line-number" data-line-number="149"></td>
+        <td id="LC149" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">print</span> <span class="pl-s"><span class="pl-pds">&#39;</span><span class="pl-c1">{}</span> running last <span class="pl-c1">{}</span> jobs<span class="pl-pds">&#39;</span></span>.format(time.strftime(<span class="pl-s"><span class="pl-pds">&#39;</span><span class="pl-c1">%c</span><span class="pl-pds">&#39;</span></span>), <span class="pl-c1">len</span>(results))</td>
+      </tr>
+      <tr>
+        <td id="L150" class="blob-num js-line-number" data-line-number="150"></td>
+        <td id="LC150" class="blob-code blob-code-inner js-file-line">    pool.close()</td>
+      </tr>
+      <tr>
+        <td id="L151" class="blob-num js-line-number" data-line-number="151"></td>
+        <td id="LC151" class="blob-code blob-code-inner js-file-line">    pool.join()</td>
+      </tr>
+      <tr>
+        <td id="L152" class="blob-num js-line-number" data-line-number="152"></td>
+        <td id="LC152" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">for</span> job <span class="pl-k">in</span> results:</td>
+      </tr>
+      <tr>
+        <td id="L153" class="blob-num js-line-number" data-line-number="153"></td>
+        <td id="LC153" class="blob-code blob-code-inner js-file-line">        diver<span class="pl-k">=</span>job.get()</td>
+      </tr>
+      <tr>
+        <td id="L154" class="blob-num js-line-number" data-line-number="154"></td>
+        <td id="LC154" class="blob-code blob-code-inner js-file-line">        DIVERSITY<span class="pl-k">=</span>[x<span class="pl-k">+</span>y <span class="pl-k">for</span> x,y <span class="pl-k">in</span> <span class="pl-c1">zip</span>(DIVERSITY,diver)]</td>
+      </tr>
+      <tr>
+        <td id="L155" class="blob-num js-line-number" data-line-number="155"></td>
+        <td id="LC155" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="L156" class="blob-num js-line-number" data-line-number="156"></td>
+        <td id="LC156" class="blob-code blob-code-inner js-file-line">iptf.close()</td>
+      </tr>
+      <tr>
+        <td id="L157" class="blob-num js-line-number" data-line-number="157"></td>
+        <td id="LC157" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="L158" class="blob-num js-line-number" data-line-number="158"></td>
+        <td id="LC158" class="blob-code blob-code-inner js-file-line"><span class="pl-k">try</span>:</td>
+      </tr>
+      <tr>
+        <td id="L159" class="blob-num js-line-number" data-line-number="159"></td>
+        <td id="LC159" class="blob-code blob-code-inner js-file-line">    outfile <span class="pl-k">=</span> <span class="pl-c1">open</span>(options.otpf<span class="pl-k">+</span><span class="pl-s"><span class="pl-pds">&#39;</span>_sharediversity.wc<span class="pl-pds">&#39;</span></span>,<span class="pl-s"><span class="pl-pds">&#39;</span>w<span class="pl-pds">&#39;</span></span>)</td>
+      </tr>
+      <tr>
+        <td id="L160" class="blob-num js-line-number" data-line-number="160"></td>
+        <td id="LC160" class="blob-code blob-code-inner js-file-line"><span class="pl-k">except</span> <span class="pl-c1">IOError</span>:</td>
+      </tr>
+      <tr>
+        <td id="L161" class="blob-num js-line-number" data-line-number="161"></td>
+        <td id="LC161" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">print</span> <span class="pl-s"><span class="pl-pds">&#39;</span>Cannot open infile for writing<span class="pl-pds">&#39;</span></span></td>
+      </tr>
+      <tr>
+        <td id="L162" class="blob-num js-line-number" data-line-number="162"></td>
+        <td id="LC162" class="blob-code blob-code-inner js-file-line">    sys.exit()</td>
+      </tr>
+      <tr>
+        <td id="L163" class="blob-num js-line-number" data-line-number="163"></td>
+        <td id="LC163" class="blob-code blob-code-inner js-file-line"><span class="pl-k">if</span> <span class="pl-c1">len</span>(sl)<span class="pl-k">==</span><span class="pl-c1">0</span>:</td>
+      </tr>
+      <tr>
+        <td id="L164" class="blob-num js-line-number" data-line-number="164"></td>
+        <td id="LC164" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">for</span> i <span class="pl-k">in</span> <span class="pl-c1">range</span>(sn):</td>
+      </tr>
+      <tr>
+        <td id="L165" class="blob-num js-line-number" data-line-number="165"></td>
+        <td id="LC165" class="blob-code blob-code-inner js-file-line">        outfile.write(<span class="pl-s"><span class="pl-pds">&#39;</span><span class="pl-c1">{}{}{}{}{}</span><span class="pl-cce">\n</span><span class="pl-pds">&#39;</span></span>.format(<span class="pl-s"><span class="pl-pds">&quot;</span>Sample<span class="pl-pds">&quot;</span></span>,i<span class="pl-k">+</span><span class="pl-c1">1</span>,<span class="pl-s"><span class="pl-pds">&quot;</span>: <span class="pl-pds">&quot;</span></span>,DIVERSITY[i],<span class="pl-s"><span class="pl-pds">&quot;</span> kmers<span class="pl-pds">&quot;</span></span>))</td>
+      </tr>
+      <tr>
+        <td id="L166" class="blob-num js-line-number" data-line-number="166"></td>
+        <td id="LC166" class="blob-code blob-code-inner js-file-line"><span class="pl-k">else</span>:</td>
+      </tr>
+      <tr>
+        <td id="L167" class="blob-num js-line-number" data-line-number="167"></td>
+        <td id="LC167" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">for</span> i <span class="pl-k">in</span> <span class="pl-c1">range</span>(sn):</td>
+      </tr>
+      <tr>
+        <td id="L168" class="blob-num js-line-number" data-line-number="168"></td>
+        <td id="LC168" class="blob-code blob-code-inner js-file-line">        outfile.write(<span class="pl-s"><span class="pl-pds">&#39;</span><span class="pl-c1">{}{}{}{}</span><span class="pl-cce">\n</span><span class="pl-pds">&#39;</span></span>.format(sl[i],<span class="pl-s"><span class="pl-pds">&quot;</span>: <span class="pl-pds">&quot;</span></span>,DIVERSITY[i],<span class="pl-s"><span class="pl-pds">&quot;</span> kmers<span class="pl-pds">&quot;</span></span>))</td>
+      </tr>
+      <tr>
+        <td id="L169" class="blob-num js-line-number" data-line-number="169"></td>
+        <td id="LC169" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="L170" class="blob-num js-line-number" data-line-number="170"></td>
+        <td id="LC170" class="blob-code blob-code-inner js-file-line"><span class="pl-k">print</span> time.strftime(<span class="pl-s"><span class="pl-pds">&quot;</span><span class="pl-c1">%c</span><span class="pl-pds">&quot;</span></span>), <span class="pl-s"><span class="pl-pds">&#39;</span>end<span class="pl-pds">&#39;</span></span></td>
+      </tr>
+      <tr>
+        <td id="L171" class="blob-num js-line-number" data-line-number="171"></td>
+        <td id="LC171" class="blob-code blob-code-inner js-file-line">outfile.close()</td>
       </tr>
 </table>
 
@@ -1163,7 +1388,7 @@
       <span class="mega-octicon octicon-mark-github" title="GitHub"></span>
 </a>
     <ul class="site-footer-links">
-      <li>&copy; 2015 <span title="0.06742s from github-fe141-cp1-prd.iad.github.net">GitHub</span>, Inc.</li>
+      <li>&copy; 2015 <span title="0.09391s from github-fe125-cp1-prd.iad.github.net">GitHub</span>, Inc.</li>
         <li><a href="https://github.com/site/terms" data-ga-click="Footer, go to terms, text:terms">Terms</a></li>
         <li><a href="https://github.com/site/privacy" data-ga-click="Footer, go to privacy, text:privacy">Privacy</a></li>
         <li><a href="https://github.com/security" data-ga-click="Footer, go to security, text:security">Security</a></li>
