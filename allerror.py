@@ -1,7 +1,10 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 #
-#  Costus_aaf_sh_generater.py
+#  allerror.py
+#  This script takes a kmer_merge (shared_by_all) output and prints the kmers that has a
+#  frequency of 1 for all the species (errors in all samples)
+#  
 #
 #  Copyright 2014 Huan Fan <hfan22@wisc.edu>
 #
@@ -36,8 +39,8 @@ parser = OptionParser(Usage, version = version)
 input = file(sys.argv[1])
 
 for line in input:
-	line = line.split()
-	if line[1]==line[3]==line[5]==1:
+	line = line.strip('\n').split('\t')
+	if line[1]==line[3]==line[5]=='1':
 		print line[0]
 
 input.close()
