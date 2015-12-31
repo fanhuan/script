@@ -1,0 +1,12 @@
+zcat Baboon.pkdat.gz | cut -f 2 > Baboon.count
+zcat Bushbaby.pkdat.gz | cut -f 2 > Bushbaby.count
+zcat Chimpanzee.pkdat.gz | cut -f 2 > Chimpanzee.count
+zcat Gibbon.pkdat.gz | cut -f 2 > Gibbon.count
+zcat Gorilla.pkdat.gz | cut -f 2 > Gorilla.count
+zcat Human.pkdat.gz | cut -f 2 > Human.count
+zcat Macaque.pkdat.gz | cut -f 2 > Macaque.count
+zcat Marmoset.pkdat.gz | cut -f 2 > Marmoset.count
+zcat Ms_lemur.pkdat.gz | cut -f 2 > Ms_lemur.count
+zcat Orangutan.pkdat.gz | cut -f 2 > Orangutan.count
+zcat Rabbit.pkdat.gz | cut -f 2 > Rabbit.count
+zcat Tarsier.pkdat.gz | cut -f 2 > Tarsier.count
