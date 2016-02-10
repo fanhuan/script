@@ -21,7 +21,7 @@ def smartopen(filename,*args,**kwargs):
         return open(filename,*args,**kwargs)
 
 Usage = "%prog [options] <data directory> <sequence format, fasta or fastq>"
-version = '%prog 20150417.1'
+version = '%prog 20160107.1'
 parser = OptionParser(Usage, version = version)
 (options, args) = parser.parse_args()
 
