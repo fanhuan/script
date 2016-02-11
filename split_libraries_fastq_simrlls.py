@@ -3,9 +3,9 @@
 #
 #  split_libraries_fastq_FH.py
 #
-#  This script is written for Laura Ladwig's metagenomic data. She had miseq data of fungi (ITS) and bacteria(*S) from 88 samples. The data come in one file. Now I need to seperate them into 88 separate ones, which is usually called multiperplexing in metagenomic world.
+#  This script is written for spliting simrlls simulation data. This also includes 1) getting rid of barcode 2) introduce random dropout rate
 #  
-#  Copyright 2015 Huan Fan <hfan22@wisc.edu>
+#  Copyright 2016 Huan Fan <hfan22@wisc.edu>
 #  
 #  This program is free software; you can redistribute it and/or modify
 #  it under the terms of the GNU General Public License as published by
@@ -23,7 +23,7 @@
 #  MA 02110-1301, USA.
 #  
 
-import sys, gzip, bz2, os, time, math, re
+import sys, gzip, bz2, os, time, math, re, argparse,random
 import multiprocessing as mp
 from optparse import OptionParser
 
@@ -41,86 +41,49 @@ def smartopen(filename,*args,**kwargs):
 def is_exe(fpath):
     return os.path.isfile(fpath) and os.access(fpath, os.X_OK)
 
-def countShared(lines, sn): #count nshare only, for shared kmer table
-	shared = [[0] * sn for i in xrange(sn)]
-	for line in lines:
-		line = line.split()
-		if len(line) == sn+1:
-			line = line[1:]
-		line = [int(i) for i in line]
-		for i in xrange(sn):
-			for j in xrange(i + 1, sn):
-				if line[i] > 0 and line[j] > 0:
-					shared[i][j] += 1
-	return shared
+
 
 usage = "usage: %prog [options]"
-version = '%prog 20151230.1'
+version = '%prog 20160211.1'
 parser = OptionParser(usage = usage, version = version)
-parser.add_option("-i", dest = "index",
-                  help = "the index file in fastq format")
-parser.add_option("--R1", dest = "R1",
-                  help = "pair-end file 1")
-parser.add_option("--R2", dest = "R2",
-                  help = "pair-end file 2")
+parser.add_option("-i", dest = "input",
+                  help = "fastq file simulated from simrlls")
+parser.add_option("-r", dest = "rate", type = float, default = 0,
+                  help = "dropout rate")
+parser.add_option("-d", dest = "dir", default = "simrlls",
+                  help = "output directory for fasta files after seperation")
 
 (options, args) = parser.parse_args()
-    
-index_handle = smartopen(options.index)
-R1_handle =  smartopen(options.R1)
-R2_handle =  smartopen(options.R2)
 
-###check the input files:
-if not os.path.exists(options.index):
-    print 'Cannot find index file {}'.format(options.index)
+input_handle = smartopen(options.input)
+rate = options.rate
+outputDir = options.dir
+
+###check user input:
+if not os.path.exists(options.input):
+    print('Cannot find input file {}'.format(options.input))
     sys.exit(2)
 
-if not os.path.exists(options.R1):
-    print 'Cannot find pair-end file 1 {}'.format(options.R1)
+if os.path.exists(outputDir):
+    print('The output directory {} already exist'.format(options.dir))
     sys.exit(2)
+else:
+    os.system('mkdir {}'.format(outputDir))
 
-if not os.path.exists(options.R2):
-    print 'Cannot find pair-end file 1 {}'.format(options.R2)
-    sys.exit(2)
-
-# read in the code files
-barcode_sample = {}
-tag_barcode = {}
-files={}
-bacteria_filehandle=file('bacteria_SampleCode.txt')
-fungi_filehandle=file('fungi_SampleCode.txt')
-for line in bacteria_filehandle:
-    if line.startswith('#'):
-        continue
-    else:
-        barcode_sample[line.split()[1]]='bac_'+line.split()[-1]
-for line in fungi_filehandle:
-    if line.startswith('#'):
-        continue
-    else:
-        barcode_sample[line.split()[1]]='fun_'+line.split()[-1]
-
+### Start processing input file
 from Bio import SeqIO
+samples = {} # {sample name: sample output file handle}
 
-for seq_record in SeqIO.parse(index_handle,"fastq"):
-    if str(seq_record.seq) in barcode_sample:
-        tag_barcode[seq_record.id]= str(seq_record.seq)
+for seq_record in SeqIO.parse(input_handle,"fastq"):
+    if rate < random.random():
+        sample = seq_record.id.split('_')[2]
+        if sample in samples:
+            samples[sample].write('>'+seq_record.id+'\n')
+            samples[sample].write(str(seq_record.seq[6:])+'\n')
+        else:
+            samples[sample] = open(outputDir+'/'+sample+'.fa','w')
 
-index_handle.close()
-for key in barcode_sample:
-    files[key] = open('%s.fa' %barcode_sample[key], 'w')
+for key in samples:
+    samples[key].close()
 
-from itertools import izip
-for line1, line2 in izip(R1_handle,R2_handle):
-    if line1.startswith('@M01315'):
-        tag = line1.split()[0].lstrip('@')
-        if tag in tag_barcode:
-            files[tag_barcode[tag]].write('>'+line1.lstrip('@'))
-            files[tag_barcode[tag]].write(R1_handle.next())
-            files[tag_barcode[tag]].write('>'+line2.lstrip('@'))
-            files[tag_barcode[tag]].write(R2_handle.next())
-
-for key in barcode_sample:
-    files[key].close()
-R1_handle.close()
-R2_handle.close()
+input_handle.close()
