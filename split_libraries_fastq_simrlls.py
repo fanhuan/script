@@ -44,14 +44,14 @@ def is_exe(fpath):
 
 
 usage = "usage: %prog [options]"
-version = '%prog 20160211.1'
+version = '%prog 20160212.1'
 parser = OptionParser(usage = usage, version = version)
 parser.add_option("-i", dest = "input",
                   help = "fastq file simulated from simrlls")
 parser.add_option("-r", dest = "rate", type = float, default = 0,
                   help = "dropout rate")
-parser.add_option("-d", dest = "dir", default = "simrlls",
-                  help = "output directory for fasta files after seperation")
+parser.add_option("-d", dest = "dir", default = "test",
+                  help = "output directory for fasta files after seperation, default = test")
 
 (options, args) = parser.parse_args()
 
@@ -69,21 +69,40 @@ if os.path.exists(outputDir):
     sys.exit(2)
 else:
     os.system('mkdir {}'.format(outputDir))
+    os.system('mkdir {}_sba'.format(outputDir))
 
 ### Start processing input file
+# Make the before selection directory
 from Bio import SeqIO
 samples = {} # {sample name: sample output file handle}
-
+sba = {} #{sample name: list of locus
 for seq_record in SeqIO.parse(input_handle,"fastq"):
     if rate < random.random():
         sample = seq_record.id.split('_')[2]
         if sample in samples:
             samples[sample].write('>'+seq_record.id+'\n')
             samples[sample].write(str(seq_record.seq[6:])+'\n')
+            sba[sample].append(seq_record.id.split('_')[1][5:])
         else:
             samples[sample] = open(outputDir+'/'+sample+'.fa','w')
-
+            sba[sample]=[seq_record.id.split('_')[1][5:]]
 for key in samples:
     samples[key].close()
 
-input_handle.close()
+# Make the sba directory
+input_handle.seek(0) #back to the beginning of the file
+print sba
+sba_list = list(reduce(set.intersection,map(set,sba.values())))
+print sba_list
+samples_sba = {}
+for seq_record in SeqIO.parse(input_handle,"fastq"):
+    if seq_record.id.split('_')[1][5:] in sba_list:
+        sample = seq_record.id.split('_')[2]
+        if sample in samples_sba:
+            samples_sba[sample].write('>'+seq_record.id+'\n')
+            samples_sba[sample].write(str(seq_record.seq[6:])+'\n')
+        else:
+            samples_sba[sample] = open(outputDir+'_sba/'+sample+'.fa','w')
+
+for key in samples_sba:
+    samples[key].close()
