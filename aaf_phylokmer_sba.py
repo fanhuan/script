@@ -46,7 +46,7 @@ def runJob(command, sim):
 
 
 usage = "usage: %prog [options]"
-version = '%prog 20160212.1'
+version = '%prog 20160215.1'
 parser = OptionParser(usage = usage, version = version)
 parser.add_option("-k", dest = "kLen", type = int, default = 25, 
                   help = "k-mer length, default = 25")
@@ -247,7 +247,7 @@ for i, sample in enumerate(samples):
 command += ' | cut -f {} | gzip >> {}'.format(','.join(cut), outFile)
 command_sba += ' | cut -f 1 > test.kmer'
 sba_sh = open("kmer_merge.sh",'w')
-sba_sh.write(sba_sh)
+sba_sh.write(command_sba)
 sba_sh.close()
 
 print '\n', time.strftime('%c')
