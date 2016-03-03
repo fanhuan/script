@@ -44,7 +44,7 @@ def is_exe(fpath):
 
 
 usage = "usage: %prog [options]"
-version = '%prog 20160212.1'
+version = '%prog 20160301.1'
 parser = OptionParser(usage = usage, version = version)
 parser.add_option("-i", dest = "input",
                   help = "fastq file simulated from simrlls")
@@ -64,12 +64,14 @@ if not os.path.exists(options.input):
     print('Cannot find input file {}'.format(options.input))
     sys.exit(2)
 
-if os.path.exists(outputDir):
-    print('The output directory {} already exist'.format(options.dir))
-    sys.exit(2)
-else:
-    os.system('mkdir {}'.format(outputDir))
-    os.system('mkdir {}_sba'.format(outputDir))
+if os.path.exists(outputDir+'_r'+str(rate)):
+    print('The output directory {}_r{} already exist.'.format(outputDir,str(rate)))
+    print('It is going to be over written.')
+    os.system('rm -r {}_r{}'.format(outputDir,str(rate)))
+    os.system('rm -r {}_r{}_sba'.format(outputDir,str(rate)))
+
+os.system('mkdir {}_r{}'.format(outputDir,str(rate)))
+os.system('mkdir {}_r{}_sba'.format(outputDir,str(rate)))
 
 ### Start processing input file
 # Make the before selection directory
@@ -84,16 +86,14 @@ for seq_record in SeqIO.parse(input_handle,"fastq"):
             samples[sample].write(str(seq_record.seq[6:])+'\n')
             sba[sample].append(seq_record.id.split('_')[1][5:])
         else:
-            samples[sample] = open(outputDir+'/'+sample+'.fa','w')
+            samples[sample] = open(outputDir+'_r'+str(rate)+'/'+sample+'.fa','w')
             sba[sample]=[seq_record.id.split('_')[1][5:]]
 for key in samples:
     samples[key].close()
 
 # Make the sba directory
 input_handle.seek(0) #back to the beginning of the file
-print sba
 sba_list = list(reduce(set.intersection,map(set,sba.values())))
-print sba_list
 samples_sba = {}
 for seq_record in SeqIO.parse(input_handle,"fastq"):
     if seq_record.id.split('_')[1][5:] in sba_list:
@@ -102,7 +102,7 @@ for seq_record in SeqIO.parse(input_handle,"fastq"):
             samples_sba[sample].write('>'+seq_record.id+'\n')
             samples_sba[sample].write(str(seq_record.seq[6:])+'\n')
         else:
-            samples_sba[sample] = open(outputDir+'_sba/'+sample+'.fa','w')
+            samples_sba[sample] = open(outputDir+'_r'+str(rate)+'_sba/'+sample+'.fa','w')
 
 for key in samples_sba:
     samples[key].close()
