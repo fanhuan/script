@@ -27,9 +27,9 @@ import multiprocessing as mp
 from optparse import OptionParser
 
 def countShared(lines, sn): #count nshare only, for shared kmer table
-    shared = [[0] * sn for i in xrange(sn)]
-    for line in lines:
-        line = line.split()
+	shared = [[0] * sn for i in xrange(sn)]
+	for line in lines:
+		line = line.split()
 		if len(line) == sn+1:
 			line = line[1:]
 		line = [int(i) for i in line]
@@ -37,7 +37,7 @@ def countShared(lines, sn): #count nshare only, for shared kmer table
 			for j in xrange(i + 1, sn):
 				if line[i]*line[j] != 0:
 					shared[i][j] += 1
-    return shared
+	return shared
 
 def smartopen(filename,*args,**kwargs):
     '''opens with open unless file ends in .gz, then use gzip.open

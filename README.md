@@ -15,6 +15,9 @@ is a perl script that takes a fastq file (not compressed) and print to screen th
 ###fq_to_fa.py
 is a python script that takes a fastq file (could be compressed) and print to screen the fasta format of it. Use in combinaiton with | gzip >> *.fa.gz
 
+###seq_stats.py
+is used to calculate the total, mean, and variance of seq lengths in a seq file.
+
 ###split_libraries_fastq_FH.py
 is used to split Laura's metagenomic data into seperate files for AAF
 

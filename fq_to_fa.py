@@ -33,9 +33,10 @@ def smartopen(filename,*args,**kwargs):
 
 fh = smartopen(sys.argv[1])
 
-for line in fh:
-    if line.startswith('@'):
-        print('>'+line.lstrip('@').rstrip())
-        print(fh.next().rstrip())
+for i,line in enumerate(fh):
+	if i % 4 == 0:
+		print('>'+line.lstrip('@').rstrip())
+	if i % 4 == 1:
+		print(line.rstrip())
 
 fh.close()
