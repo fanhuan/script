@@ -52,6 +52,7 @@ parser.add_option("-i", dest = "input",
 (options, args) = parser.parse_args()
 
 input_handle = smartopen(options.input)
+output_handle = open(options.input.split('.')[0]+'.tag','w')
 
 ###check user input:
 if not os.path.exists(options.input):
@@ -65,7 +66,10 @@ if line.startswith('>'):
 		if i % 2 == 1:
 			print(line)
 elif line.startswith('@'):
-	print(line.split('_')[2],line.split('_')[3])
+	output_handle.write('%s\t%s\n'%(line.split('_')[1],line.split('_')[2]))
 	for i,line in enumerate(input_handle):
 		if i % 4 == 3:
-			print(line.split('_')[2],line.split('_')[3])
+			output_handle.write('%s\t%s\n'%(line.split('_')[1],line.split('_')[2]))
+
+input_handle.close()
+output_handle.close()
