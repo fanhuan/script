@@ -1,0 +1,8 @@
+setup.py
+ReferenceFree/Pipeline.py
+ReferenceFree/__init__.py
+ReferenceFree/assemblers.py
+ReferenceFreeTools.egg-info/PKG-INFO
+ReferenceFreeTools.egg-info/SOURCES.txt
+ReferenceFreeTools.egg-info/dependency_links.txt
+ReferenceFreeTools.egg-info/top_level.txt

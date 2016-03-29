@@ -1,0 +1,24 @@
+version 1.1.3 (11/18/12):
+
+phylokmer package( Jue Ruan):
+changes:
+1, update hash functions for kmer_count, kmer_countx, kmer_cluster, kmer_cluster_id. Much faster!
+2, in kmer_countx, enlarge the maximum kmer_size from 31 to 57
+
+
+
+Version 1.1.2 (9/29/12):
+
+start this log
+
+phylokmer package (Jue Ruan):
+Changes:
+1, phylokmer.pl can recognize gz files
+2, kmer_count can output gzip file using '-o XXX.gz'
+3, -K <maximum_kmers> in kmer_count, kmer_count will output limited number of kmers, default: unlimited
+4, kmer_count will print number of kmers on stdout
+
+Version 1.1.1 (9/14/12):
+
+Support for SOAPdenovo Assembly added
+Minor bug fixes
