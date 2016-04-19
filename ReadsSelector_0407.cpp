@@ -14,7 +14,7 @@ const size_t Max_Kmer_Size=100;
 /*
 the latest revision:
 There is a -MinMatch parameter, if the value is >=2, each end is required to have one match,
-or there are at least this number of consecutive matches in a single read. 
+or there are at least this number of non-consecutive matches in a single read. 
 */
 
 
@@ -353,17 +353,35 @@ int main(int argc, char* argv[])
 		return -1;
 	}
 
+	string suffix;
+	
+
 	bool paired_mode=0;
 	if(search_filenames.empty())
 	{
 		paired_mode=1;
 		cout<<search_filenames1.size()<<" input file(s)."<<endl;
+		if (search_filenames1[0][search_filenames1[0].size() - 1] == 'a' || search_filenames1[0][search_filenames1[0].size() - 1] == 'A' || FA == 1)
+		{
+			suffix = ".fa";
+		}
+		if ((search_filenames1[0][search_filenames1[0].size() - 1] == 'q' || search_filenames1[0][search_filenames1[0].size() - 1] == 'Q' )&& FA == 0)
+		{
+			suffix = ".fq";
+		}
 	}
 	else
 	{
 		paired_mode=0;
 		cout<<search_filenames.size()<<" inputs."<<endl;
-		
+		if (search_filenames[0][search_filenames[0].size() - 1] == 'a' || search_filenames[0][search_filenames[0].size() - 1] == 'A' || FA == 1)
+		{
+			suffix = ".fa";
+		}
+		if (search_filenames[0][search_filenames[0].size() - 1] == 'q' || search_filenames[0][search_filenames[0].size() - 1] == 'Q' || FA == 0)
+		{
+			suffix = ".fq";
+		}
 	}
 
 	uint64_t *Kmer_bits;
@@ -474,8 +492,8 @@ int main(int argc, char* argv[])
 
 		size_t Reads_found=0;
 		string out_filename1,out_filename2;
-		out_filename1=out_filename+"1";
-		out_filename2=out_filename+"2";
+		out_filename1 = out_filename + "_R1" + suffix;
+		out_filename2 = out_filename + "_R2" + suffix;
 		ofstream outfile1(out_filename1.c_str());
 		ofstream outfile2(out_filename2.c_str());
 		//int nr=0;
@@ -543,7 +561,7 @@ int main(int argc, char* argv[])
 						}
 				
 					}
-					if (found1==0)
+					if (found1==0||MinMatch>1)
 					{
 						
 						int seq2_sz=in_seq1.size();
@@ -579,7 +597,7 @@ int main(int argc, char* argv[])
 						}
 						
 					}
-					if (MinMatch > 2)
+					if (MinMatch >= 2)
 					{
 						found = found1 & found2;
 
@@ -643,7 +661,7 @@ int main(int argc, char* argv[])
 
 		size_t Reads_found=0;
 		string out_filename1;
-		out_filename1=out_filename;
+		out_filename1 = out_filename + suffix;
 		ofstream outfile1(out_filename1.c_str());
 		//int nr=0;
 		

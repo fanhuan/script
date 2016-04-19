@@ -46,7 +46,7 @@ def runJob(command, sim):
 
 
 usage = "usage: %prog [options]"
-version = '%prog 20160329.1'
+version = '%prog 20160401.1'
 parser = OptionParser(usage = usage, version = version)
 parser.add_option("-k", dest = "kLen", type = int, default = 25, 
                   help = "k-mer length, default = 25")
@@ -61,7 +61,7 @@ parser.add_option("-d", dest = "dataDir", default = 'data',
 parser.add_option("-G", dest = "memSize", type = int, default = 4,
                   help = "total memory limit (in GB), default = 4")
 parser.add_option("-W", dest = "withKmer", action = 'store_true',
-                  help = "include k-mers in the shared k-mer table, otherwise not")
+                  help = "include k-mers in the shared k-mer table, otherwise not, default = false")
 parser.add_option("-s", dest = "sim", action = 'store_true',
                   help = "only print commands, do not run them")
 
