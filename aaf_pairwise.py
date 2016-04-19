@@ -37,12 +37,6 @@ def smartopen(filename,*args,**kwargs):
 def is_exe(fpath):
     return os.path.isfile(fpath) and os.access(fpath, os.X_OK)
 
-def runJob(command, sim):
-    print command
-    if not sim:
-        os.system(command)
-    return 1
-
 
 
 usage = "usage: %prog [options]"
@@ -50,12 +44,8 @@ version = '%prog 20160401.1'
 parser = OptionParser(usage = usage, version = version)
 parser.add_option("-k", dest = "kLen", type = int, default = 25, 
                   help = "k-mer length, default = 25")
-parser.add_option("-t", dest = "nThreads", type = int, default = 1, 
-                  help = "number of threads to use, default = 1")
 parser.add_option("-n", dest = "filter", type = int, default = 1,
                   help = "k-mer filtering threshold, default = 1")
-parser.add_option("-o", dest = "outFile", default = 'phylokmer.dat.gz',
-                  help = "output file, default = phylokmer.dat.gz")
 parser.add_option("-d", dest = "dataDir", default = 'data',
                   help = "directory containing the data, default = data/")
 parser.add_option("-G", dest = "memSize", type = int, default = 4,
@@ -67,12 +57,8 @@ parser.add_option("-s", dest = "sim", action = 'store_true',
 
 (options, args) = parser.parse_args()
 
-nThreads = options.nThreads
 n = options.filter
-memPerThread = int(options.memSize / float(nThreads))
-if not memPerThread:
-    print 'Not enough memory, decrease nThreads or increase memSize'
-    sys.exit()
+memSize = options.memSize
     
 
 ###check the data directory:
@@ -114,16 +100,6 @@ if os.system('which kmer_merge > /dev/null'):
 else:
     filt = 'kmer_merge'
 
-if not options.sim:
-    if os.path.exists(os.path.join(options.dataDir, options.outFile)):
-        s = raw_input('{} is already in your data directory, overwrite it? Y/N '
-                      .format(options.outFile))
-        if s == 'Y' or s == 'y':
-          print'{} is going to be overwritten'.format(options.outFile)
-        else:
-          print'No overwritting, exit'
-          sys.exit(2)
-
 ###Get sample list:
 samples = []
 for fileName in os.listdir(options.dataDir):
@@ -151,7 +127,7 @@ for sample in samples:
 for i, sample in enumerate(samples):
 	outFile = '{}.pkdat.gz'.format(sample)
 	command = '{} -l {} -n {} -G {} -o {} -f '.format(kmerCount, options.kLen,
-               n, memPerThread, outFile)
+               n, memSize, outFile)
 	command1 = ''
 	for inputFile in os.listdir(os.path.join(options.dataDir, sample)):
         	inputFile = os.path.join(options.dataDir, sample, inputFile)
