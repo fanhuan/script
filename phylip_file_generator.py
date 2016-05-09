@@ -34,26 +34,17 @@ def smartopen(filename,*args,**kwargs):
     else:
         return open(filename,*args,**kwargs)
 
-def is_exe(fpath):
-    return os.path.isfile(fpath) and os.access(fpath, os.X_OK)
-
-def runJob(command, sim):
-    print command
-    if not sim:
-        os.system(command)
-    return 1
-
-
-
 usage = "usage: %prog [options]"
-version = '%prog 20160505.1'
+version = '%prog 20160509.1'
 parser = OptionParser(usage = usage, version = version)
 parser.add_option("-d", dest = "dataDir", default = 'data',
                   help = "directory containing the data, default = data/")
+parser.add_option("-L", dest = "nloci", default = 100, type= int,
+                  help = "number of loci to keep, default = 100")
 
 (options, args) = parser.parse_args()
 
-outhandle = file(options.dataDir+'.phylip', 'w')
+outhandle = file(os.path.basename(options.dataDir.rstrip('/'))+'.phylip', 'w')
 
 ###check the data directory:
 if not os.path.isdir(options.dataDir):
@@ -74,135 +65,42 @@ for fileName in os.listdir(options.dataDir):
                 if sample in samples:
                     print 'Error, redundant sample or file names. Aborting!'
                     sys.exit(3)
-            os.system("mkdir {}/{}".format(options.dataDir,sample))
-            os.system("mv {}/{} {}/{}/".format(options.dataDir,fileName,options.dataDir,sample))
             samples.append(sample)
 samples.sort()
-outhandle.write(str(len(samples)+'\n')
+outhandle.write(str(len(samples))+'\n')
 
 for sample in samples:
-    outhandle.write(sample+'\t')
-	filehandle = open(os.path.join(options.dataDir, fileName+'.fa'))
+    if len(sample) < 10:
+        outhandle.write(sample+' '*(10-len(sample)))
+    else:
+        outhandle.write(sample[:9]+' ')
+    filehandle = open(os.path.join(options.dataDir, sample+'.fa'))
     i = 0
-	for line in filehandle:
+    line = filehandle.readline()
+    while line:
         if line.startswith('>'):
-            if line.split('_')[1].lstrip('locus') != str(i):
-                filehandle.write(line.rstrip())
-                else:
-                
-        i += 1
-                
-        
+            locus = int(line.split('_')[1].lstrip('locus'))
+            if locus < options.nloci:
+                if locus == i:
+                    line = filehandle.readline().rstrip()
+                    outhandle.write(line)
+                    read_len = len(line)
+                elif locus > i:
+                    line = filehandle.readline().rstrip()
+                    gap = locus-i
+                    read_len = len(line)
+                    outhandle.write('-'*read_len*gap)
+                    outhandle.write(line)
+                    i = locus
+                i += 1
+        line = filehandle.readline()
+    if locus < options.nloci-1:
+        gap = locus-i
+        outhandle.write('-'*read_len*gap)
+    outhandle.write('\n')
+    filehandle.close()
+outhandle.close()
+print read_len*options.nloci
 		
 
 
-###Prepare kmer_count jobs
-jobList = []
-for sample in samples:
-	outFile = '{}.pkdat.gz'.format(sample)
-	command = '{} -l {} -n {} -G {} -o {} -f '.format(kmerCount, options.kLen,
-               n, memPerThread, outFile)
-	command1 = ''
-	for inputFile in os.listdir(os.path.join(options.dataDir, sample)):
-        	inputFile = os.path.join(options.dataDir, sample, inputFile)
-        	handle = smartopen(inputFile)
-        	firstChar = handle.read(1)
-        	if firstChar == '@':
-            		seqFormat = 'FQ'
-        	elif firstChar == '>':
-            		seqFormat = 'FA'
-        	else:
-            		print 'Error, file {} is not FA or FQ format. Aborting!'.\
-                   		format(inputFile)
-            		sys.exit(3)
-		command1 += " -i '{}'".format(inputFile)
-    	command += '{}{}> {}.wc'.format(seqFormat,command1,sample)
-    	jobList.append(command)
-jobList = jobList[::-1]
-
-###Run jobs
-pool = mp.Pool(nThreads)
-jobs = []
-nJobs = 0
-batch = 0
-count = 0
-nBatches = len(jobList) / nThreads
-if len(jobList) % nThreads:
-    nBatches += 1
-
-while 1:
-    if nJobs == nThreads:
-        batch += 1
-        print '\n', time.strftime('%c')
-        print "running batch {}/{}".format(batch, nBatches)
-        for job in jobs:
-            pool.apply_async(runJob, args=[job, options.sim])
-        pool.close()
-        pool.join()
-        pool = mp.Pool(nThreads)
-        nJobs = 0
-        jobs = []
-    if jobList:
-        command = jobList.pop()
-        jobs.append(command)
-        #job = pool.apply_async(runJob, args=[command, options.sim])
-        nJobs += 1
-    else:
-        break 
-    count += 1
-
-if nJobs:
-    print '\n', time.strftime('%c')
-    print "running last batch"
-    for job in jobs:
-        pool.apply_async(runJob, args=[job, options.sim])
-    pool.close()
-    pool.join()
-
-###Merge output wc files
-if not options.sim:
-    if options.outFile.endswith('.gz'):
-        divFile = options.outFile.rstrip('.gz')+'.wc'
-    else:
-        divFile = options.outFile + '.wc'
-    handle = open(divFile, 'w')
-    handle.close()
-    for sample in samples:
-        kmerFile = sample + '.wc'
-        os.system('cat {} >> {}'.format(kmerFile, divFile))
-        os.remove(kmerFile)
-
-###Run kmer_merge
-if options.outFile.endswith('.gz'):
-    outFile = options.outFile
-else:
-    outFile = options.outFile+'.gz'
-if not options.sim:
-    handle = smartopen(outFile, 'w')
-    print >> handle, '#-k {}'.format(options.kLen)
-    print >> handle, '#-n {}'.format(n)
-    for i, sample in enumerate(samples):
-        print >> handle, '#sample{}: {}'.format(i + 1, sample)
-    handle.close()
-
-command = "{} -k s -c -d '0' -a 'T,M,F'".format(filt)
-command_sba = "{} -k s -c -d '0' -a A".format(filt)
-cut = []
-if options.withKmer:
-	cut.append('1')
-for i, sample in enumerate(samples):
-    command += " '{}.pkdat.gz'".format(sample)
-    command_sba += " '{}.pkdat.gz'".format(sample)
-    cut.append(str((i + 1) * 2))
-
-command += ' | cut -f {} | gzip >> {}'.format(','.join(cut), outFile)
-command_sba += ' | cut -f 1 > test.kmer'
-sba_sh = open("kmer_merge.sh",'w')
-sba_sh.write(command_sba)
-sba_sh.close()
-
-print '\n', time.strftime('%c')
-print command
-if not options.sim:
-    os.system(command)
-print time.strftime('%c')
