@@ -67,7 +67,6 @@ for fileName in os.listdir(options.dataDir):
                     sys.exit(3)
             samples.append(sample)
 samples.sort()
-outhandle.write(str(len(samples))+'\n')
 
 for sample in samples:
     if len(sample) < 10:
@@ -101,7 +100,7 @@ for sample in samples:
     outhandle.write('\n')
     filehandle.close()
 outhandle.close()
-print read_len*options.nloci
+print '{} {}'.format(len(samples),read_len*options.nloci)
 		
 
 
