@@ -94,7 +94,6 @@ for sample in samples:
                 i += 1
         line = filehandle.readline()
     if locus < options.nloci-1:
-        print sample
         gap = options.nloci-1-locus
         outhandle.write('-'*read_len*gap)
     outhandle.write('\n')
