@@ -35,7 +35,7 @@ def smartopen(filename,*args,**kwargs):
         return open(filename,*args,**kwargs)
 
 usage = "usage: %prog [options]"
-version = '%prog 20160510.1'
+version = '%prog 20160512.1'
 parser = OptionParser(usage = usage, version = version)
 parser.add_option("-d", dest = "dataDir", default = 'data',
                   help = "directory containing the data, default = data/")
@@ -92,9 +92,11 @@ for sample in samples:
                     outhandle.write(line)
                     i = locus
                 i += 1
+            else:
+                break
         line = filehandle.readline()
-    if locus < options.nloci-1:
-        gap = options.nloci-1-locus
+    if i < options.nloci:
+        gap = options.nloci-i
         outhandle.write('-'*read_len*gap)
     outhandle.write('\n')
     filehandle.close()
