@@ -40,7 +40,7 @@ def is_exe(fpath):
 
 
 usage = "usage: %prog [options]"
-version = '%prog 20160401.1'
+version = '%prog 20160526.1'
 parser = OptionParser(usage = usage, version = version)
 parser.add_option("-k", dest = "kLen", type = int, default = 25, 
                   help = "k-mer length, default = 25")
@@ -59,7 +59,7 @@ parser.add_option("-s", dest = "sim", action = 'store_true',
 
 n = options.filter
 memSize = options.memSize
-    
+kl = options.kLen
 
 ###check the data directory:
 if not os.path.isdir(options.dataDir):
@@ -69,7 +69,7 @@ if not os.path.isdir(options.dataDir):
 
 ###check for the executable files:
 #kmer_countx
-if options.kLen > 25:
+if kl > 25:
     if os.system('which kmer_countx > /dev/null'):
         kmerCount = './kmer_countx'
         if not is_exe(kmerCount):
@@ -118,15 +118,11 @@ for fileName in os.listdir(options.dataDir):
             samples.append(sample)
 samples.sort()
 
-print 'SPECIES LIST:'
-for sample in samples:
-    print sample
-
 ###Run kmer_count
 
 for i, sample in enumerate(samples):
 	outFile = '{}.pkdat.gz'.format(sample)
-	command = '{} -l {} -n {} -G {} -o {} -f '.format(kmerCount, options.kLen,
+	command = '{} -l {} -n {} -G {} -o {} -f '.format(kmerCount, kl,
                n, memSize, outFile)
 	command1 = ''
 	for inputFile in os.listdir(os.path.join(options.dataDir, sample)):
@@ -159,6 +155,9 @@ command += ' | wc -l'
 status, output = commands.getstatusoutput(command)
 nshared = output.split()[0]
 
-print ntotal[0]
-print ntotal[1]
-print nshared
+if nshare[i][j] == 0:
+    distance = 1
+else:
+    distance = (-1 / kl) * math.log(nshare[i][j] / mintotal)
+
+print distance
