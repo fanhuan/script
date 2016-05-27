@@ -3,7 +3,7 @@
 #
 #  kmer_pattern.py
 #  
-#  Copyright 2014 Huan Fan <hfan22@wisc.edu>
+#  Copyright 2015 Huan Fan <hfan22@wisc.edu>
 #  
 #  This program is free software; you can redistribute it and/or modify
 #  it under the terms of the GNU General Public License as published by
