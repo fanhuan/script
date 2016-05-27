@@ -42,7 +42,7 @@ kmer_file = smartopen(sys.argv[2])
 for kmer in kmer_file:
     kmer = kmer.split()[0]
     if kmer_table.endswith('gz'):
-        command = 'zcat {} | grep {} >> {}.pattern'.format(kmer_table,kmer, prefix)
+        command = 'gzcat {} | grep {} >> {}.pattern'.format(kmer_table,kmer, prefix)
     else:
         command = 'grep {} {} >> {}.pattern'.format(kmer, kmer_table, prefix)
     os.system(command)
