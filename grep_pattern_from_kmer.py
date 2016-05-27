@@ -21,7 +21,7 @@
 #  MA 02110-1301, USA.
 #
 
-import sys,os
+import sys,os,gzip
 
 def smartopen(filename,*args,**kwargs):
     '''opens with open unless file ends in .gz, then use gzip.open
@@ -45,18 +45,17 @@ version = '%prog 20140527.1'
 kmer_table = smartopen(sys.argv[1])
 prefix = sys.argv[2].split('.')[0]
 kmer_file = smartopen(sys.argv[2])
-
+n = sys.argv[3]
 kmer_pattern={}
 for kmer in kmer_file:
     kmer = kmer.split()[0]
     kmer_pattern[kmer] = ''
 
 for line in kmer_table:
-    kmer = line.split()[0]
+    line = line.split()
+    kmer = line[0]
     if kmer in kmer_pattern:
         line_pattern = [present(i,n) for i in line[1:]]
-        kmer_pattern[kmer]=line_pattern
+        print '{}\t{}'.format(kmer,line_pattern)
 
-for kmer in kmer_pattern:
-    print '{}\t{}'.format(kmer,kmer_pattern[kmer])
 
