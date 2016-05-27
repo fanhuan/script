@@ -32,19 +32,31 @@ def smartopen(filename,*args,**kwargs):
         return gzip.open(filename,*args,**kwargs)
     else:
         return open(filename,*args,**kwargs)
-Usage = "%prog [options] shared_kmer_table kmer_file"
-version = '%prog 20140509.1'
 
-kmer_table = sys.argv[1]
+def present(x,n):
+    if int(x) >= n:
+        return 1
+    else:
+        return 0
+
+Usage = "%prog [options] shared_kmer_table kmer_file"
+version = '%prog 20140527.1'
+
+kmer_table = smartopen(sys.argv[1])
 prefix = sys.argv[2].split('.')[0]
 kmer_file = smartopen(sys.argv[2])
 
+kmer_pattern={}
 for kmer in kmer_file:
     kmer = kmer.split()[0]
-    if kmer_table.endswith('gz'):
-        command = 'gzcat {} | grep {} >> {}.pattern'.format(kmer_table,kmer, prefix)
-    else:
-        command = 'grep {} {} >> {}.pattern'.format(kmer, kmer_table, prefix)
-    os.system(command)
+    kmer_pattern[kmer] = ''
 
+for line in kmer_table:
+    kmer = line.split()[0]
+    if kmer in kmer_pattern:
+        line_pattern = [present(i,n) for i in line[1:]]
+        kmer_pattern[kmer]=line_pattern
+
+for kmer in kmer_pattern:
+    print '{}\t{}'.format(kmer,kmer_pattern[kmer])
 
