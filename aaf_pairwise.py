@@ -22,7 +22,7 @@
 #  MA 02110-1301, USA.
 #  
 
-import sys, gzip, bz2, os, time, commands
+import sys, gzip, bz2, os, time, commands, math
 import multiprocessing as mp
 from optparse import OptionParser
 
@@ -119,7 +119,7 @@ for fileName in os.listdir(options.dataDir):
 samples.sort()
 
 ###Run kmer_count
-
+ntotal = [0]* len(samples)
 for i, sample in enumerate(samples):
 	outFile = '{}.pkdat.gz'.format(sample)
 	command = '{} -l {} -n {} -G {} -o {} -f '.format(kmerCount, kl,
@@ -137,11 +137,11 @@ for i, sample in enumerate(samples):
             		print 'Error, file {} is not FA or FQ format. Aborting!'.\
                    		format(inputFile)
             		sys.exit(3)
-            command1 += " -i '{}'".format(inputFile)
-    command += '{}{}'.format(seqFormat,command1)
-    status, output = commands.getstatusoutput(command)
-    if status == 0:
-        ntotal[i] = output.split()[1]
+            	command1 += " -i '{}'".format(inputFile)
+    	command += '{}{}'.format(seqFormat,command1)
+    	status, output = commands.getstatusoutput(command)
+    	if status == 0:
+        	ntotal[i] = float(output.split()[1])
 
 
 ###Run kmer_merge
@@ -153,11 +153,11 @@ for i, sample in enumerate(samples):
 
 command += ' | wc -l'
 status, output = commands.getstatusoutput(command)
-nshared = output.split()[0]
+nshared = int(output.split()[0])
 
-if nshare[i][j] == 0:
+if nshared == 0:
     distance = 1
 else:
-    distance = (-1 / kl) * math.log(nshare[i][j] / mintotal)
+    distance = (-1.0 / kl) * math.log(nshared / min(ntotal))
 
 print distance
