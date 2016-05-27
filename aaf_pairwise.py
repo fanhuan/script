@@ -121,7 +121,7 @@ samples.sort()
 ###Run kmer_count
 ntotal = [0]* len(samples)
 for i, sample in enumerate(samples):
-	outFile = '{}.pkdat.gz'.format(sample)
+	outFile = '{}.pkdat'.format(sample)
 	command = '{} -l {} -n {} -G {} -o {} -f '.format(kmerCount, kl,
                n, memSize, outFile)
 	command1 = ''
@@ -149,7 +149,7 @@ for i, sample in enumerate(samples):
 command = "{} -k s -c -d '0' -a 'T,M,F'".format(filt)
 
 for i, sample in enumerate(samples):
-    command += " '{}.pkdat.gz'".format(sample)
+    command += " '{}.pkdat'".format(sample)
 
 command += ' | wc -l'
 status, output = commands.getstatusoutput(command)
@@ -161,4 +161,4 @@ else:
     distance = (-1.0 / kl) * math.log(nshared / min(ntotal))
 
 print distance
-os.system('rm {}.pkdat.gz {}.pkdat.gz'.format(samples[0],samples[1]))
+os.system('rm *.pkdat')
