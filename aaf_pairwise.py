@@ -161,3 +161,4 @@ else:
     distance = (-1.0 / kl) * math.log(nshared / min(ntotal))
 
 print distance
+os.system('rm {}.pkdat.gz {}.pkdat.gz'.format(samples[0],samples[1]))
