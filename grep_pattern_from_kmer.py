@@ -35,17 +35,17 @@ def smartopen(filename,*args,**kwargs):
 
 def present(x,n):
     if int(x) >= n:
-        return 1
+        return '1'
     else:
-        return 0
+        return '0'
 
 Usage = "%prog [options] shared_kmer_table kmer_file"
-version = '%prog 20140527.1'
+version = '%prog 20160528.1'
 
 kmer_table = smartopen(sys.argv[1])
 prefix = sys.argv[2].split('.')[0]
 kmer_file = smartopen(sys.argv[2])
-n = sys.argv[3]
+n = int(sys.argv[3])
 kmer_pattern={}
 for kmer in kmer_file:
     kmer = kmer.split()[0]
@@ -56,6 +56,6 @@ for line in kmer_table:
     kmer = line[0]
     if kmer in kmer_pattern:
         line_pattern = [present(i,n) for i in line[1:]]
-        print '{}\t{}'.format(kmer,line_pattern)
+        print '{}\t{}'.format(kmer,''.join(line_pattern))
 
 
