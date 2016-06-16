@@ -22,9 +22,9 @@
 #
 
 
-
+#version: 20160616.1
 from Bio import SeqIO
-import gzip
+import gzip,sys
 
 def smartopen(filename,*args,**kwargs):
 	'''opens with open unless file ends in .gz, then use gzip.open
@@ -43,8 +43,8 @@ def smartopen(filename,*args,**kwargs):
 #Mutations on rpoB: V170X,I491X,S493X
 position = [170,491,493]
 k = 17
-hsp = open('tblastn_hsp.txt')
-output = open('mutations_sequences.txt','w')
+hsp = open(sys.argv[1])
+output = open(sys.argv[1].split('.' )[0]+'_mutations_sequences.txt','w')
 hsp_dic = {}
 for line in hsp:
     line = line.split()
@@ -60,12 +60,20 @@ for strain in hsp_dic:
         if seq_record.id == hsp_dic[strain][0]:
             for pos in position:
                 if qstar < qend:
-                    sequence = seq_record.seq[qstar+pos*3-k:qstar+pos*3-3+k]+'\n'
+                    sequence = seq_record.seq[qstar+pos*3-k-1:qstar+pos*3+k-4]+'\n'
                     #note that seq[1:5] won't include the 6th element. It's more like [1:5)
-                elif  qstar > qend:
-                    sequence = seq_record.seq[qstar-pos*3+2-k:qstar-pos*3-1+k]+'\n'
+                elif qstar > qend:
+                    rpoB = seq_record.seq[qend-1:qstar]
+                    rpoB_rc = rpoB.reverse_complement()
+                    sequence = rpoB_rc[1+pos*3-k-1:1+pos*3+k-4]+'\n'
                 output.write('>{} {} {}\n'.format(strain,seq_record.id,pos))
                 output.write(str(sequence))
     contigs.close()
     
 output.close()
+
+'''
+if qstar > qend:
+seq_record.seq = seq_record.seq.reverse_complement()
+sequence = seq_record.seq[qstar+pos*3-k-2:qstar+pos*3-5+k]+'\n'
+'''
