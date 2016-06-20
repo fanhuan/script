@@ -37,7 +37,7 @@ def Pattern(lines,n):
 		for line in lines:
 			line = line.split()
 			line_pattern = [present(i,n) for i in line]
-			if p =< sum(line_pattern) =< len(line_pattern)-p:
+			if p <= sum(line_pattern) <= len(line_pattern)-p:
 				outline = ''.join(str(x) for x in line_pattern)
 				if outline in pattern:
 					pattern[outline] += 1
@@ -47,7 +47,7 @@ def Pattern(lines,n):
 		for line in lines:
 			line = line.split()[1:]
 			line_pattern = [present(i,n) for i in line]
-			if p < sum(line_pattern) < len(line_pattern)-p:
+			if p <= sum(line_pattern) <= len(line_pattern)-p:
 				outline = ''.join(str(x) for x in line_pattern)
 				if outline in pattern:
 					pattern[outline] += 1
