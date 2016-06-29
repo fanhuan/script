@@ -35,27 +35,26 @@ def smartopen(filename,*args,**kwargs):
 		return open(filename,*args,**kwargs)
 
 usage = "usage: %prog [options]"
-version = '%prog 20160224.1'
+version = '%prog 20160629.1'
 parser = OptionParser(usage = usage, version = version)
 parser.add_option("-i", dest = "input",
-		  help = "fastq file simulated from simrlls")
+		  help = "individual file")
 parser.add_option("-f", dest = "format", default = "fastq",
 		  help = "sequence format, default = fastq")
 parser.add_option("-d", dest = "dir",
-		  help = "directory containing files, default = test")
+		  help = "directory containing files")
 
 (options, args) = parser.parse_args()
 
 
-
+print('Sample\tNumSeq\tTotal_bp\tMean\tVar\t\Min\t\Max\n')
 
 if options.input:
 	input_file = smartopen(options.input)
 	length=[]
 	for seq_record in SeqIO.parse(input_file,options.format):
 		length.append(len(seq_record.seq))
-	print('In {}, there are {} sequences, {} bp in total, mean length is {} and variance is {}'.\
-	      format(options.input,len(length),sum(length),np.mean(length),np.std(length)))
+	print(options.input,len(length),sum(length),np.mean(length),np.std(length), min(length),max(length))
 	input_file.close()
 
 if options.dir:
@@ -65,6 +64,6 @@ if options.dir:
 		length=[]
 		for seq_record in SeqIO.parse(input_handle,options.format):
 			length.append(len(seq_record.seq))
-	print('In {}, there are {} sequences, {} bp in total, mean length is {} and variance is {}'.format(fileName,len(length),sum(length),np.mean(length),np.std(length)))
+	print(fileName,len(length),sum(length),np.mean(length),np.std(length),, min(length),max(length))
 
 
