@@ -20,7 +20,7 @@
 #  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
 #  MA 02110-1301, USA.
 #
-import sys,gzip
+import sys,gzip,os
 import numpy as np
 from Bio import SeqIO
 from optparse import OptionParser
@@ -47,7 +47,7 @@ parser.add_option("-d", dest = "dir",
 (options, args) = parser.parse_args()
 
 
-print('Sample\tNumSeq\tTotal_bp\tMean\tVar\t\Min\t\Max\n')
+print('Sample\tNumSeq\tTotal_bp\tMean\tVar\tMin\tMax')
 
 if options.input:
 	input_file = smartopen(options.input)
@@ -64,6 +64,7 @@ if options.dir:
 		length=[]
 		for seq_record in SeqIO.parse(input_handle,options.format):
 			length.append(len(seq_record.seq))
-	print(fileName,len(length),sum(length),np.mean(length),np.std(length),, min(length),max(length))
+        input_handle.close()
+	print(input_dir,len(length),sum(length),np.mean(length),np.std(length), min(length),max(length))
 
 
