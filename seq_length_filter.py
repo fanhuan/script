@@ -35,7 +35,7 @@ def smartopen(filename,*args,**kwargs):
 		return open(filename,*args,**kwargs)
 
 usage = "usage: %prog [options]"
-version = '%prog 20160629.1'
+version = '%prog 20160711.1'
 parser = OptionParser(usage = usage, version = version)
 parser.add_option("-i", dest = "input",
 		  help = "individual file")
@@ -54,7 +54,7 @@ if options.input:
 	input_file = smartopen(options.input)
 	for seq_record in SeqIO.parse(input_file,options.format):
 		if len(seq_record.seq) >= min_len:
-			print(seq_record.id)
+			print('>'+seq_record.id)
 			print(seq_record.seq)
 	input_file.close()
 
@@ -65,8 +65,8 @@ if options.dir:
 		output_handle = open(options.dir+'/filtered_'+fileName,'w')
 		for seq_record in SeqIO.parse(input_handle,options.format):
 			if len(seq_record.seq) >= min_len:
-				output_handle.write(seq_record.id)
-                output_handle.write(seq_record.id)
+				output_handle.write('>'+seq_record.id)
+                output_handle.write(seq_record.seq)
         input_handle.close()
         output_handle.close()
 
