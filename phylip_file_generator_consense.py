@@ -38,8 +38,40 @@ def smartopen(filename,*args,**kwargs):
     else:
         return open(filename,*args,**kwargs)
 
+def phylip_writer(handle_in,handle_out,nloci,full_list,loci_list,sample,read_len):
+	alignment = {}
+	line = handle_in.readline()
+	while line:
+		if line.startswith('>'):
+			locus = int(line.split('_')[1].lstrip('locus'))
+			if locus < nloci:
+				seq = handle_in.readline().rstrip()
+				if locus in alignment:
+					alignment[locus].append(seq)
+				else:
+					alignment[locus] = [seq]
+		line = handle_in.readline()
+	handle_in.close()
+	for i in full_list:
+		if i in alignment:
+			cov = loci_list[sample].count(i)
+			if cov > 1:
+				phylip = open('temp.phylip','w')
+				phylip.write('%d\t%d\n'%(cov,read_len))
+				for j in range(cov):
+					phylip.write('Sample%d\t%s\n'%(j,alignment[i][j]))
+				phylip.close()
+				alignments = AlignIO.read(open('temp.phylip'),'phylip-relaxed')
+				summary_align = AlignInfo.SummaryInfo(alignments)
+				seq = str(summary_align.dumb_consensus())
+			elif cov == 1:
+				seq = ''.join(alignment[i])
+		else:
+			seq = '-'*read_len
+		handle_out.write(seq)
+
 usage = "usage: %prog [options]"
-version = '%prog 20160726.1'
+version = '%prog 20160726.2'
 parser = OptionParser(usage = usage, version = version)
 parser.add_option("-d", dest = "dataDir", default = 'data',
                   help = "directory containing the data, default = data/")
@@ -65,7 +97,9 @@ for fileName in os.listdir(options.dataDir):
 	if os.path.isdir(os.path.join(options.dataDir, fileName)):
 		samples.append(fileName)
 		loci_list[fileName] = [-1]
+		type = 'pair-end'
 	else:
+		type = 'single-end'
 		if not fileName.startswith('.'):
 			sample = fileName.split(".")[0]
 			if sample in samples:
@@ -79,13 +113,21 @@ samples.sort()
 
 # Get a dictionary for the number of reads for each locus of each species
 
+
 for sample in samples:
-	filehandle = open(os.path.join(options.dataDir, sample+'.fa'))
+	if type == 'single-end':
+		filehandle = open(os.path.join(options.dataDir, sample+'.fa'))
+	elif type == 'pair-end':
+		filehandle = open(os.path.join(options.dataDir, sample,sample+'_R1.fa'))
+	else:
+		print 'Error, sequence type neither single end nor pair end. Aborting!'
+		sys.exit(3)
 	for line in filehandle:
 		if line.startswith('>'):
 			locus = int(line.split('_')[1].lstrip('locus'))
 			loci_list[sample].append(locus)
 	filehandle.close()
+
 
 #Check whether there are loci that are missing in all the samples.
 missing = {}
@@ -97,44 +139,27 @@ for item in missed:
 	full_list.remove(item)
 
 #write the phylip file!
-outhandle.write('%d\t%d'%(len(samples),read_len*len(full_list)))
+
 for sample in samples:
-	if len(sample) < 10:
-		outhandle.write('\n'+sample+' '*(10-len(sample)))
-	else:
-		outhandle.write(sample[:9]+' ')
-	filehandle = open(os.path.join(options.dataDir, sample+'.fa'))
-	alignment = {}
-	line = filehandle.readline()
-	while line:
-		if line.startswith('>'):
-			locus = int(line.split('_')[1].lstrip('locus'))
-			if locus < options.nloci:
-				seq = filehandle.readline().rstrip()
-				if locus in alignment:
-					alignment[locus].append(seq)
-				else:
-					alignment[locus] = [seq]
-		line = filehandle.readline()
-	filehandle.close()
-	for i in full_list:
-		if i in alignment:
-			cov = loci_list[sample].count(i)
-			if cov > 1:
-				phylip = open('temp.phylip','w')
-				phylip.write('%d\t%d\n'%(cov,read_len))
-				for j in range(cov):
-					phylip.write('Sample%d\t%s\n'%(j,alignment[i][j]))
-				phylip.close()
-				alignments = AlignIO.read(open('temp.phylip'),'phylip-relaxed')
-				summary_align = AlignInfo.SummaryInfo(alignments)
-				seq = str(summary_align.dumb_consensus())
-			elif cov == 1:
-				seq = ''.join(alignment[i])
-				print(seq)
+	if type == 'single-end':
+		outhandle.write('%d\t%d'%(len(samples),read_len*len(full_list)))
+		if len(sample) < 10:
+			outhandle.write('\n'+sample+' '*(10-len(sample)))
 		else:
-			seq = '-'*read_len
-		outhandle.write(seq)
+			outhandle.write(sample[:9]+' ')
+		filehandle = open(os.path.join(options.dataDir, sample+'.fa'))
+		phylip_writer(filehandle,outhandle,options.nloci,full_list,loci_list,sample,read_len)
+	else:
+		outhandle.write('%d\t%d'%(len(samples),2*read_len*len(full_list)))
+		if len(sample) < 10:
+			outhandle.write('\n'+sample+' '*(10-len(sample)))
+		else:
+			outhandle.write(sample[:9]+' ')
+		filehandle = open(os.path.join(options.dataDir, sample,sample+'_R1.fa'))
+		phylip_writer(filehandle,outhandle,options.nloci,full_list,loci_list,sample,read_len)
+		filehandle = open(os.path.join(options.dataDir, sample,sample+'_R2.fa'))
+		phylip_writer(filehandle,outhandle,options.nloci,full_list,loci_list,sample,read_len)
+
 outhandle.close()
 
 		
