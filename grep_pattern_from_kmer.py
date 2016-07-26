@@ -39,8 +39,12 @@ def present(x,n):
     else:
         return '0'
 
+def rc(seq):
+	complement = {'A': 'T', 'C': 'G', 'G': 'C', 'T': 'A', 'U':'A'}
+	return "".join(complement.get(base, base) for base in reversed(seq))
+
 Usage = "%prog [options] shared_kmer_table kmer_file"
-version = '%prog 20160528.1'
+version = '%prog 20160629.1'
 
 kmer_table = smartopen(sys.argv[1])
 prefix = sys.argv[2].split('.')[0]
@@ -54,8 +58,9 @@ for kmer in kmer_file:
 for line in kmer_table:
     line = line.split()
     kmer = line[0]
-    if kmer in kmer_pattern:
-        line_pattern = [present(i,n) for i in line[1:]]
-        print '{}\t{}'.format(kmer,''.join(line_pattern))
+    if (kmer in kmer_pattern) or (rc(kmer) in kmer_pattern):
+		line_pattern = [present(i,n) for i in line[1:]]
+		print '{}\t{}'.format(kmer,''.join(line_pattern))
+
 
 
