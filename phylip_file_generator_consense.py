@@ -50,7 +50,7 @@ parser.add_option("-r", dest = "read_len", default = 94, type= int,
 
 (options, args) = parser.parse_args()
 
-outhandle = file(os.path.basename(options.dataDir.rstrip('/'))+'.phylip', 'w')
+outhandle = file('infile', 'w')
 read_len = options.read_len
 ###check the data directory:
 if not os.path.isdir(options.dataDir):
