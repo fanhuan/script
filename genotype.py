@@ -36,14 +36,13 @@ def smartopen(filename,*args,**kwargs):
 Usage = "%prog [options] mutation_sequence_file"
 version = '%prog 20160616.1'
 
-seq = smartopen(sys.argv[1])
+handle = smartopen(sys.argv[1])
 output = open(sys.argv[1].split('.')[0]+'_genotype.txt','w')
 codon_dic = {'170':['GTT','GTA','GTC','GTG'],
          '491':['ATT','ATA','ATC','ATG'],
          '493':['TCT','TCA','TCC','TCG','AGT','AGC']}
 
 #Store the seq file without biopython (it does not read in the whole id info)
-handle = open(fastafile)
 
 seqs={}
 while True:
@@ -57,18 +56,24 @@ while True:
 handle.close()
 
 genotype = {}
-for line in seq:
-    if line.startswith('>')
-        strain = line.split()[0].lstrip('>')
-        site = line.split()[2]
-        if strain not in genotype:
-            genotype[strain] = {} #cannot mix for loop and read line
-        codon = seq_record.seq[(len(seq_record.seq)+3)/2-3:(len(seq_record.seq)+3)/2]
+for record in seqs:
+    strain = record.split()[0].lstrip('>')
+    site = record.split()[2]
+    if strain not in genotype:
+        genotype[strain] = {} #cannot mix for loop and read line
+    codon = seqs[record][(len(seqs[record])+3)/2-3:(len(seqs[record])+3)/2]
     if codon in codon_dic[site]:
         genotype[strain][site] = 'S'
     else:
         genotype[strain][site] = 'R'
 
 codon_list = codon_dic.keys()
+output.write('%s\t%s\t%s\t%s\t%s\n'%('SpecimenID',codon_list[0],codon_list[1],codon_list[2],'Consensus'))
 for strain in genotype:
-    output.write('%s\t%s\t%s\t%s'%(strain,genotype[strain][codon_list[0]],genotype[strain][codon_list[1]],genotype[strain][codon_list[2]]))
+	output.write('%s\t%s\t%s\t%s\t'%(strain,genotype[strain][codon_list[0]],genotype[strain][codon_list[1]],genotype[strain][codon_list[2]]))
+	values = genotype[strain].values()
+	if 'R' in values:
+		output.write('%s\n'%('R'))
+	else:
+		output.write('%s\n'%('S'))
+
