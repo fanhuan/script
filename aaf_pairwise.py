@@ -40,7 +40,7 @@ def is_exe(fpath):
 
 
 usage = "usage: %prog [options]"
-version = '%prog 20160526.1'
+version = '%prog 20160729.1'
 parser = OptionParser(usage = usage, version = version)
 parser.add_option("-k", dest = "kLen", type = int, default = 25, 
                   help = "k-mer length, default = 25")
@@ -160,5 +160,5 @@ if nshared == 0:
 else:
     distance = (-1.0 / kl) * math.log(nshared / min(ntotal))
 
-print distance
+print distance,min(ntotal),nshared
 os.system('rm *.pkdat')
