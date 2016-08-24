@@ -44,23 +44,52 @@ def rc(seq):
 	return "".join(complement.get(base, base) for base in reversed(seq))
 
 Usage = "%prog [options] shared_kmer_table kmer_file"
-version = '%prog 20160629.1'
+version = '%prog 20160824.1'
 
 kmer_table = smartopen(sys.argv[1])
 prefix = sys.argv[2].split('.')[0]
-kmer_file = smartopen(sys.argv[2])
+input = smartopen(sys.argv[2])
 n = int(sys.argv[3])
+
+line = input.readline()
+line = input.readline()
+if line.startswith(tuple('ATCG')):
+	type = 'kmer'
+elif line.startswith(tuple('01')):
+	type = 'pattern'
+else:
+	print('input file should be either kmers or patterns')
+	sys.exit()
+input.close()
+
 kmer_pattern={}
-for kmer in kmer_file:
-    kmer = kmer.split()[0]
-    kmer_pattern[kmer] = ''
+if type == 'kmer':
+	kmer_file = smartopen(sys.argv[2])
+	for kmer in kmer_file:
+		kmer = kmer.split()[0]
+		kmer_pattern[kmer] = ''
+	kmer_file.close()
+
+if type == 'pattern':
+	pattern_file = smartopen(sys.argv[2])
+	for pattern in pattern_file:
+		pattern = pattern.split()[0]
+		kmer_pattern[pattern] = ''
 
 for line in kmer_table:
-    line = line.split()
-    kmer = line[0]
-    if (kmer in kmer_pattern) or (rc(kmer) in kmer_pattern):
+	if line.startswith('#'):
+		continue
+	else:
+		line = line.split()
+		kmer = line[0]
 		line_pattern = [present(i,n) for i in line[1:]]
-		print '{}\t{}'.format(kmer,''.join(line_pattern))
+		pattern = ''.join(line_pattern)
+		if type == 'kmer':
+			if (kmer in kmer_pattern) or (rc(kmer) in kmer_pattern):
+				print '{}\t{}'.format(kmer,pattern)
+		elif type == 'pattern':
+			if pattern in kmer_pattern:
+				print '{}\t{}'.format(kmer,pattern)
 
-
+kmer_table.close()
 
