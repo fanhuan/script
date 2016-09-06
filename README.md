@@ -22,4 +22,4 @@ is used to calculate the total, mean, and variance of seq lengths in a seq file.
 is used to split Laura's metagenomic data into seperate files for AAF
 
 ###split_libraries_fastq_simrlls.py
-is used to split output of simrlls (fastq files) into seperate files for AAF
+has been moved to the RAD repo
