@@ -23,7 +23,7 @@
 #  MA 02110-1301, USA.
 #
 
-import sys,os,gzip
+import sys,os,gzip,collections
 
 def smartopen(filename,*args,**kwargs):
     '''opens with open unless file ends in .gz, then use gzip.open
@@ -37,17 +37,19 @@ def smartopen(filename,*args,**kwargs):
 
 
 Usage = "%prog [options] shared_kmer_table kmer_file"
-version = '%prog 20160906.2'
+version = '%prog 20160907.1'
 
 loci_dic = {}
 loci_list =[]
 for fileName in os.listdir(sys.argv[1]):
-	sample = fileName.split('.')[0]
+	if os.path.isdir(os.path.join(sys.argv[1], fileName)):
+		fileName = os.path.join(sys.argv[1],fileName,os.listdir(os.path.join(sys.argv[1], fileName))[0])
+	sample = fileName.split('.')[0].split('/')[-1]
 	loci_dic[sample] = []
 	fh = open(fileName)
 	for line in fh:
 		if line.startswith('>'):
-			number = line.split('_')[1].lstrip('locus')
+			number = int(line.split('_')[1].lstrip('locus'))
 			if number not in loci_dic[sample]:
 				loci_dic[sample].append(number)
 	fh.close()
