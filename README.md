@@ -1,7 +1,7 @@
 script
 ======
 
-version control of scripts
+Summary of scripts
 
 ###aaf_phylosim.py 
 is a variation of aaf_phylokmer.py to process simulated alignments from phylosim.
@@ -14,6 +14,15 @@ is a perl script that takes a fastq file (not compressed) and print to screen th
 
 ###fq_to_fa.py
 is a python script that takes a fastq file (could be compressed) and print to screen the fasta format of it. Use in combinaiton with | gzip >> *.fa.gz
+
+###phylip_file_generator.py
+
+
+###phylip_file_generator_consense.py
+takes a directory with files split by split_library_simrlls.py and merge them into a phylip format alignment for phylogeny reconstruction.
+  This script is different from phylip_file_generator.py in the sense that it does the consense among the reads from the same loci and same species first, before concatinating them. Any heterozygote site is represented by N.
+###phylip_file_generator_consense_N.py
+This is a special version of phylip_file_generator_consense.py where it calcuates the proportion of Ns in the alignment.
 
 ###seq_stats.py
 is used to calculate the total, mean, and variance of seq lengths in a seq file.
