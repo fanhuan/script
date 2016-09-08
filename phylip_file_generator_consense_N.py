@@ -165,9 +165,9 @@ for sample in samples:
 outhandle.close()
 
 if type == 'single-end':
-	print(Ns/float(len(samples)*read_len*len(full_list)))
+	print(Ns,Ns/float(len(samples)*read_len*len(full_list)))
 else:
-	print(Ns/float(len(samples)*2*read_len*len(full_list)))
+	print(Ns,Ns/float(len(samples)*2*read_len*len(full_list)))
 		
 
 
