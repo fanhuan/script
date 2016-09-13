@@ -132,7 +132,10 @@ for sample in samples:
 	for line in filehandle:
 		if line.startswith('>'):
 			locus = int(line.split('_')[1].lstrip('locus'))
-			loci_list[sample].append(locus)
+			if locus < options.nloci:
+				loci_list[sample].append(locus)
+			else:
+				break
 	filehandle.close()
 
 
@@ -147,7 +150,9 @@ for item in missed:
 sba_list = list(reduce(set.intersection,map(set,loci_list.values())))
 
 #write the phylip file!
-outhandle.write('%d\t%d'%(len(samples),read_len*len(sba_list)+(len(full_list)-len(sba_list))*(n+1)))
+outhandle.write('%d\t%d'%(len(samples),read_len*(len(sba_list)-1)+(len(full_list)-len(sba_list)+1)*(n+1)))
+print(sba_list)
+print(len(sba_list),len(full_list))
 for sample in samples:
 	if type == 'single-end':
 		if len(sample) < 10:
