@@ -144,9 +144,10 @@ for sample in samples:
 missed = reduce(set.intersection,missing.values())
 for item in missed:
 	full_list.remove(item)
+sba_list = list(reduce(set.intersection,map(set,loci_list.values())))
 
 #write the phylip file!
-outhandle.write('%d\t%d'%(len(samples),read_len*len(full_list)))
+outhandle.write('%d\t%d'%(len(samples),read_len*len(sba_list)+(len(full_list)-len(sba_list))*(n+1)))
 for sample in samples:
 	if type == 'single-end':
 		if len(sample) < 10:
