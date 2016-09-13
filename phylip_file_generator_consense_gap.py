@@ -69,9 +69,9 @@ def phylip_writer(handle_in,handle_out,nloci,full_list,loci_list,sample,read_len
 				elif cov == 1:
 					seq = ''.join(alignment[i])
 			else:
-				seq = 't-'*n
+				seq = 't'*n+'-'
 		else:
-			seq = 'a-'*n
+			seq = 'a'*n+'-'
 		handle_out.write(seq)
 
 usage = "usage: %prog [options]"
