@@ -16,7 +16,11 @@ is a perl script that takes a fastq file (not compressed) and print to screen th
 is a python script that takes a fastq file (could be compressed) and print to screen the fasta format of it. Use in combinaiton with | gzip >> *.fa.gz
 
 ###phylip_file_generator.py
+takes a directory with files split by split_library_simrlls.py and merge them into a phylip format alignment for phylogeny reconstruction.
 
+###phylip_file_generator_gap.py
+codes loci that are not shared by all as t---(present) or a---(absent) so those loci are considered by dnadist from phylip.
+This is achieved by first identify SBA loci and write out alignment for them. Then t---/a--- for loci that are not SBA.
 
 ###phylip_file_generator_consense.py
 takes a directory with files split by split_library_simrlls.py and merge them into a phylip format alignment for phylogeny reconstruction.

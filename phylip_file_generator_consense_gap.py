@@ -38,9 +38,10 @@ def smartopen(filename,*args,**kwargs):
     else:
         return open(filename,*args,**kwargs)
 
-def phylip_writer(handle_in,handle_out,nloci,full_list,loci_list,sample,read_len):
+def phylip_writer(handle_in,handle_out,nloci,full_list,loci_list,sample,read_len,n):
 	alignment = {}
 	line = handle_in.readline()
+	sba_list = list(reduce(set.intersection,map(set,loci_list.values())))
 	while line:
 		if line.startswith('>'):
 			locus = int(line.split('_')[1].lstrip('locus'))
@@ -55,19 +56,22 @@ def phylip_writer(handle_in,handle_out,nloci,full_list,loci_list,sample,read_len
 	for i in full_list:
 		if i in alignment:
 			cov = loci_list[sample].count(i)
-			if cov > 1:
-				phylip = open('temp.phylip','w')
-				phylip.write('%d\t%d\n'%(cov,read_len))
-				for j in range(cov):
-					phylip.write('Sample%d\t%s\n'%(j,alignment[i][j]))
-				phylip.close()
-				alignments = AlignIO.read(open('temp.phylip'),'phylip-relaxed')
-				summary_align = AlignInfo.SummaryInfo(alignments)
-				seq = str(summary_align.dumb_consensus())
-			elif cov == 1:
-				seq = ''.join(alignment[i])
+			if i in sba_list:
+				if cov > 1:
+					phylip = open('temp.phylip','w')
+					phylip.write('%d\t%d\n'%(cov,read_len))
+					for j in range(cov):
+						phylip.write('Sample%d\t%s\n'%(j,alignment[i][j]))
+					phylip.close()
+					alignments = AlignIO.read(open('temp.phylip'),'phylip-relaxed')
+					summary_align = AlignInfo.SummaryInfo(alignments)
+					seq = str(summary_align.dumb_consensus())
+				elif cov == 1:
+					seq = ''.join(alignment[i])
+			else:
+				seq = 't-'*n
 		else:
-			seq = '-'*read_len
+			seq = 'a-'*n
 		handle_out.write(seq)
 
 usage = "usage: %prog [options]"
@@ -79,11 +83,14 @@ parser.add_option("-L", dest = "nloci", default = 100, type= int,
                   help = "number of loci to keep, default = 100")
 parser.add_option("-r", dest = "read_len", default = 94, type= int,
 				  help = "read length, default = 94")
+parser.add_option("-n", dest = "weight", default = 1, type= int,
+				  help = "weight of a missing loci, default = 1")
 
 (options, args) = parser.parse_args()
 
 outhandle = file('infile', 'w')
 read_len = options.read_len
+n = options.weight
 ###check the data directory:
 if not os.path.isdir(options.dataDir):
     print 'Cannot find data directory {}'.format(options.dataDir)
@@ -147,7 +154,7 @@ for sample in samples:
 		else:
 			outhandle.write(sample[:9]+' ')
 		filehandle = open(os.path.join(options.dataDir, sample+'.fa'))
-		phylip_writer(filehandle,outhandle,options.nloci,full_list,loci_list,sample,read_len)
+		phylip_writer(filehandle,outhandle,options.nloci,full_list,loci_list,sample,read_len,n)
 	else:
 		outhandle.write('%d\t%d'%(len(samples),2*read_len*len(full_list)))
 		if len(sample) < 10:
@@ -155,9 +162,9 @@ for sample in samples:
 		else:
 			outhandle.write(sample[:9]+' ')
 		filehandle = open(os.path.join(options.dataDir, sample,sample+'_R1.fa'))
-		phylip_writer(filehandle,outhandle,options.nloci,full_list,loci_list,sample,read_len)
+		phylip_writer(filehandle,outhandle,options.nloci,full_list,loci_list,sample,read_len,n)
 		filehandle = open(os.path.join(options.dataDir, sample,sample+'_R2.fa'))
-		phylip_writer(filehandle,outhandle,options.nloci,full_list,loci_list,sample,read_len)
+		phylip_writer(filehandle,outhandle,options.nloci,full_list,loci_list,sample,read_len,n)
 
 outhandle.close()
 
