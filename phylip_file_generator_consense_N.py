@@ -57,7 +57,7 @@ def phylip_writer(handle_in,handle_out,nloci,full_list,loci_list,sample,read_len
 		if i in alignment:
 			cov = loci_list[sample].count(i)
 			if cov > 1:
-				phylip = open('temp_'+str(i)+'.phylip','w')
+				phylip = open('temp.phylip','w')
 				phylip.write('%d\t%d\n'%(cov,read_len))
 				for j in range(cov):
 					phylip.write('Sample%d\t%s\n'%(j,alignment[i][j]))
