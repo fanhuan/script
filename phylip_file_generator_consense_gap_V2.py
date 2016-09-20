@@ -38,7 +38,7 @@ def smartopen(filename,*args,**kwargs):
     else:
         return open(filename,*args,**kwargs)
 
-def phylip_writer(handle_in,handle_out,nloci,full_list,loci_list,sample,read_len,n):
+def phylip_writer_gap(handle_in,handle_out,nloci,full_list,loci_list,sample,read_len,n):
 	alignment = {}
 	line = handle_in.readline()
 	sba_list = list(reduce(set.intersection,map(set,loci_list.values())))
@@ -69,13 +69,13 @@ def phylip_writer(handle_in,handle_out,nloci,full_list,loci_list,sample,read_len
 				elif cov == 1:
 					seq = ''.join(alignment[i])
 			else:
-				seq = 't'*n+'-'
+				seq = 't'*n+seq
 		else:
-			seq = 'a'*n+'-'
+			seq = 'a'*n+'-'*read_len
 		handle_out.write(seq)
 
 usage = "usage: %prog [options]"
-version = '%prog 20160913.1'
+version = '%prog 20160919.1'
 parser = OptionParser(usage = usage, version = version)
 parser.add_option("-d", dest = "dataDir", default = 'data',
                   help = "directory containing the data, default = data/")
@@ -150,8 +150,9 @@ for item in missed:
 sba_list = list(reduce(set.intersection,map(set,loci_list.values())))
 
 #write the phylip file!
-outhandle.write('%d\t%d'%(len(samples),read_len*(len(sba_list)-1)+(len(full_list)-len(sba_list)+1)*(n+1)))
-
+outhandle.write('%d\t%d'%(len(samples),read_len*(len(sba_list)-1)+(len(full_list)-len(sba_list)+1)*(n+read_len)))
+print(sba_list)
+print(full_list)
 for sample in samples:
 	if type == 'single-end':
 		if len(sample) < 10:
@@ -159,7 +160,7 @@ for sample in samples:
 		else:
 			outhandle.write(sample[:9]+' ')
 		filehandle = open(os.path.join(options.dataDir, sample+'.fa'))
-		phylip_writer(filehandle,outhandle,options.nloci,full_list,loci_list,sample,read_len,n)
+		phylip_writer_gap(filehandle,outhandle,options.nloci,full_list,loci_list,sample,read_len,n)
 	else:
 		outhandle.write('%d\t%d'%(len(samples),2*read_len*len(full_list)))
 		if len(sample) < 10:
@@ -167,9 +168,9 @@ for sample in samples:
 		else:
 			outhandle.write(sample[:9]+' ')
 		filehandle = open(os.path.join(options.dataDir, sample,sample+'_R1.fa'))
-		phylip_writer(filehandle,outhandle,options.nloci,full_list,loci_list,sample,read_len,n)
+		phylip_writer_gap(filehandle,outhandle,options.nloci,full_list,loci_list,sample,read_len,n)
 		filehandle = open(os.path.join(options.dataDir, sample,sample+'_R2.fa'))
-		phylip_writer(filehandle,outhandle,options.nloci,full_list,loci_list,sample,read_len,n)
+		phylip_writer_gap(filehandle,outhandle,options.nloci,full_list,loci_list,sample,read_len,n)
 
 outhandle.close()
 

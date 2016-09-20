@@ -65,7 +65,7 @@ def phylip_writer(handle_in,handle_out,nloci,full_list,loci_list,sample,read_len
 				alignments = AlignIO.read(open('temp.phylip'),'phylip-relaxed')
 				summary_align = AlignInfo.SummaryInfo(alignments)
 				seq = str(summary_align.dumb_consensus())
-				N = N + seq.count('N')
+				N = N + seq.count('X')
 			elif cov == 1:
 				seq = ''.join(alignment[i])
 		else:
@@ -73,7 +73,7 @@ def phylip_writer(handle_in,handle_out,nloci,full_list,loci_list,sample,read_len
 		handle_out.write(seq)
 	return N
 usage = "usage: %prog [options]"
-version = '%prog 20160908.1'
+version = '%prog 20160920.1'
 parser = OptionParser(usage = usage, version = version)
 parser.add_option("-d", dest = "dataDir", default = 'data',
                   help = "directory containing the data, default = data/")
