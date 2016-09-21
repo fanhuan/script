@@ -149,7 +149,7 @@ for item in missed:
 sba_list = list(reduce(set.intersection,map(set,loci_list.values())))
 
 #write the phylip file!
-outhandle.write('%d\t%d'%(len(samples),read_len*(len(full_list))+(len(full_list)-len(sba_list)+1)*(n+1)))
+outhandle.write('%d\t%d'%(len(samples),read_len*(len(full_list))+(len(full_list)-len(sba_list)+1)*n))
 
 for sample in samples:
 	if type == 'single-end':
