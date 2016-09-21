@@ -67,15 +67,13 @@ def phylip_writer_gap(handle_in,handle_out,nloci,full_list,loci_list,sample,read
 					summary_align = AlignInfo.SummaryInfo(alignments)
 					seq = str(summary_align.dumb_consensus())
 				elif cov == 1:
-					seq = ''.join(alignment[i])
+					seq = 't'*n+''.join(alignment[i])
 			else:
-				seq = 't'*n+seq
-		else:
-			seq = 'a'*n+'-'*read_len
+				seq = 'a'*n+'-'*read_len
 		handle_out.write(seq)
 
 usage = "usage: %prog [options]"
-version = '%prog 20160919.1'
+version = '%prog 20160920.1'
 parser = OptionParser(usage = usage, version = version)
 parser.add_option("-d", dest = "dataDir", default = 'data',
                   help = "directory containing the data, default = data/")
