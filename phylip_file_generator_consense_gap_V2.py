@@ -151,8 +151,7 @@ sba_list = list(reduce(set.intersection,map(set,loci_list.values())))
 
 #write the phylip file!
 outhandle.write('%d\t%d'%(len(samples),read_len*(len(sba_list)-1)+(len(full_list)-len(sba_list)+1)*(n+read_len)))
-print(sba_list)
-print(full_list)
+
 for sample in samples:
 	if type == 'single-end':
 		if len(sample) < 10:
