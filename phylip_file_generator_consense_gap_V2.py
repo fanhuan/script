@@ -56,24 +56,25 @@ def phylip_writer_gap(handle_in,handle_out,nloci,full_list,loci_list,sample,read
 	for i in full_list:
 		if i in alignment:
 			cov = loci_list[sample].count(i)
-			if i in sba_list:
-				if cov > 1:
-					phylip = open('temp.phylip','w')
-					phylip.write('%d\t%d\n'%(cov,read_len))
-					for j in range(cov):
-						phylip.write('Sample%d\t%s\n'%(j,alignment[i][j]))
-					phylip.close()
-					alignments = AlignIO.read(open('temp.phylip'),'phylip-relaxed')
-					summary_align = AlignInfo.SummaryInfo(alignments)
-					seq = str(summary_align.dumb_consensus())
-				elif cov == 1:
-					seq = 't'*n+''.join(alignment[i])
-			else:
-				seq = 'a'*n+'-'*read_len
+			if cov > 1:
+				phylip = open('temp.phylip','w')
+				phylip.write('%d\t%d\n'%(cov,read_len))
+				for j in range(cov):
+					phylip.write('Sample%d\t%s\n'%(j,alignment[i][j]))
+				phylip.close()
+				alignments = AlignIO.read(open('temp.phylip'),'phylip-relaxed')
+				summary_align = AlignInfo.SummaryInfo(alignments)
+				seq = str(summary_align.dumb_consensus())
+			elif cov == 1:
+				seq = ''.join(alignment[i])
+			if i not in sba_list:
+				seq = 't'*n+seq
+		else:
+			seq = 'a'*n+'-'*read_len
 		handle_out.write(seq)
 
 usage = "usage: %prog [options]"
-version = '%prog 20160920.1'
+version = '%prog 20160921.2'
 parser = OptionParser(usage = usage, version = version)
 parser.add_option("-d", dest = "dataDir", default = 'data',
                   help = "directory containing the data, default = data/")
@@ -148,7 +149,7 @@ for item in missed:
 sba_list = list(reduce(set.intersection,map(set,loci_list.values())))
 
 #write the phylip file!
-outhandle.write('%d\t%d'%(len(samples),read_len*(len(sba_list)-1)+(len(full_list)-len(sba_list)+1)*(n+read_len)))
+outhandle.write('%d\t%d'%(len(samples),read_len*(len(full_list))+(len(full_list)-len(sba_list)+1)*(n+1)))
 
 for sample in samples:
 	if type == 'single-end':
