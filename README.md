@@ -18,9 +18,16 @@ is a python script that takes a fastq file (could be compressed) and print to sc
 ###phylip_file_generator.py
 takes a directory with files split by split_library_simrlls.py and merge them into a phylip format alignment for phylogeny reconstruction.
 
+###phylip_file_generator_SBAonly.py
+identifies SBA loci and write out alignment for them. 
+
 ###phylip_file_generator_gap.py
 codes loci that are not shared by all as t---(present) or a---(absent) so those loci are considered by dnadist from phylip.
 This is achieved by first identify SBA loci and write out alignment for them. Then t---/a--- for loci that are not SBA.
+
+###phylip_file_generator_gap_V2.py
+keeps the sequences at the loci that are not shared by all, while adding t---(present) or a---(absent) so those loci present/absent info are considered by dnadist from phylip.
+The difference between this one and v1 is that v1 got rid of the sequences from loci that are SBA completely.
 
 ###phylip_file_generator_consense.py
 takes a directory with files split by split_library_simrlls.py and merge them into a phylip format alignment for phylogeny reconstruction.
