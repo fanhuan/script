@@ -35,6 +35,13 @@ takes a directory with files split by split_library_simrlls.py and merge them in
 ###phylip_file_generator_consense_N.py
 This is a special version of phylip_file_generator_consense.py where it calcuates the proportion of Ns in the alignment.
 
+###ReadsSelector_0407.cpp
+This is the script that would compile into ReadsSelector2
+
+	g++ ReadsSelector_0407.cpp -o ReadsSelector2
+	mv ReadsSelector2 /usr/local/bin/
+
+
 ###seq_stats.py
 is used to calculate the total, mean, and variance of seq lengths in a seq file.
 

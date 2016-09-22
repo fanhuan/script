@@ -37,13 +37,16 @@ def smartopen(filename,*args,**kwargs):
 
 
 Usage = "%prog [options] shared_kmer_table kmer_file"
-version = '%prog 20160907.1'
+version = '%prog 20160922.1'
 
 loci_dic = {}
 loci_list =[]
 for fileName in os.listdir(sys.argv[1]):
 	if os.path.isdir(os.path.join(sys.argv[1], fileName)):
 		fileName = os.path.join(sys.argv[1],fileName,os.listdir(os.path.join(sys.argv[1], fileName))[0])
+	else:
+		fileName = os.path.join(os.path.expanduser(sys.argv[1]),fileName)
+		sample = fileName.split('/')[-1].split('.')[0]
 	sample = fileName.split('.')[0].split('/')[-1]
 	loci_dic[sample] = []
 	fh = open(fileName)
