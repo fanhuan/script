@@ -3,6 +3,12 @@ script
 
 Summary of scripts
 
+###aaf_pairwise.py 
+takes a directory containing sequences and reconstruct the phylogeny in a pairwise selection way
+
+###aaf_pairwise_onepair.py 
+use to be named aaf_pairwise.py. It takes a directory that only contains one pair of samples and calculates the distances between them.
+
 ###aaf_phylosim.py 
 is a variation of aaf_phylokmer.py to process simulated alignments from phylosim.
 
