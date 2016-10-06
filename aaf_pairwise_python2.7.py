@@ -229,7 +229,7 @@ for fileName in os.listdir(options.dataDir):
 samples.sort()
 sn = len(samples)
 #set up directory for selected reads
-selection_dir = '{}_ks{}_pairwise'.format(options.dataDir.rstrip('/'),ks)
+selection_dir = '{}_ks{}_pairwise'.format(os.path.basename(options.dataDir.rstrip('/')),ks)
 
 if os.path.exists('./'+selection_dir):
     s = raw_input('{} is already in your data directory, overwrite it? Y/N '.format(selection_dir))
