@@ -97,6 +97,7 @@ def aaf_phylokmer(dataDir,samples,k,n,nThreads,memPerThread):
             print(time.strftime('%c'))
             print("running batch {}/{}".format(batch, nBatches))
             for job in jobs:
+                print(command)
                 pool.apply_async(os.system(command))
             pool.close()
             pool.join()
