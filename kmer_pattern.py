@@ -126,7 +126,7 @@ if memory/nThreads > 1:
     chunkLength = int(1024 ** 3 / line_size)
 else:
     chunkLength = int(memory * 1024 ** 3 / nThreads / line_size)
-print 'chunkLength =', chunkLength
+print('chunkLength =', chunkLength)
 
 ###Compute pattern dictionary
 nJobs = 0

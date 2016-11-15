@@ -25,7 +25,7 @@ import sys,os,gzip
 
 def smartopen(filename,*args,**kwargs):
     '''opens with open unless file ends in .gz, then use gzip.open
-        
+
         in theory should transparently allow reading of files regardless of compression
         '''
     if filename.endswith('.gz'):
@@ -43,53 +43,131 @@ def rc(seq):
 	complement = {'A': 'T', 'C': 'G', 'G': 'C', 'T': 'A', 'U':'A'}
 	return "".join(complement.get(base, base) for base in reversed(seq))
 
-Usage = "%prog [options] shared_kmer_table kmer_file"
-version = '%prog 20160824.1'
+def Pattern(lines,Type,n,kmer_pattern):
+    pattern = {}
+    if Type == 'kmer':
+        for line in lines:
+            kmer = line.split()[0]
+            line_pattern = ''.join([present(i,n) for i in line[1:]])
+            if (kmer in kmer_pattern) or (rc(kmer) in kmer_pattern):
+                pattern[kmer] = line_pattern
+	elif Type == 'pattern':
+        for line in lines:
+            kmer = line.split()[0]
+            line_pattern = ''.join([present(i,n) for i in line[1:]])
+            if line_pattern in kmer_pattern:
+			    pattern[kmer] = line_pattern
+    return pattern
 
-kmer_table = smartopen(sys.argv[1])
+
+Usage = "%prog [options] shared_kmer_table kmer_file"
+version = '%prog 20161115.1'
+parser = OptionParser(Usage, version = version)
+parser.add_option("-n", dest = "filter", type = int, default = 1,
+                  help = "k-mer filtering threshold, default = 1")
+parser.add_option("-t", dest = "nThreads", type = int, default = 1,
+                  help = "number of threads to use, default = 1")
+parser.add_option("-G", dest = "memsize", type = float, default = 1,
+                  help = "max memory to use (in GB), default = 1")
+
+
 prefix = sys.argv[2].split('.')[0]
+kmer_table = smartopen(sys.argv[1])
 input = smartopen(sys.argv[2])
-n = int(sys.argv[3])
+n = options.filter
+nThreads = options.nThreads
+memory = options.memsize
 
 line = input.readline()
 line = input.readline()
 if line.startswith(tuple('ATCG')):
-	type = 'kmer'
+	Type = 'kmer'
 elif line.startswith(tuple('01')):
-	type = 'pattern'
+	Type = 'pattern'
 else:
 	print('input file should be either kmers or patterns')
 	sys.exit()
 input.close()
 
 kmer_pattern={}
-if type == 'kmer':
+if Type == 'kmer':
 	kmer_file = smartopen(sys.argv[2])
 	for kmer in kmer_file:
 		kmer = kmer.split()[0]
 		kmer_pattern[kmer] = ''
 	kmer_file.close()
 
-if type == 'pattern':
+if Type == 'pattern':
 	pattern_file = smartopen(sys.argv[2])
 	for pattern in pattern_file:
 		pattern = pattern.split()[0]
 		kmer_pattern[pattern] = ''
 
-for line in kmer_table:
-	if line.startswith('#'):
-		continue
-	else:
-		line = line.split()
-		kmer = line[0]
-		line_pattern = [present(i,n) for i in line[1:]]
-		pattern = ''.join(line_pattern)
-		if type == 'kmer':
-			if (kmer in kmer_pattern) or (rc(kmer) in kmer_pattern):
-				print '{}\t{}'.format(kmer,pattern)
-		elif type == 'pattern':
-			if pattern in kmer_pattern:
-				print '{}\t{}'.format(kmer,pattern)
+###Read header
+sl = []                 #species list
+while True:
+    line = kmer_table.readline()
+    if line.startswith('#-'):
+        continue
+    elif line.startswith('#sample'):
+        ll = line.split()
+        sl.append(ll[1])
+    else:
+        break
+sn = len(sl)
+###Compute the number of lines to process per thread
+line = kmer_table.readline()
+line_size = sys.getsizeof(line)
+if memory/nThreads > 1:
+    chunkLength = int(1024 ** 3 / line_size)
+else:
+    chunkLength = int(memory * 1024 ** 3 / nThreads / line_size)
+print('chunkLength =', chunkLength)
+line = line.split()
+if len(line) < sn+1:
+    print('not enough columns in the the kmer_table')
+    sys.exit()
+# initiate the final big PATTERN dictionary
+PATTERN = {}
+###Compute pattern dictionary
+nJobs = 0
+pool = mp.Pool(nThreads)
+results = []
+print(time.strftime('%c'), 'start running jobs')
+print('{} running {} jobs'.format(time.strftime('%c'), nThreads))
+while True:
+    if nJobs == nThreads:
+        pool.close()
+        pool.join()
+        for job in results:
+            pattern = {}
+            pattern = job.get()
+            PATTERN.update(pattern)
+        pool = mp.Pool(nThreads)
+        nJobs = 0
+        results = []
+        print('{} running {} jobs'.format(time.strftime('%c'), nThreads))
 
+    lines = []
+    for nLines in xrange(chunkLength):
+        if not line: #if empty
+            break
+        lines.append(line)
+        line = kmer_table.readline()
+    if not lines: #if empty
+        break
+    job = pool.apply_async(Pattern, args=[lines,Type,n,kmer_pattern])
+    results.append(job)
+    nJobs += 1
+
+if nJobs:
+    print('{} running last {} jobs'.format(time.strftime('%c'), len(results)))
+    pool.close()
+    pool.join()
+    for job in results:
+        pattern = {}
+        pattern = job.get()
+        PATTERN.update(pattern)
 kmer_table.close()
-
+for kmer in PATTERN:
+    print('%s\t%s\n'%(kmer,PATTERN[kmer]))
