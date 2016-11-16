@@ -36,8 +36,9 @@ prefix = sys.argv[1].split('.')[0]
 out = open(prefix+'.fa','w')
 i=1
 for line in fh:
+    line = line.split()
     out.write('>{}\n'.format(i))
-    out.write(line)
+    out.write('{}\n'.format(line[0]))
     i += 1
 out.close()
 fh.close()

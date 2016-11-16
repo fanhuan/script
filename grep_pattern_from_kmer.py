@@ -21,7 +21,9 @@
 #  MA 02110-1301, USA.
 #
 
-import sys,os,gzip
+import sys,os,gzip,time
+from optparse import OptionParser
+import multiprocessing as mp
 
 def smartopen(filename,*args,**kwargs):
     '''opens with open unless file ends in .gz, then use gzip.open
@@ -51,12 +53,12 @@ def Pattern(lines,Type,n,kmer_pattern):
             line_pattern = ''.join([present(i,n) for i in line[1:]])
             if (kmer in kmer_pattern) or (rc(kmer) in kmer_pattern):
                 pattern[kmer] = line_pattern
-	elif Type == 'pattern':
+    elif Type == 'pattern':
         for line in lines:
             kmer = line.split()[0]
             line_pattern = ''.join([present(i,n) for i in line[1:]])
             if line_pattern in kmer_pattern:
-			    pattern[kmer] = line_pattern
+                pattern[kmer] = line_pattern
     return pattern
 
 
@@ -69,9 +71,8 @@ parser.add_option("-t", dest = "nThreads", type = int, default = 1,
                   help = "number of threads to use, default = 1")
 parser.add_option("-G", dest = "memsize", type = float, default = 1,
                   help = "max memory to use (in GB), default = 1")
+(options, args) = parser.parse_args()
 
-
-prefix = sys.argv[2].split('.')[0]
 kmer_table = smartopen(sys.argv[1])
 input = smartopen(sys.argv[2])
 n = options.filter
@@ -107,9 +108,9 @@ if Type == 'pattern':
 sl = []                 #species list
 while True:
     line = kmer_table.readline()
-    if line.startswith('#-'):
+    if line.startswith(b'#-'):
         continue
-    elif line.startswith('#sample'):
+    elif line.startswith(b'#sample'):
         ll = line.split()
         sl.append(ll[1])
     else:
@@ -123,8 +124,8 @@ if memory/nThreads > 1:
 else:
     chunkLength = int(memory * 1024 ** 3 / nThreads / line_size)
 print('chunkLength =', chunkLength)
-line = line.split()
-if len(line) < sn+1:
+line_list = line.split()
+if len(line_list) < sn+1:
     print('not enough columns in the the kmer_table')
     sys.exit()
 # initiate the final big PATTERN dictionary
@@ -149,7 +150,7 @@ while True:
         print('{} running {} jobs'.format(time.strftime('%c'), nThreads))
 
     lines = []
-    for nLines in xrange(chunkLength):
+    for nLines in range(chunkLength):
         if not line: #if empty
             break
         lines.append(line)
