@@ -157,7 +157,7 @@ while True:
         line = kmer_table.readline()
     if not lines: #if empty
         break
-    job = pool.apply_async(Pattern, args=[lines,Type,n,kmer_pattern])
+    job = pool.map_async(Pattern, args=[lines,Type,n,kmer_pattern])
     results.append(job)
     nJobs += 1
 
