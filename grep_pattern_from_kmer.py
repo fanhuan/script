@@ -50,13 +50,13 @@ def Pattern(lines,Type,n,kmer_pattern):
     if Type == 'kmer':
         for line in lines:
             kmer = line.split()[0]
-            line_pattern = ''.join([present(i,n) for i in line[1:]])
+            line_pattern = ''.join([present(i,n) for i in line.split()[1:]])
             if (kmer in kmer_pattern) or (rc(kmer) in kmer_pattern):
                 pattern[kmer] = line_pattern
     elif Type == 'pattern':
         for line in lines:
             kmer = line.split()[0]
-            line_pattern = ''.join([present(i,n) for i in line[1:]])
+            line_pattern = ''.join([present(i,n) for i in line.split()[1:]])
             if line_pattern in kmer_pattern:
                 pattern[kmer] = line_pattern
     return pattern
@@ -103,6 +103,7 @@ if Type == 'pattern':
 	for pattern in pattern_file:
 		pattern = pattern.split()[0]
 		kmer_pattern[pattern] = ''
+	pattern_file.close()
 
 ###Read header
 sl = []                 #species list
@@ -143,6 +144,7 @@ while True:
         for job in results:
             pattern = {}
             pattern = job.get()
+            print(pattern)
             PATTERN.update(pattern)
         pool = mp.Pool(nThreads)
         nJobs = 0
@@ -157,7 +159,12 @@ while True:
         line = kmer_table.readline()
     if not lines: #if empty
         break
-    job = pool.map_async(Pattern, args=[lines,Type,n,kmer_pattern])
+
+    job = pool.apply_async(Pattern, args=[lines,Type,n,kmer_pattern])
+    print(lines)
+    print(Type)
+    print(n)
+    print(kmer_pattern)
     results.append(job)
     nJobs += 1
 
