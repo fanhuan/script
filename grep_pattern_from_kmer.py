@@ -178,6 +178,5 @@ if nJobs:
         PATTERN.update(pattern)
 kmer_table.close()
 for kmer in PATTERN:
-    print(kmer)
     output.write('%s\t%s\n'%(kmer,PATTERN[kmer]))
 output.close()
