@@ -63,7 +63,7 @@ def Pattern(lines,Type,n,kmer_pattern):
 
 
 Usage = "%prog [options] shared_kmer_table kmer_file"
-version = '%prog 20161115.1'
+version = '%prog 20161117.1'
 parser = OptionParser(Usage, version = version)
 parser.add_option("-n", dest = "filter", type = int, default = 1,
                   help = "k-mer filtering threshold, default = 1")
@@ -83,8 +83,11 @@ line = input.readline()
 line = input.readline()
 if line.startswith(tuple('ATCG')):
 	Type = 'kmer'
+	output = open(os.path.basename(sys.argv[2]).split('.')[0]+'.pattern','w')
 elif line.startswith(tuple('01')):
-	Type = 'pattern'
+    Type = 'pattern'
+    print(os.path.basename(sys.argv[2]).split('.')[0]+'.pattern')
+    output = open(os.path.basename(sys.argv[2]).split('.')[0]+'.kmer','w')
 else:
 	print('input file should be either kmers or patterns')
 	sys.exit()
@@ -109,9 +112,9 @@ if Type == 'pattern':
 sl = []                 #species list
 while True:
     line = kmer_table.readline()
-    if line.startswith(b'#-'):
+    if line.startswith('#-'):
         continue
-    elif line.startswith(b'#sample'):
+    elif line.startswith('#sample'):
         ll = line.split()
         sl.append(ll[1])
     else:
@@ -144,7 +147,6 @@ while True:
         for job in results:
             pattern = {}
             pattern = job.get()
-            print(pattern)
             PATTERN.update(pattern)
         pool = mp.Pool(nThreads)
         nJobs = 0
@@ -161,10 +163,6 @@ while True:
         break
 
     job = pool.apply_async(Pattern, args=[lines,Type,n,kmer_pattern])
-    print(lines)
-    print(Type)
-    print(n)
-    print(kmer_pattern)
     results.append(job)
     nJobs += 1
 
@@ -172,10 +170,14 @@ if nJobs:
     print('{} running last {} jobs'.format(time.strftime('%c'), len(results)))
     pool.close()
     pool.join()
+    i = 0
     for job in results:
+        i = i + 1
         pattern = {}
         pattern = job.get()
         PATTERN.update(pattern)
 kmer_table.close()
 for kmer in PATTERN:
-    print('%s\t%s\n'%(kmer,PATTERN[kmer]))
+    print(kmer)
+    output.write('%s\t%s\n'%(kmer,PATTERN[kmer]))
+output.close()

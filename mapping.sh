@@ -6,12 +6,12 @@ python ~/GitHub/script/kmer2fa.py $1.kmer
 if [ ! -f ~/Dropbox/Research/GWAS/Cohen/mapping/CP003248.2.fasta.amb ]; then
   bwa index ~/Dropbox/Research/GWAS/Cohen/mapping/CP003248.2.fasta
 fi
-bwa aln -n 0 ~/Dropbox/Research/GWAS/Cohen/mapping/CP003248.2.fasta $1.fa > $1.sai
-bwa samse -n 4 ~/Dropbox/Research/GWAS/Cohen/mapping/CP003248.2.fasta $1.sai $1.fa > $1.sam
+bwa aln -n $2 ~/Dropbox/Research/GWAS/Cohen/mapping/CP003248.2.fasta $1.fa > $1.sai
+bwa samse -n 4 ~/Dropbox/Research/GWAS/Cohen/mapping/CP003248.2.fasta $1.sai $1.fa > $1_n$2.sam
 #4. Convert sam to bam using samtools and sort it
-samtools view -bS $1.sam > $1.bam
+samtools view -bS $1_n$2.sam > $1.bam
 samtools sort $1.bam > sorted_$1.bam
 samtools mpileup sorted_$1.bam > coverage_$1.txt
 #5. Get the continous regions (at least two consecutive kmers)
 python ~/GitHub/script/coverage2region.py coverage_$1.txt
-rm *.sai *.sam *.bam
+rm *.sai *.bam
