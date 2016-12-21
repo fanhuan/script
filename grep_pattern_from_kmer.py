@@ -102,24 +102,21 @@ if Type == 'kmer':
 	kmer_file.close()
 
 if Type == 'pattern':
-	pattern_file = smartopen(sys.argv[2])
-	for pattern in pattern_file:
-		pattern = pattern.split()[0]
-		kmer_pattern[pattern] = ''
-	pattern_file.close()
+    pattern_file = smartopen(sys.argv[2])
+    for pattern in pattern_file:
+        pattern = pattern.split()[0]
+        sn = len(pattern)
+        kmer_pattern[pattern] = ''
+    pattern_file.close()
 
-###Read header
-sl = []                 #species list
+###Move through header
 while True:
     line = kmer_table.readline()
-    if line.startswith('#-'):
+    if line.startswith('#'):
         continue
-    elif line.startswith('#sample'):
-        ll = line.split()
-        sl.append(ll[1])
     else:
         break
-sn = len(sl)
+
 ###Compute the number of lines to process per thread
 line = kmer_table.readline()
 line_size = sys.getsizeof(line)
@@ -129,7 +126,7 @@ else:
     chunkLength = int(memory * 1024 ** 3 / nThreads / line_size)
 print('chunkLength =', chunkLength)
 line_list = line.split()
-if len(line_list) < sn+1:
+if len(line_list) != (sn + 1):
     print('not enough columns in the the kmer_table')
     sys.exit()
 # initiate the final big PATTERN dictionary
