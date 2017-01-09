@@ -118,7 +118,6 @@ while True:
         break
 
 ###Compute the number of lines to process per thread
-line = kmer_table.readline()
 line_size = sys.getsizeof(line)
 if memory/nThreads > 1:
     chunkLength = int(1024 ** 3 / line_size)
