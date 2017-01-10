@@ -117,7 +117,7 @@ else:
     chunkLength = int(memory * 1024 ** 3 / nThreads / line_size)
 print('chunkLength =', chunkLength)
 line_list = line.split()
-if Type == 'pattern'
+if Type == 'pattern':
     if len(line_list) != (sn + 1):
         print('not enough columns in the the kmer_table')
         sys.exit()
