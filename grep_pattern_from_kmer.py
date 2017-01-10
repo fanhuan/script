@@ -24,16 +24,8 @@
 import sys,os,gzip,time
 from optparse import OptionParser
 import multiprocessing as mp
+from AAF import smartopen
 
-def smartopen(filename,*args,**kwargs):
-    '''opens with open unless file ends in .gz, then use gzip.open
-
-        in theory should transparently allow reading of files regardless of compression
-        '''
-    if filename.endswith('.gz'):
-        return gzip.open(filename,*args,**kwargs)
-    else:
-        return open(filename,*args,**kwargs)
 
 def present(x,n):
     if int(x) >= n:
@@ -125,9 +117,10 @@ else:
     chunkLength = int(memory * 1024 ** 3 / nThreads / line_size)
 print('chunkLength =', chunkLength)
 line_list = line.split()
-if len(line_list) != (sn + 1):
-    print('not enough columns in the the kmer_table')
-    sys.exit()
+if Type == 'pattern'
+    if len(line_list) != (sn + 1):
+        print('not enough columns in the the kmer_table')
+        sys.exit()
 # initiate the final big PATTERN dictionary
 PATTERN = {}
 ###Compute pattern dictionary
