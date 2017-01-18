@@ -26,7 +26,7 @@ from AAF import smartopen, present
 from optparse import OptionParser
 import sys
 Usage = "%prog [options] shared_kmer_table"
-version = '%prog 20170109.1'
+version = '%prog 20170118.1'
 parser = OptionParser(Usage, version = version)
 parser.add_option("-n", dest = "filter", type = int, default = 1,
                   help = "k-mer filtering threshold, default = 1")
@@ -35,18 +35,24 @@ parser.add_option("-n", dest = "filter", type = int, default = 1,
 
 kmer_table = smartopen(sys.argv[1])
 outfile = open(sys.argv[1].split('.')[0]+'_kmerMatrix.tsv','w')
-outfile.write('kmers')
 n = options.filter
 
-###Collect sample names from header
-
-for line in kmer_table:
-    if line.startswith('#'):
+line1 = kmer_table.readline()
+if line1.startswith('#') #with header
+    outfile.write('kmers')
+    for line in kmer_table:
         if line.startswith('#sample'):
-            outfile.write('\t'+line.split(":")[1].strip())
-    else:
-        outfile.write('\n'+line.split()[0]+'\t')
-        outfile.write('\t'.join([present(i,n) for i in line.split()[1:]]))
-
+            outfile.write('\t'+line.split(":")[1].strip()+'\n')
+        else:
+            outfile.write(line.split()[0]+'\t')
+            outfile.write('\t'.join([present(i,n) for i in line.split()[1:]])+'\n')
+else:
+    outfile.write(line1.split()[0]+'\t')
+    outfile.write('\t'.join([present(i,n) for i in line1.split()[1:]])+'\n')
+    for line in kmer_table:
+        outfile.write(line.split()[0]+'\t')
+        outfile.write('\t'.join([present(i,n) for i in line.split()[1:]])+'\n')
+#Remove the final new line
+#outfile.truncate(outfile.tell()-1)
 kmer_table.close()
 outfile.close()
