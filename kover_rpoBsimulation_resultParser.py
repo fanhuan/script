@@ -24,45 +24,64 @@
 
 #from AAF import smartopen, present
 #from optparse import OptionParser
-import sys
+import sys, os
 import pandas as pd
+from itertools import groupby
 Usage = '%prog [options] id'
-version = '%prog 20170118.1'
+version = '%prog 20170127.1'
 #parser = OptionParser(Usage, version = version)
 #parser.add_option("-n", dest = "filter", type = int, default = 1,
 #                  help = "k-mer filtering threshold, default = 1")
 
 #(options, args) = parser.parse_args()
 
+def model_iter(modelfile):
+    """
+    take a model.fasta file, yield lists of tuples for order,AorP,importance and kmer
+    """
+    with open(modelfile) as fh:
+        headers = (x[1] for x in groupby(fh, lambda line: line[0] == ">"))
+        out_list = []
+        for header in headers:
+            tag = header.__next__().split()
+            order = tag[0].lstrip('>rule-')
+            AorP = tag[1].rstrip(',')
+            importance = tag[3]
+            kmer = "".join(s.strip() for s in headers.__next__())
+            out_list.append([order,AorP,importance,kmer])
+    return out_list
+
+def kmer_iter(equalfile):
+    headers = (x[1] for x in groupby(equalfile, lambda line: line[0] == ">"))
+    out_list = []
+    for header in headers:
+        kmer = "".join(s.strip() for s in headers.__next__())
+        out_list.append(kmer)
+    return out_list
+
 count = sys.argv[1]
 S450_df = pd.read_csv('phylosim_sp100d01_'+count+'_450summary.csv')
-kmers = S450_df.loc[:,'kmer']
+S450_kmers = list(S450_df.loc[:,'kmer'])
 GLS = S450_df.loc[:,'rankGLS']
-S450_dic = dict(zip(kmers,GLS))
+S450_dic = dict(zip(S450_kmers,GLS))
 Npatterns = str(len(set(S450_df.loc[:,'pattern'])))
+model_list = model_iter('model.fasta')
 
-model = open('model.fasta')
-true = 0
-false = 0
-line = model.readline()
-dic = {}
-while line:
-    importance = line.split()[3]
-    kmer = model.readline().rstrip()
-    if kmer in kmers:
-        dic[kmer] = (importance,'True')
-        true += 1
-    else:
-        dic[kmer] = (importance,'False')
-        false += 1
-    model.readline()
-    line = model.readline()
+i = 0
+model_dic = {}
+for model in model_list:
+    i += 1
+    with open('model_rule_' + str(i) + '_equiv.fasta') as fh:
+        kmers = kmer_iter(fh)
+        for kmer in kmers:
+            if kmer in S450_dic:
+                model.append('True')
+                model_dic[i] = model
+                break
+        if i not in model_dic:
+            model.append('False')
+            model_dic[i] = model
 
-outfile = open('kover_rpoBsimulation_result_'+count+'.tsv','w')
-for kmer in dic:
-    if kmer in kmers:
-        outfile.write('\t'.join([count,dic[kmer][0],dic[kmer][1],S450_dic[kmer],Npatterns,str(true),str(false)])+'\n')
-    else:
-        outfile.write('\t'.join([count,dic[kmer][0],dic[kmer][1],'NA',Npatterns,str(true),str(false)])+'\n')
-model.close()
-outfile.close()
+with open('kover_rpoBsimulation_result_'+count+'.tsv','w') as outfile:
+    for i in model_dic:
+        outfile.write('\t'.join(model_dic[i])+'\n')
