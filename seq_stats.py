@@ -58,13 +58,11 @@ if options.input:
 	input_file.close()
 
 if options.dir:
-	input_dir = options.dir
-	for fileName in os.listdir(options.dir):
-		input_handle = smartopen(options.dir+'/'+fileName)
-		length=[]
-		for seq_record in SeqIO.parse(input_handle,options.format):
-			length.append(len(seq_record.seq))
+    input_dir = options.dir
+    for fileName in os.listdir(options.dir):
+        input_handle = smartopen(options.dir+'/'+fileName)
+        length=[]
+        for seq_record in SeqIO.parse(input_handle,options.format):
+            length.append(len(seq_record.seq))
         input_handle.close()
-	print(input_dir,len(length),sum(length),np.mean(length),np.std(length), min(length),max(length))
-
-
+    print(input_dir,len(length),sum(length),np.mean(length),np.std(length), min(length),max(length))
