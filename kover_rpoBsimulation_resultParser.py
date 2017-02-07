@@ -62,6 +62,8 @@ def kmer_iter(equalfile):
 count = sys.argv[1]
 S450_df = pd.read_csv('phylosim_sp100d01_'+count+'_450summary.csv')
 S450_kmers = list(S450_df.loc[:,'kmer'])
+extra = pd.read_table('extraS450_'+count+'.kmer',header=None,names=['kmer'])
+S450_kmers += list(extra.loc[:,'kmer'])
 GLS = S450_df.loc[:,'rankGLS']
 S450_dic = dict(zip(S450_kmers,GLS))
 Npatterns = str(len(set(S450_df.loc[:,'pattern'])))
