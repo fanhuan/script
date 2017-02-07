@@ -28,7 +28,7 @@ import sys, os
 import pandas as pd
 from itertools import groupby
 Usage = '%prog [options] id'
-version = '%prog 20170127.1'
+version = '%prog 20170207.1'
 #parser = OptionParser(Usage, version = version)
 #parser.add_option("-n", dest = "filter", type = int, default = 1,
 #                  help = "k-mer filtering threshold, default = 1")
@@ -60,10 +60,8 @@ def kmer_iter(equalfile):
     return out_list
 
 count = sys.argv[1]
-S450_df = pd.read_csv('phylosim_sp100d01_'+count+'_450summary.csv')
-S450_kmers = list(S450_df.loc[:,'kmer'])
-extra = pd.read_table('extraS450_'+count+'.kmer',header=None,names=['kmer'])
-S450_kmers += list(extra.loc[:,'kmer'])
+S450 = pd.read_table('S450_'+count+'.kmer',header=None,names=['kmer'])
+S450_kmers = list(extra.loc[:,'kmer'])
 GLS = S450_df.loc[:,'rankGLS']
 S450_dic = dict(zip(S450_kmers,GLS))
 Npatterns = str(len(set(S450_df.loc[:,'pattern'])))
