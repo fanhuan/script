@@ -26,7 +26,7 @@ from Bio import SeqIO
 usage = "usage: %prog flagfile name"
 version = '%prog 20170301.1'
 
-name = sys.argv[1])
+name = sys.argv[1]
 tags1=[]
 with gzip.open(name + '_fly_0_unmappedR1.fastq.gz','rt') as fh:
     for line in fh:
