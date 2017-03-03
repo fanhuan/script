@@ -28,12 +28,12 @@ version = '%prog 20170302.1'
 
 name = sys.argv[1]
 tags1=[]
-with gzip.open(name + '_fly_0_unmappedR1.fastq.gz','rt') as fh:
+with gzip.open('/media/backup_2tb/Data/Drosophila/' + name + '_fly_0_unmappedR1.fastq.gz','rt') as fh:
     for line in fh:
         if line.startswith('@'):
             tags1.append(line.split()[0].lstrip('@'))
 tags2=[]
-with gzip.open(name + '_fly_0_unmappedR2.fastq.gz','rt') as fh:
+with gzip.open('/media/backup_2tb/Data/Drosophila/' + name + '_fly_0_unmappedR2.fastq.gz','rt') as fh:
     for line in fh:
         if line.startswith('@'):
             tags2.append(line.split()[0].lstrip('@'))
@@ -45,22 +45,21 @@ paired = set(tags1) & set(tags2) #intersection
 out1 = gzip.open(name + '_pair1.fq.gz','wt')
 out2 = gzip.open(name + '_pair2.fq.gz','wt')
 out3 = gzip.open(name + '_singleton.fq.gz','wt')
-file1 = gzip.open('/media/backup_2tb/Huan/Data/FlyingMicrobiome/Flies/' + name + '_R1.fastq.gz','rt')
-file2 = gzip.open('/media/backup_2tb/Huan/Data/FlyingMicrobiome/Flies/' + name + '_R1.fastq.gz','rt')
 
-for record1 in SeqIO.parse(file1,'fastq'):
-    if record1.id in paired:
-        SeqIO.write(record1,out1,"fastq")
-    else:
-        SeqIO.write(record1,out3,"fastq")
-file1.close()
+with gzip.open('/media/backup_2tb/Data/Drosophila/' + name + '_fly_0_unmappedR1.fastq.gz','rt') as file1:
+    for record1 in SeqIO.parse(file1,'fastq'):
+        if record1.id in paired:
+            SeqIO.write(record1,out1,"fastq")
+        else:
+            SeqIO.write(record1,out3,"fastq")
 out1.close()
 
-for record2 in SeqIO.parse(file2,'fastq'):
-    if record2.id in paired:
-        SeqIO.write(record2,out2,"fastq")
-    else:
-        SeqIO.write(record2,out3,"fastq")
+with gzip.open('/media/backup_2tb/Data/Drosophila/' + name + '_fly_0_unmappedR2.fastq.gz','rt') as file2:
+    for record2 in SeqIO.parse(file2,'fastq'):
+        if record2.id in paired:
+            SeqIO.write(record2,out2,"fastq")
+        else:
+            SeqIO.write(record2,out3,"fastq")
 file2.close()
 out2.close()
 out3.close()

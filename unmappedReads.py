@@ -24,7 +24,7 @@ import gzip, sys
 from Bio import SeqIO
 
 usage = "usage: %prog flagfile pairend1 pairend2"
-version = '%prog 20170220.1'
+version = '%prog 2017303.1'
 
 
 dic = {}
@@ -48,19 +48,21 @@ with open(sys.argv[1]) as fh:
                     else:
                         dic[line.split()[0]] = 'R2'
 file1 = gzip.open(sys.argv[2])
-out1 = gzip.open(sys.argv[1].split('.')[0] + '_unmappedR1.fastq.gz','w')
+out1 = gzip.open(sys.argv[1].split('.')[0] + '_pair1.fq.gz','w')
 file2 = gzip.open(sys.argv[3])
-out2 = gzip.open(sys.argv[1].split('.')[0] + '_unmappedR2.fastq.gz','w')
+out2 = gzip.open(sys.argv[1].split('.')[0] + '_pair2.fq.gz','w')
+out3 = gzip.open(sys.argv[1].split('.')[0] + '_singleton.fq.gz','w')
 for record1, record2 in zip (SeqIO.parse(file1,'fastq'),SeqIO.parse(file2,'fastq')):
     if record1.id in dic:
         if dic[record1.id] == 'both':
             SeqIO.write(record1,out1,"fastq")
             SeqIO.write(record2,out2,"fastq")
         elif dic[record1.id] == 'R1':
-            SeqIO.write(record1,out1,"fastq")
+            SeqIO.write(record1,out3,"fastq")
         elif dic[record1.id] == 'R2':
-            SeqIO.write(record2,out2,"fastq")
+            SeqIO.write(record2,out3,"fastq")
 file1.close()
 file2.close()
 out1.close()
 out2.close()
+out3.close()
