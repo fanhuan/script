@@ -22,6 +22,18 @@
 #
 import gzip, sys
 from Bio import SeqIO
+from AAF import smartopen
+
+def smartopen(filename,*args,**kwargs):
+	'''opens with open unless file ends in .gz, then use gzip.open
+		in theory should transparently allow reading of files regardless of
+		compression'''
+	if filename.endswith('gz'):
+		return gzip.open(filename,*args,**kwargs)
+	elif filename.endswith('bz2'):
+		return bz2.BZ2File(filename,*args,**kwargs)
+	else:
+		return open(filename,*args,**kwargs)
 
 usage = "usage: %prog flagfile pairend1 pairend2"
 version = '%prog 2017303.1'
@@ -48,7 +60,7 @@ with open(sys.argv[1]) as fh:
                     else:
                         dic[line.split()[0]] = 'R2'
 
-file1 = gzip.open(sys.argv[2])
+file1 = smartopen(sys.argv[2])
 out1 = gzip.open(sys.argv[1].split('.')[0] + '_pair1.fq.gz','w')
 out3 = gzip.open(sys.argv[1].split('.')[0] + '_singleton.fq.gz','w')
 for record1 in SeqIO.parse(file1,'fastq'):
@@ -60,7 +72,7 @@ for record1 in SeqIO.parse(file1,'fastq'):
 file1.close()
 out1.close()
 
-file2 = gzip.open(sys.argv[3])
+file2 = smartopen(sys.argv[3])
 out2 = gzip.open(sys.argv[1].split('.')[0] + '_pair2.fq.gz','w')
 for record2 in SeqIO.parse(file2,'fastq'):
     if record2.id in dic:
