@@ -24,12 +24,12 @@ import sys
 from Bio.Blast import NCBIXML
 
 usage = "usage: %prog flagfile pairend1 pairend2"
-version = '%prog 2017306.1'
+version = '%prog 2017313.1'
 
 with open(sys.argv[1] + '_cog.xml') as fh:
     for blast_record in NCBIXML.parse(fh):
         dic = {}
-        if int(blast_record.query_letters) > 32:
+        if int(blast_record.query_letters) >= 32:
             for alignment in blast_record.alignments:
                 COG = alignment.title.split()[1].rstrip(',')
                 for hsp in alignment.hsps:
