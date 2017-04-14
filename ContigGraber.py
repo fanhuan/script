@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 #
-#  aaf_phylokmer.py
+#  ContigGraber.py
 #
 #  Copyright 2017 Huan Fan
 #  <hfan22@wisc.edu> & Yann Surget-Groba <yann@xtbg.org.cn>
@@ -21,28 +21,26 @@
 #  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
 #  MA 02110-1301, USA.
 #
+
+'''
+CongitGraber.py takes a taxid and output a subset of contigs that has hits under it.
+'''
+
 import sys,gzip
+from Bio import SeqIO
 
+ID = sys.argv[1]
+contigList = []
 # Store accession2taxid file in dictionary
-dic = {}
-dic_dead = {}
-
-with gzip.open('/media/backup_2tb/Data/nr_protein/prot.accession2taxid_slim.gz') as fh:
-    for line in fh:
+with open ('/media/backup_2tb/Data/FlyMicrobiome/nonDrosophila/Round4/nonDrosophila_round4/taxid_1.txt') as contigID:
+    for line in contigID:
         line = line.split()
-        dic[line[0]] = line[1]
+        if line[2] == ID:
+            if line[0] not in contigList:
+                contigList.append(line[0])
+output = open(ID+'.fa','w')
+for seq_record in SeqIO.parse(open('/media/backup_2tb/Data/FlyMicrobiome/nonDrosophila/Round4/nonDrosophila_round4/nonDrosophila_round4.contigs.fa'), 'fasta'):
+    if seq_record.id in contigList:
+        SeqIO.write(seq_record,output,"fasta")
 
-with gzip.open('/media/backup_2tb/Data/nr_protein/dead_prot.accession2taxid_slim.gz') as fh:
-    for line in fh:
-        line = line.split()
-        dic_dead[line[0]] = line[1]
-
-# read in blast result
-blast = open(sys.argv[1])
-for line in blast:
-    line = line.split()
-    if line[1] in dic:
-        print('%s\t%s\t%s'%(line[0],line[1],dic[line[1]]))
-    elif line[1] in dic_dead:
-        print('%s\t%s\t%s'%(line[0],line[1],dic_dead[line[1]]))
-    print('%s\t%s\tNA'%(line[0],line[1]))
+output.close()
