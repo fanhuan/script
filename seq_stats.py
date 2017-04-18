@@ -53,6 +53,7 @@ if options.input:
 	input_file = smartopen(options.input)
 	length=[]
 	for seq_record in SeqIO.parse(input_file,options.format):
+		print('%s\t%d'%(seq_record.id,len(seq_record.seq)))
 		length.append(len(seq_record.seq))
 	print(options.input,len(length),sum(length),np.mean(length),np.std(length), min(length),max(length))
 	input_file.close()
