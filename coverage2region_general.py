@@ -27,7 +27,7 @@ for line in fh:
 
 for key in dic:
     for array in consecutive(dic[key]):
-        outfile.write('%s\t%d\t%d\t%d\n'%(key,array[0],array[-1],len(array)))
+        outfile.write('%s\t%d\t%d\t%d\t%s\n'%(key,array[0],array[-1],len(array),prefix.split('_')[1]))
         coverage.append(len(array))
 
 
