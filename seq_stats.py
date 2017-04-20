@@ -35,7 +35,7 @@ def smartopen(filename,*args,**kwargs):
 		return open(filename,*args,**kwargs)
 
 usage = "usage: %prog [options]"
-version = '%prog 20160629.1'
+version = '%prog 20170420.1'
 parser = OptionParser(usage = usage, version = version)
 parser.add_option("-i", dest = "input",
 		  help = "individual file")
@@ -45,7 +45,8 @@ parser.add_option("-d", dest = "dir",
 		  help = "directory containing files")
 
 (options, args) = parser.parse_args()
-
+outfile = open(options.input.split('.')[0]+'_contig_length.txt','w')
+outfile.write('Contig\tLength\n')
 
 print('Sample\tNumSeq\tTotal_bp\tMean\tVar\tMin\tMax')
 
@@ -53,7 +54,7 @@ if options.input:
 	input_file = smartopen(options.input)
 	length=[]
 	for seq_record in SeqIO.parse(input_file,options.format):
-		print('%s\t%d'%(seq_record.id,len(seq_record.seq)))
+		outfile.write('%s\t%d\n'%(seq_record.id,len(seq_record.seq)))
 		length.append(len(seq_record.seq))
 	print(options.input,len(length),sum(length),np.mean(length),np.std(length), min(length),max(length))
 	input_file.close()
@@ -64,6 +65,9 @@ if options.dir:
         input_handle = smartopen(options.dir+'/'+fileName)
         length=[]
         for seq_record in SeqIO.parse(input_handle,options.format):
+			outfile.write('%s\t%d\n'%(seq_record.id,len(seq_record.seq)))
             length.append(len(seq_record.seq))
         input_handle.close()
     print(input_dir,len(length),sum(length),np.mean(length),np.std(length), min(length),max(length))
+
+outfile.close()
