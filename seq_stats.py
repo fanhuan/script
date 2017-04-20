@@ -51,11 +51,11 @@ outfile.write('Contig\tLength\n')
 print('Sample\tNumSeq\tTotal_bp\tMean\tVar\tMin\tMax')
 
 if options.input:
-	input_file = smartopen(options.input)
-	length=[]
-	for seq_record in SeqIO.parse(input_file,options.format):
-		outfile.write('%s\t%d\n'%(seq_record.id,len(seq_record.seq)))
-		length.append(len(seq_record.seq))
+    input_file = smartopen(options.input)
+    length=[]
+    for seq_record in SeqIO.parse(input_file,options.format):
+        outfile.write('%s\t%d\n'%(seq_record.id,len(seq_record.seq)))
+        length.append(len(seq_record.seq))
 	print(options.input,len(length),sum(length),np.mean(length),np.std(length), min(length),max(length))
 	input_file.close()
 
@@ -65,7 +65,7 @@ if options.dir:
         input_handle = smartopen(options.dir+'/'+fileName)
         length=[]
         for seq_record in SeqIO.parse(input_handle,options.format):
-			outfile.write('%s\t%d\n'%(seq_record.id,len(seq_record.seq)))
+            outfile.write('%s\t%d\n'%(seq_record.id,len(seq_record.seq)))
             length.append(len(seq_record.seq))
         input_handle.close()
     print(input_dir,len(length),sum(length),np.mean(length),np.std(length), min(length),max(length))

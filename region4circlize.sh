@@ -1,5 +1,6 @@
 #!/bin/bash
 # the first argument should be the taxid
+mkdir /media/backup_2tb/Data/FlyMicrobiome/nonDrosophila/Round4/nonDrosophila_round4/$1
 cd /media/backup_2tb/Data/FlyMicrobiome/nonDrosophila/Round4/nonDrosophila_round4/$1
 export PATH=$PATH:/home/hfan/build/bbmap
 bbwrap.sh ref=/media/backup_2tb/Data/FlyMicrobiome/Microbes/$1.fa.gz in=/media/backup_2tb/Data/FlyMicrobiome/nonDrosophila/Round4/nonDrosophila_#.fq.gz out=$1.sam.gz kfilter=22 subfilter=15 maxindel=80
@@ -22,3 +23,4 @@ for name in KF1 KF2
     python ~/scripts/coverage2region_general.py coverage_${name}_$1_mapped.txt > stats_${name}_$1_mapped.txt
     done
 cat region_*_$1_mapped.txt >> region_$1_mapped.txt
+python ~/scripts/seq_stats.py -i /media/backup_2tb/Data/FlyMicrobiome/Microbes/$1.fa.gz -f fasta
