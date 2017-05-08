@@ -27,15 +27,17 @@ import sys,gzip
 dic = {}
 dic_dead = {}
 
-with gzip.open('/media/backup_2tb/Data/nr_protein/prot.accession2taxid_slim.gz') as fh:
+with gzip.open('/media/backup_2tb/Data/nr_protein/accession2taxid.gz') as fh:
     for line in fh:
         line = line.split()
         dic[line[0]] = line[1]
 
+'''
 with gzip.open('/media/backup_2tb/Data/nr_protein/dead_prot.accession2taxid_slim.gz') as fh:
     for line in fh:
         line = line.split()
         dic_dead[line[0]] = line[1]
+'''
 
 # read in blast result
 blast = open(sys.argv[1])

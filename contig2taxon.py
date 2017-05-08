@@ -20,6 +20,13 @@ def LCA(n1, n2, GR):
         return(n2)
     else:
         return LCA
+
+obselet_dic = {	'482058':	'1980924',
+	'1649555':	'1333996',
+	'1715259':	'1334193',
+	'1855411':	'1873524',
+	'1917424':	'1788301'
+}
 taxlist = []
 with open(sys.argv[1]) as nodes:
     for line in nodes:
@@ -30,6 +37,7 @@ G.add_edges_from(taxlist)
 GR = G.reverse()
 
 contig_dic = {}
+
 with open(sys.argv[2]) as species:
     for line in species:
         line = line.split()
@@ -38,8 +46,14 @@ with open(sys.argv[2]) as species:
                 contig_dic[line[0]].append(line[1])
             else:
                 contig_dic[line[0]] = [line[1]]
+        elif line[1] in obselet_dic:
+            if line[0] in contig_dic:
+                contig_dic[line[0]].append(obselet_dic[line[1]])
+            else:
+                contig_dic[line[0]] = [obselet_dic[line[1]]]
         else:
             print('No '+line[1])
+            sys.exit()
 
 LCA_dic = {}
 for contig in contig_dic:
