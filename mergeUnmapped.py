@@ -33,23 +33,23 @@ def smartopen(filename, mode = 'rt'):
         return open(filename,*args,**kwargs)
 
 if __name__ == '__main__':
-    dataDir = sys.argv[1]
+    dataDir = sys.argv[1].rstrip('/')
     swapdic = {}
     out_sh = open(dataDir + '_merge.sh','w')
     for fileName in os.listdir(dataDir):
         if not os.path.isdir(os.path.join(dataDir, fileName)):
             if not fileName.startswith('.'):
                 if 'R1' in fileName:
-                    with smartopen(fileName) as fh:
+                    with smartopen(dataDir + '/' + fileName) as fh:
                         tag = fh.readline()
                         if tag.startswith('@SRR'):
                             swapdic[fileName.split('_')[0]] = tag.split('.')[0].lstrip('@')
                         else:
                             swapdic[fileName.split('_')[0]] = tag.split(':')[0].lstrip('@')
-    for sample in swapdic
-        command1 = 'zcat {}_R1_unmapped.fq.gz | sed s/{}/{}/g | gzip >> {}_unmapped1.fq.gz\n'
-                    .format(sample,swapdic[sample],sample,dataDir)
-        command2 = 'zcat {}_R2_unmapped.fq.gz | sed s/{}/{}/g | gzip >> {}_unmapped2.fq.gz\n'
-                    .format(sample,swapdic[sample],sample,dataDir)
+    for sample in swapdic:
+        command1 = 'zcat {}/{}_R1_unmapped.fq.gz | sed s/{}/{}/g | gzip >> {}/{}_unmapped1.fq.gz\n' \
+                    .format(dataDir,sample,swapdic[sample],sample,dataDir,dataDir)
+        command2 = 'zcat {}/{}_R2_unmapped.fq.gz | sed s/{}/{}/g | gzip >> {}/{}_unmapped2.fq.gz\n' \
+                    .format(dataDir,sample,swapdic[sample],sample,dataDir,dataDir)
         out_sh.write(command1)
         out_sh.write(command2)
