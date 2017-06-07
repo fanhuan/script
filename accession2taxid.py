@@ -45,6 +45,5 @@ for line in blast:
     line = line.split()
     if line[1] in dic:
         print('%s\t%s\t%s'%(line[0],line[1],dic[line[1]]))
-    elif line[1] in dic_dead:
-        print('%s\t%s\t%s'%(line[0],line[1],dic_dead[line[1]]))
-    print('%s\t%s\tNA'%(line[0],line[1]))
+    else:
+        print('%s\t%s\tNA'%(line[0],line[1]))
