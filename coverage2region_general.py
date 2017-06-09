@@ -33,4 +33,4 @@ for key in dic:
 
 fh.close()
 outfile.close()
-print(np.mean(depth),np.std(depth),sum(coverage))
+print('%s\t%f\t%f\t%f'%(prefix.lstrip('coverage'),np.mean(depth),np.std(depth),sum(coverage)))
