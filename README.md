@@ -78,3 +78,5 @@ Comparing to the original version:
 ###split\_libraries\_fastq\_simrlls_v3.py
 keeps stats of what was there, what’s left after random dropout and what has been selected after reads selection
 
+### subsample\_kmer_v2.py
+Some times we face a dataset with more than 1 order of magnitude differences in their counted kmer file. If the kmers were counted from genome assembly, there's nothing we could do about it. If the kmers were counted from raw data, especially metagenomic data, there is risk of insufficient sampling effort. A common practice in metagenomic analysis is to subsample other samples to the lowest acceptable sample and this script does it WITHOUT replacement in order to keep the same kmer diversity afterwards.
