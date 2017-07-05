@@ -33,5 +33,7 @@ for fileName in os.listdir(pkdatdir):
             current = len(lines)
             if current > lowest:
                 pool = np.random.choice(range(current),size = lowest, replace = False)
+                # pool needs to be sorted in order for kmer_merge to work. damn!
+                pool = sorted(pool)
                 for i in pool:
                     outfh.write(lines[i])
