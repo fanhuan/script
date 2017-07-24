@@ -10,7 +10,8 @@ import numpy as np
 '''
 
 import sys,os
-import Bio
+from Bio import SeqIO
+import numpy as np
 
 Usage = "trimFastq4mothur.py fastq_directory"
 
@@ -24,7 +25,7 @@ def trim_fastq_biopython(in_file, out_file, q_cutoff=10, consec=6, id=None):
     # Load in sequences using Bio.SeqIO.  We'll keep the result as a dict.
     sample = os.path.basename(in_file[:len(in_file)-len('*.fastq')])
     with open(in_file) as f:
-        seqs = Bio.SeqIO.to_dict(Bio.SeqIO.parse(f, 'fastq'))
+        seqs = SeqIO.to_dict(SeqIO.parse(f, 'fastq'))
 
     # Pull out the id we want
     if id is None:
@@ -54,12 +55,14 @@ def trim_fastq_biopython(in_file, out_file, q_cutoff=10, consec=6, id=None):
     with open(out_file, 'w') as f:
         seq.id = sample
         seq.description = ''
-        Bio.SeqIO.write(seq[i:j], f, 'fastq')
+        SeqIO.write(seq[i:j], f, 'fastq')
 
 def main(fastq_dir):
     for fileName in os.listdir(fastq_dir):
-        out_file = os.path.join(fastq_dir,'trimmed_' + fileName)
-        trim_fastq_biopython(os.path.join(fastq_dir,fileName), out_file, q_cutoff=10, consec=6, id=None):
+        if len(fileName) > 6:
+            if fileName[-6:] == '.fastq':
+                out_file = os.path.join(fastq_dir,'trimmed_' + fileName)
+                trim_fastq_biopython(os.path.join(fastq_dir,fileName), out_file, q_cutoff=10, consec=6, id=None)
 
 if __name__ == '__main__':
-    sys.exit(main(sys.argv[1:]))
+    sys.exit(main(sys.argv[1]))
