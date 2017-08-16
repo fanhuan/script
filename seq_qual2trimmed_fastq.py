@@ -1,19 +1,30 @@
-#!/usr/bin/python
-#-*- coding:utf-8 -*-
-#This is for subsampling
-'''
-from os.path import join, isfile, splitext
-from optparse import OptionParser
-import random
-import os, sys
-import numpy as np
-'''
-
-import sys,os
+#!/usr/bin/env python
+import sys, os
 from Bio import SeqIO
+from Bio.SeqIO.QualityIO import PairedFastaQualIterator
 import numpy as np
 
-Usage = "trimFastq4mothur.py fastq_directory"
+#Takes a FASTA file, which must have a corresponding .qual file,
+# and makes a single FASTQ file. Trim the two ends, and make sure
+# it is not longer than 1000bp so it is acceptable for Mothur
+
+Usage = "seq_qual2trimmed_fastq.py seq_qual_directory"
+
+def combine(basename):
+    """
+    Combine the seq and qual file into fastq
+    """
+    try:
+    	fastafile = open(basename + ".seq")
+    	qualfile = open(basename + ".qual")
+    except IOError:
+    	print("Either the file cannot be opened or there is no corresponding")
+    	print("seq or quality file for " + basename)
+    	sys.exit()
+
+    rec_iter = PairedFastaQualIterator(fastafile,qualfile)
+    SeqIO.write(rec_iter, open(basename + ".fastq", "w"), "fastq")
+
 
 def trim_fastq_biopython(in_file, out_file, q_cutoff=10, consec=6, id=None):
     """
@@ -58,6 +69,9 @@ def trim_fastq_biopython(in_file, out_file, q_cutoff=10, consec=6, id=None):
         SeqIO.write(seq[i:j], f, 'fastq')
 
 def main(fastq_dir, q_cutoff = 10, consec = 6,):
+    if basename.find(".") != -1:
+            basename = '.'.join(basename.split(".")[:-1])
+
     for fileName in os.listdir(fastq_dir):
         if len(fileName) > 6:
             if fileName[-6:] == '.fastq':
@@ -66,3 +80,27 @@ def main(fastq_dir, q_cutoff = 10, consec = 6,):
 
 if __name__ == '__main__':
     sys.exit(main(sys.argv[1]))
+
+
+if len(sys.argv) == 1:
+        print "Please specify the directory where the seq and qual files are."
+        sys.exit()
+
+filetoload = os.listdir(sys.argv[1])
+basename = filetoload
+
+#Chop the extension to get names for output files
+if basename.find(".") != -1:
+        basename = '.'.join(basename.split(".")[:-1])
+
+try:
+	fastafile = open(filetoload)
+	qualfile = open(basename + ".qual")
+except IOError:
+	print "Either the file cannot be opened or there is no corresponding"
+	print "quality file (" + basename +".qual)"
+	sys.exit()
+
+rec_iter = PairedFastaQualIterator(fastafile,qualfile)
+
+SeqIO.write(rec_iter, open(basename + ".fastq", "w"), "fastq")
