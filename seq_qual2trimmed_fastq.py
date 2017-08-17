@@ -4,26 +4,25 @@ from Bio import SeqIO
 from Bio.SeqIO.QualityIO import PairedFastaQualIterator
 import numpy as np
 
-#Takes a FASTA file, which must have a corresponding .qual file,
+#Takes a folder containing corresponding seq and qual files,
 # and makes a single FASTQ file. Trim the two ends, and make sure
 # it is not longer than 1000bp so it is acceptable for Mothur
 
-Usage = "seq_qual2trimmed_fastq.py seq_qual_directory"
+Usage = "seq_qual2trimmed_fastq.py seq_qual_directory q_cutoff = 10, consec = 6"
 
-def combine(basename):
+def combine(fastq_dir, basename):
     """
     Combine the seq and qual file into fastq
     """
     try:
-    	fastafile = open(basename + ".seq")
-    	qualfile = open(basename + ".qual")
+    	fastafile = open(fastq_dir + '/' + basename + ".seq")
+    	qualfile = open(fastq_dir + '/' + basename + ".qual")
     except IOError:
     	print("Either the file cannot be opened or there is no corresponding")
     	print("seq or quality file for " + basename)
     	sys.exit()
-
     rec_iter = PairedFastaQualIterator(fastafile,qualfile)
-    SeqIO.write(rec_iter, open(basename + ".fastq", "w"), "fastq")
+    SeqIO.write(rec_iter, open(fastq_dir + '/' + basename + ".fastq", "w"), "fastq")
 
 
 def trim_fastq_biopython(in_file, out_file, q_cutoff=10, consec=6, id=None):
@@ -68,39 +67,22 @@ def trim_fastq_biopython(in_file, out_file, q_cutoff=10, consec=6, id=None):
         seq.description = ''
         SeqIO.write(seq[i:j], f, 'fastq')
 
-def main(fastq_dir, q_cutoff = 10, consec = 6,):
-    if basename.find(".") != -1:
-            basename = '.'.join(basename.split(".")[:-1])
-
-    for fileName in os.listdir(fastq_dir):
-        if len(fileName) > 6:
-            if fileName[-6:] == '.fastq':
-                out_file = os.path.join(fastq_dir,'trimmed_' + fileName)
-                trim_fastq_biopython(os.path.join(fastq_dir,fileName), out_file, q_cutoff=q_cutoff, consec=consec, id=None)
-
-if __name__ == '__main__':
-    sys.exit(main(sys.argv[1]))
-
+def main(fastq_dir, q_cutoff = 10, consec = 6):
+    with open(fastq_dir + '.namefile','w') as nameFile:
+        for fileName in os.listdir(fastq_dir):
+            if fileName[-len('.seq'):] == '.seq':
+                basename = '.'.join(fileName.split(".")[:-1])
+                combine(fastq_dir, basename)
+                in_file = fastq_dir + '/' + basename + '.fastq'
+                out_file = fastq_dir + '/trimmed_' + basename + '.fastq'
+                if '_F.ab1.' in out_file:
+                    nameFile.write(out_file + '\t')
+                    nameFile.write(out_file.replace('_F.ab1.', '_R.ab1.') + '\n')
+                trim_fastq_biopython(in_file, out_file, q_cutoff=int(q_cutoff), consec=int(consec), id=None)
 
 if len(sys.argv) == 1:
-        print "Please specify the directory where the seq and qual files are."
-        sys.exit()
-
-filetoload = os.listdir(sys.argv[1])
-basename = filetoload
-
-#Chop the extension to get names for output files
-if basename.find(".") != -1:
-        basename = '.'.join(basename.split(".")[:-1])
-
-try:
-	fastafile = open(filetoload)
-	qualfile = open(basename + ".qual")
-except IOError:
-	print "Either the file cannot be opened or there is no corresponding"
-	print "quality file (" + basename +".qual)"
-	sys.exit()
-
-rec_iter = PairedFastaQualIterator(fastafile,qualfile)
-
-SeqIO.write(rec_iter, open(basename + ".fastq", "w"), "fastq")
+    print("Please specify the directory where the seq and qual files are.")
+    sys.exit()
+else:
+    if __name__ == '__main__':
+        sys.exit(main(sys.argv[1],sys.argv[2],sys.argv[3]))
