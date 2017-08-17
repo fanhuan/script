@@ -52,6 +52,8 @@ This is the script that would compile into ReadsSelector2
 	g++ ReadsSelector_0407.cpp -o ReadsSelector2
 	mv ReadsSelector2 /usr/local/bin/
 
+### seq_qual2trimmed_fastq.py
+This combines trimFastq4mothur.py and fasta_to_fastq.py
 
 ###seq_stats.py
 is used to calculate the total, mean, and variance of seq lengths in a seq file.
@@ -81,7 +83,7 @@ keeps stats of what was there, what’s left after random dropout and what has b
 ### subsample\_kmer_v2.py
 Some times we face a dataset with more than 1 order of magnitude differences in their counted kmer file. If the kmers were counted from genome assembly, there's nothing we could do about it. If the kmers were counted from raw data, especially metagenomic data, there is risk of insufficient sampling effort. A common practice in metagenomic analysis is to subsample other samples to the lowest acceptable sample and this script does it WITHOUT replacement in order to keep the same kmer diversity afterwards.  
 
-### trimFastq4mothur.py
+### trimFastq4mothur.py 
 takes sanger sequencing reads and trim it based on quality score. If it is still longer than 1000bp after trimming, it will be trimmed from the end to make it shorter than 1000bp so mothur would take it for its makecontigs function.
 
 ### x2y.pl
