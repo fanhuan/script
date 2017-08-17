@@ -8,7 +8,7 @@ from optparse import OptionParser
 #Takes a folder containing corresponding seq and qual files,
 # and makes a single FASTQ file. Trim the two ends, and make sure
 # it is not longer than 1000bp so it is acceptable for Mothur
-# Author: huan.fan@wisc.edu 
+# Author: huan.fan@wisc.edu
 
 Usage = "seq_qual2trimmed_fastq.py seq_qual_directory q_cutoff = 10, consec = 6"
 version = '%prog 20170817.1'
