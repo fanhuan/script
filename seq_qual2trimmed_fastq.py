@@ -3,12 +3,21 @@ import sys, os
 from Bio import SeqIO
 from Bio.SeqIO.QualityIO import PairedFastaQualIterator
 import numpy as np
+from optparse import OptionParser
 
 #Takes a folder containing corresponding seq and qual files,
 # and makes a single FASTQ file. Trim the two ends, and make sure
 # it is not longer than 1000bp so it is acceptable for Mothur
 
 Usage = "seq_qual2trimmed_fastq.py seq_qual_directory q_cutoff = 10, consec = 6"
+version = '%prog 20170817.1'
+parser = OptionParser(usage = Usage, version = version)
+parser.add_option("-q", dest = "q_cutoff", default = 10,
+		  help = "quality score cut off, default = 10")
+parser.add_option("-w", dest = "window", default = 6,
+		  help = "consecutive window, default = 6")
+
+(options, args) = parser.parse_args()
 
 def combine(fastq_dir, basename):
     """
@@ -79,10 +88,11 @@ def main(fastq_dir, q_cutoff = 10, consec = 6):
                     nameFile.write(out_file + '\t')
                     nameFile.write(out_file.replace('_F.ab1.', '_R.ab1.') + '\n')
                 trim_fastq_biopython(in_file, out_file, q_cutoff=int(q_cutoff), consec=int(consec), id=None)
-
-if len(sys.argv) == 1:
-    print("Please specify the directory where the seq and qual files are.")
-    sys.exit()
-else:
-    if __name__ == '__main__':
-        sys.exit(main(sys.argv[1],sys.argv[2],sys.argv[3]))
+if __name__ == '__main__':
+    if len(sys.argv) == 1:
+        print("Please specify the directory where the seq and qual files are.")
+        sys.exit()
+    elif len(sys.argv) == 2:
+        sys.exit(main(sys.argv[1]))
+    elif len(sys.argv) > 2:
+            sys.exit(main(sys.argv[1],options.q_cutoff,options.window))
