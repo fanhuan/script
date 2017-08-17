@@ -58,11 +58,15 @@ def trim_fastq_biopython(in_file, out_file, q_cutoff=10, consec=6, id=None):
         SeqIO.write(seq[i:j], f, 'fastq')
 
 def main(fastq_dir, q_cutoff = 10, consec = 6,):
-    for fileName in os.listdir(fastq_dir):
-        if len(fileName) > 6:
-            if fileName[-6:] == '.fastq':
-                out_file = os.path.join(fastq_dir,'trimmed_' + fileName)
-                trim_fastq_biopython(os.path.join(fastq_dir,fileName), out_file, q_cutoff=q_cutoff, consec=consec, id=None)
+    with open(fastq_dir + '.namefile','w') as nameFile:
+        for fileName in os.listdir(fastq_dir):
+            if len(fileName) > 6:
+                if fileName[-6:] == '.fastq':
+                    out_file = os.path.join(fastq_dir,'trimmed_' + fileName)
+                    if '_F.ab1.' in out_file:
+                        nameFile.write(out_file + '\t')
+                        nameFile.write(out_file.replace('_F.ab1.', '_R.ab1.') + '\n')
+                    trim_fastq_biopython(os.path.join(fastq_dir,fileName), out_file, q_cutoff=q_cutoff, consec=consec, id=None)
 
 if __name__ == '__main__':
     sys.exit(main(sys.argv[1]))
