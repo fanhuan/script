@@ -3,7 +3,8 @@ from operator import itemgetter
 from itertools import groupby
 import numpy as np
 
-def consecutive(data, stepsize=1):
+def consecutive(data_list, stepsize=1):
+    data = sorted(data_list)
     return np.split(data, np.where(np.diff(data) != stepsize)[0]+1)
 
 Usage = "%prog [options] coverage_file"
