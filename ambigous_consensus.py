@@ -5,7 +5,8 @@ import numpy as np
 from collections import Counter
 from Bio import SeqIO
 
-def consecutive(data, stepsize=1):
+def consecutive(data_list, stepsize=1):
+    data = sorted(data_list)
     return np.split(data, np.where(np.diff(data) != stepsize)[0]+1)
 
 Usage = "%prog [options] specieslist(seperated by comma)"
