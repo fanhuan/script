@@ -43,7 +43,7 @@ def trim_fastq_biopython(in_file, out_file, q_cutoff=10, consec=6, id=None):
     is None, takes first sequence.
     """
     # Load in sequences using Bio.SeqIO.  We'll keep the result as a dict.
-    sample = os.path.basename(in_file[:len(in_file)-len('F.ab1.fastq')])
+    sample = os.path.basename(in_file[:len(in_file)-len('_F.ab1.fastq')])
     with open(in_file) as f:
         seqs = SeqIO.to_dict(SeqIO.parse(f, 'fastq'))
 
@@ -85,9 +85,9 @@ def main(fastq_dir, q_cutoff = 10, consec = 6):
                 combine(fastq_dir, basename)
                 in_file = fastq_dir + '/' + basename + '.fastq'
                 out_file = fastq_dir + '/trimmed_' + basename + '.fastq'
-                if 'F.ab1.' in out_file:
+                if '_F.ab1.' in out_file:
                     nameFile.write(out_file + '\t')
-                    nameFile.write(out_file.replace('F.ab1.', 'R.ab1.') + '\n')
+                    nameFile.write(out_file.replace('_F.ab1.', '_R.ab1.') + '\n')
                 trim_fastq_biopython(in_file, out_file, q_cutoff=int(q_cutoff), consec=int(consec), id=None)
 if __name__ == '__main__':
     if len(sys.argv) == 1:
