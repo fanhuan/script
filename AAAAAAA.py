@@ -2,7 +2,12 @@
 import pandas as pd
 # read
 S450 = pd.read_table('S450_'+count+'.kmer',header=None,names=['kmer'])
-S450_kmers = list(extra.loc[:,'kmer'])
+# rename
+lily.rename(index=str, columns={"old name": "new name"})
+# get value of a column
+s = df['A']
+
+S450_kmers = list(df.loc[:,'kmer'])
 GLS = S450_df.loc[:,'rankGLS']
 S450_dic = dict(zip(S450_kmers,GLS))
 Npatterns = str(len(set(S450_df.loc[:,'pattern'])))
