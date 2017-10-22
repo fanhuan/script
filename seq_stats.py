@@ -65,11 +65,12 @@ if options.dir:
 	input_dir = options.dir
 	for fileName in os.listdir(options.dir):
 		input_handle = smartopen(options.dir+'/'+fileName)
-		with open(options.dir+'/'+fileName.split('.')[0]+'_contig_length.txt','w') as outfile:
+		sample = fileName.split('.')[0]
+		with open(options.dir+'/' + sample + '_contig_length.txt','w') as outfile:
 			outfile.write('Contig\tLength\n')
 			length=[]
 			for seq_record in SeqIO.parse(input_handle,options.format):
 				outfile.write('%s\t%d\n'%(seq_record.id,len(seq_record.seq)))
 				length.append(len(seq_record.seq))
 		input_handle.close()
-		print(input_dir,len(length),sum(length),np.mean(length),np.std(length), min(length),max(length))
+		print(sample,len(length),sum(length),np.mean(length),np.std(length), min(length),max(length))
