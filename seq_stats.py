@@ -50,25 +50,26 @@ parser.add_option("-d", dest = "dir",
 print('Sample\tNumSeq\tTotal_bp\tMean\tVar\tMin\tMax')
 
 if options.input:
-    input_file = smartopen(options.input)
+	input_file = smartopen(options.input)
 	with open(options.input.split('.')[0]+'_contig_length.txt','w') as outfile:
 		outfile.write('Contig\tLength\n')
-	    length=[]
-	    for seq_record in SeqIO.parse(input_file,options.format):
-	        outfile.write('%s\t%d\n'%(seq_record.id,len(seq_record.seq)))
-	        length.append(len(seq_record.seq))
+		length=[]
+		for seq_record in SeqIO.parse(input_file,options.format):
+			outfile.write('%s\t%d\n'%(seq_record.id,len(seq_record.seq)))
+			length.append(len(seq_record.seq))
+	input_handle.close()
 	print(options.input,len(length),sum(length),np.mean(length),np.std(length), min(length),max(length))
-		
+
 
 if options.dir:
-    input_dir = options.dir
-    for fileName in os.listdir(options.dir):
-        input_handle = smartopen(options.dir+'/'+fileName)
+	input_dir = options.dir
+	for fileName in os.listdir(options.dir):
+		input_handle = smartopen(options.dir+'/'+fileName)
 		with open(options.dir+'/'+fileName.split('.')[0]+'_contig_length.txt','w') as outfile:
 			outfile.write('Contig\tLength\n')
-	        length=[]
-	        for seq_record in SeqIO.parse(input_handle,options.format):
-	            outfile.write('%s\t%d\n'%(seq_record.id,len(seq_record.seq)))
-	            length.append(len(seq_record.seq))
-	        input_handle.close()
-	    print(input_dir,len(length),sum(length),np.mean(length),np.std(length), min(length),max(length))
+			length=[]
+			for seq_record in SeqIO.parse(input_handle,options.format):
+				outfile.write('%s\t%d\n'%(seq_record.id,len(seq_record.seq)))
+				length.append(len(seq_record.seq))
+		input_handle.close()
+		print(input_dir,len(length),sum(length),np.mean(length),np.std(length), min(length),max(length))
