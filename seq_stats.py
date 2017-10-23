@@ -35,7 +35,7 @@ def smartopen(filename,*args,**kwargs):
 		return open(filename,*args,**kwargs)
 
 usage = "usage: %prog [options]"
-version = '%prog 20170420.1'
+version = '%prog 201710.1'
 parser = OptionParser(usage = usage, version = version)
 parser.add_option("-i", dest = "input",
 		  help = "individual file")
@@ -46,8 +46,32 @@ parser.add_option("-d", dest = "dir",
 
 (options, args) = parser.parse_args()
 
+def calcNXX(lens, percent):
+   '''
+   Calculates any NXX (e.g. N50, N90) statistic.
+   '''
 
-print('Sample\tNumSeq\tTotal_bp\tMean\tVar\tMin\tMax')
+   lenSum = sum(lens)
+   threshold = (float(percent) / 100) * lenSum
+
+   runningSum = 0
+   nxx = 0
+   nxxLen = 0
+
+   for i in range(len(lens)-1, -1, -1):
+      myLen = lens[i]
+      nxx += 1
+      runningSum += myLen
+
+      if runningSum >= threshold:
+         nxxLen = myLen
+         break
+
+   return nxxLen
+
+print('Sample\tNumSeq\tTotal_bp\tMean\tVar\tMin\tMax\tN50\tN90')
+
+
 
 if options.input:
 	input_file = smartopen(options.input)
@@ -58,7 +82,8 @@ if options.input:
 			outfile.write('%s\t%d\n'%(seq_record.id,len(seq_record.seq)))
 			length.append(len(seq_record.seq))
 	input_handle.close()
-	print(options.input,len(length),sum(length),np.mean(length),np.std(length), min(length),max(length))
+	print(options.input,len(length),sum(length),np.mean(length),np.std(length),
+		  min(length),max(length),calcNXX(length,50),calcNXX(length,90))
 
 
 if options.dir:
@@ -74,4 +99,5 @@ if options.dir:
 					outfile.write('%s\t%d\n'%(seq_record.id,len(seq_record.seq)))
 					length.append(len(seq_record.seq))
 			input_handle.close()
-			print(sample,len(length),sum(length),np.mean(length),np.std(length), min(length),max(length))
+			print(sample,len(length),sum(length),np.mean(length),np.std(length),
+				  min(length),max(length),calcNXX(length,50),calcNXX(length,90))
