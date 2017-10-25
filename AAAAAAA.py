@@ -22,6 +22,7 @@ result.to_csv()
 #matplotlib
 import matplotlib.pyplot as plt
 n, bins, patches = plt.hist(dataframe['variable'], 50, normed=1, facecolor='g', alpha=0.75)
+plt.show()
 
 #iter through all the folders in the directory
 for file in os.lidstdir(directory):
