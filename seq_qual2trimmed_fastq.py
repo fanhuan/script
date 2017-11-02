@@ -96,4 +96,4 @@ if __name__ == '__main__':
     elif len(sys.argv) == 2:
         sys.exit(main(sys.argv[1]))
     elif len(sys.argv) > 2:
-            sys.exit(main(sys.argv[1],options.q_cutoff,options.window))
+        sys.exit(main(sys.argv[1],options.q_cutoff,options.window))
