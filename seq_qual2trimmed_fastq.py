@@ -5,12 +5,12 @@ from Bio.SeqIO.QualityIO import PairedFastaQualIterator
 import numpy as np
 from optparse import OptionParser
 
-#Takes a folder containing corresponding seq and qual files,
+# Takes a folder containing corresponding seq and qual files,
 # and makes a single FASTQ file. Trim the two ends, and make sure
 # it is not longer than 1000bp so it is acceptable for Mothur
 # Author: huan.fan@wisc.edu
 
-Usage = "seq_qual2trimmed_fastq.py seq_qual_directory q_cutoff = 10, consec = 6"
+Usage = "seq_qual2trimmed_fastq.py seq_qual_directory -q 10, -w 6"
 version = '%prog 20171010.1'
 parser = OptionParser(usage = Usage, version = version)
 parser.add_option("-q", dest = "q_cutoff", default = 10,
@@ -96,4 +96,4 @@ if __name__ == '__main__':
     elif len(sys.argv) == 2:
         sys.exit(main(sys.argv[1]))
     elif len(sys.argv) > 2:
-            sys.exit(main(sys.argv[1],options.q_cutoff,options.window))
+        sys.exit(main(sys.argv[1],options.q_cutoff,options.window))

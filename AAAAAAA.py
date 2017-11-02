@@ -6,6 +6,19 @@ S450 = pd.read_table('S450_'+count+'.kmer',header=None,names=['kmer'])
 lily.rename(index=str, columns={"old name": "new name"})
 # get value of a column
 s = df['A']
+# convert into present/absent
+## convert whole df
+df[df>1] = 0
+## convert a columns
+df.a[df.a>1] = 0
+## row sum
+df.sum(axis = 1)
+## col sum
+df.sum()
+## convert numpy series to dataframe
+df.sum().to_frame()
+## filter rows
+df_filtered = df.query('variable > 30000')
 
 S450_kmers = list(df.loc[:,'kmer'])
 GLS = S450_df.loc[:,'rankGLS']
