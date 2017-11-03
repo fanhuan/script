@@ -89,6 +89,7 @@ def main(fastq_dir, q_cutoff = 10, consec = 6):
                     nameFile.write(out_file + '\t')
                     nameFile.write(out_file.replace('_F.ab1.', '_R.ab1.') + '\n')
                 trim_fastq_biopython(in_file, out_file, q_cutoff=int(q_cutoff), consec=int(consec), id=None)
+				
 if __name__ == '__main__':
     if len(sys.argv) == 1:
         print("Please specify the directory where the seq and qual files are.")
