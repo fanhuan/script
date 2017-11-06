@@ -19,6 +19,13 @@ df.sum()
 df.sum().to_frame()
 ## filter rows
 df_filtered = df.query('variable > 30000')
+## manipulate the content of a column
+### get rid of the suffix
+df['A'] = df['A'].str[:-len('.faa')]
+## put columns of values into a dictionary
+df_dic = dict(zip(df['A'],df['B']))
+## add a new column based on an existing column as keys in a dictionary
+df['C'] = df['A'].map(d)
 
 S450_kmers = list(df.loc[:,'kmer'])
 GLS = S450_df.loc[:,'rankGLS']
@@ -40,3 +47,8 @@ plt.show()
 #iter through all the folders in the directory
 for file in os.lidstdir(directory):
     if os.path.isdir(os.path.join(directory, file)):
+
+# list
+list1 = [x.split(',') for x in list2]
+## join a list of list
+combined = [item for sublist in lists for item in sublist]
