@@ -2,7 +2,6 @@ import os,sys
 from operator import itemgetter
 from itertools import groupby
 import numpy as np
-from collections import Counter
 from Bio import SeqIO
 
 def consecutive(data_list, stepsize=1):

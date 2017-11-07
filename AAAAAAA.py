@@ -52,3 +52,9 @@ for file in os.lidstdir(directory):
 list1 = [x.split(',') for x in list2]
 ## join a list of list
 combined = [item for sublist in lists for item in sublist]
+
+# Biopython
+from Bio import SeqIO
+
+#
+from collections import Counter
