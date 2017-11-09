@@ -26,6 +26,8 @@ df['A'] = df['A'].str[:-len('.faa')]
 df_dic = dict(zip(df['A'],df['B']))
 ## add a new column based on an existing column as keys in a dictionary
 df['C'] = df['A'].map(d)
+## split one column into two columns
+gut['Genus'], gut['Species'] = gut.Organism_Name.str.split(' ',1).str
 
 S450_kmers = list(df.loc[:,'kmer'])
 GLS = S450_df.loc[:,'rankGLS']
