@@ -78,7 +78,7 @@ if options.input:
 	with open(options.input.split('.')[0]+'_contig_length.txt','w') as outfile:
 		outfile.write('Contig\tLength\n')
 		length=[]
-		for seq_record in SeqIO.parse(input_file,options.format):
+		for seq_record in SeqIO.parse(input_handle,options.format):
 			outfile.write('%s\t%d\n'%(seq_record.id,len(seq_record.seq)))
 			length.append(len(seq_record.seq))
 	input_handle.close()
