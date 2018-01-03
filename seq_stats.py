@@ -74,7 +74,7 @@ print('Sample\tNumSeq\tTotal_bp\tMean\tVar\tMin\tMax\tN50\tN90')
 
 
 if options.input:
-	input_file = smartopen(options.input)
+	input_handle = smartopen(options.input)
 	with open(options.input.split('.')[0]+'_contig_length.txt','w') as outfile:
 		outfile.write('Contig\tLength\n')
 		length=[]
