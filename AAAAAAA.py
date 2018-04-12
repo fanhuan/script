@@ -3,7 +3,7 @@ import pandas as pd
 # read
 S450 = pd.read_table('S450_'+count+'.kmer',header=None,names=['kmer'])
 # read excel
-shelby = pd.read_excel('Escovopsis.xlsx',sheet_name = 'Shelby')
+data = pd.read_excel(filename, sheet=1)
 # rename
 lily.rename(index=str, columns={"old name": "new name"})
 # get value of a column
