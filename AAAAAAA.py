@@ -1,7 +1,7 @@
 # pandas
 import pandas as pd
 # read
-S450 = pd.read_table('S450_'+count+'.kmer',header=None,names=['kmer'])
+S450 = pd.read_table('S450_'+count+'.kmer',header=None,names=['kmer'], usecols=[2,3,4])
 # read excel
 data = pd.read_excel(filename, sheet=1)
 # rename
