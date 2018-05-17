@@ -12,6 +12,9 @@ is a variation of aaf_phylokmer.py to process simulated alignments from phylosim
 ### aaf\_phylokmer_sba.py
 is a variation of aaf_phylokmer.py. It does everything aaf_phylokmer.py does plus generate a sh file containing the kmer_merge command for generating shared-by-all kmers.
 
+### count2hist.py
+takes .pkdat.gz and compute the hist file with the same prefix.
+
 ### fq\_to\_fa_stdout.pl
 is a perl script that takes a fastq file (not compressed) and print to screen the fasta format of it.
 
