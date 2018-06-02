@@ -59,6 +59,10 @@ combined = [item for sublist in lists for item in sublist]
 
 # Biopython
 from Bio import SeqIO
-
+for seq_record in SeqIO.parse(input,"fasta"):
+    SeqIO.write(seq_record, out_fh, format=)
 #
 from collections import Counter
+
+# Jupyter
+jupyter notebook --no-browser
