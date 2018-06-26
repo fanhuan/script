@@ -1,7 +1,9 @@
 Summary of scripts
 ======
 
+### AAAAAAA.*
 
+My stupid way of saving useful snippets of code in various languages. I am an old lady after all.
 
 ### aaf\_pairwise_onepair.py
 use to be named aaf_pairwise.py. It takes a directory that only contains one pair of samples and calculates the distances between them.

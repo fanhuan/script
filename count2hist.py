@@ -18,17 +18,15 @@ def smartopen(filename,*args,**kwargs):
         return gzip.open(filename,*args,**kwargs)
     else:
         return open(filename,*args,**kwargs)
-Usage = "count2hist.py pkdat_dir"
+Usage = "zcat x.pkdat.gz | cut -f 2 | python count2hist.py > x.hist"
 #Usage = "subsample_pkdat.py [ -i <input filename>] -n<number of bins wanted>"
 parser = OptionParser(Usage)
 #parser.add_option( "-n", dest="n", type=int, default=1, help="top n frequency to show in histogram later")
 (options, args) = parser.parse_args()
 
-data_dir=sys.argv[1]
 
-for pkdat in os.listdir(data_dir):
-    output = open(pkdat.split('.')[0]+'.hist','w')
-    input = smartopen(data_dir + '/' + pkdat)
+for line in sys.stdin:
+
 
 
 

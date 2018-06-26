@@ -90,7 +90,7 @@ if options.dir:
 	input_dir = options.dir
 	for fileName in os.listdir(options.dir):
 		if '_contig_length.txt' not in fileName:
-			input_handle = smartopen(options.dir+'/'+fileName)
+			input_handle = smartopen(options.dir+'/'+fileName,'rt')
 			sample = fileName.split('.')[0]
 			with open(options.dir+'/' + sample + '_contig_length.txt','w') as outfile:
 				outfile.write('Contig\tLength\n')
