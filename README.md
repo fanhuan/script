@@ -17,6 +17,9 @@ is a variation of aaf_phylokmer.py. It does everything aaf_phylokmer.py does plu
 ### count2hist.py
 takes .pkdat.gz and compute the hist file with the same prefix.
 
+### coverage2region_multi.py
+takes a mpileup file and returns the region covered on the reference genome
+
 ### fq\_to\_fa_stdout.pl
 is a perl script that takes a fastq file (not compressed) and print to screen the fasta format of it.
 
