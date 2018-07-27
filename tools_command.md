@@ -1,6 +1,8 @@
 # md5
  md5sum -c \*.md5
 # NGS QC
+0. download from NCBI
+`fastq-dump --gzip --split-files --clip --dumpbase --skip-technical --read-filter pass SRR_ID` 
 1. fastqc
 fastqc $file -f format
 2. MultiQC (it does not do QC itself. It just generate reports from other QC/analysis tools' output. MultiQC doesn't run other tools for you.)

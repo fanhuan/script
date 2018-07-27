@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 #
-#  aaf_phylokmer.py
+#  mergeUnmapped.py
 #
 #  Copyright 2017 Huan Fan
 #  <hfan22@wisc.edu> & Yann Surget-Groba <yann@xtbg.org.cn>
