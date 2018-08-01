@@ -8,7 +8,7 @@ def consecutive(data_list, stepsize=1):
     data = sorted(data_list)
     return np.split(data, np.where(np.diff(data) != stepsize)[0]+1)
 
-Usage = "%prog [options] mpileup_s_file threshold"
+Usage = "%prog [options] mpileup_s_file <threshold>"
 version = '%prog 20180727.1'
 
 fh = open(sys.argv[1])
