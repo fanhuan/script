@@ -15,7 +15,7 @@ is a variation of aaf_phylokmer.py to process simulated alignments from phylosim
 is a variation of aaf_phylokmer.py. It does everything aaf_phylokmer.py does plus generate a sh file containing the kmer_merge command for generating shared-by-all kmers.
 
 ### contigtrimmer.py
-takes a spades assembly and trims it based on given minimum contig length
+takes a fasta file and returns only contigs no shorter than the given length
 
 ### count2hist.py
 takes .pkdat.gz and compute the hist file with the same prefix.
