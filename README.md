@@ -23,6 +23,9 @@ takes .pkdat.gz and compute the hist file with the same prefix.
 ### coverage2region_multi.py
 takes a mpileup file and returns the region covered on the reference genome.
 
+### extract_sequence.py
+takes a genome file and a query (usually a collection of representative sequences of this gene close to this genome) and find the most similar sequence in the genome.
+
 ### fq\_to\_fa_stdout.pl
 is a perl script that takes a fastq file (not compressed) and print to screen the fasta format of it.
 
@@ -55,6 +58,9 @@ Some times we face a dataset with more than 1 order of magnitude differences in 
 
 ### trimFastq4mothur.py
 takes sanger sequencing reads and trim it based on quality score. If it is still longer than 1000bp after trimming, it will be trimmed from the end to make it shorter than 1000bp so mothur would take it for its makecontigs function.
+
+### trim_primer.py
+takes read files and trim the primer sequences from the beginning of the reads. Returns another file with '\_cut' to the end of the filename (.suffix excluded). Takes gzipped files as well. The output format matches the input.
 
 ### x2y.pl
 Universal converter of various formats in bioinformatics. See a detailed list at [Bio::SeqIO](http://bioperl.org/howtos/SeqIO_HOWTO.html).

@@ -13,7 +13,7 @@ parser.add_option( "-i", dest="iptf", help="input the fasta contig file")
 parser.add_option( "-n", dest="mc",type=int, default=100, help="minimum contig length")
 (options, args) = parser.parse_args()
 #第三段：传参
-iptf = open(options.iptf,'rU')
+iptf = open(options.iptf)
 mc=options.mc
 optf = open(splitext(options.iptf)[0]+'_'+str(mc) + '.fa','w')
 
