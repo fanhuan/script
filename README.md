@@ -32,6 +32,10 @@ is a perl script that takes a fastq file (not compressed) and print to screen th
 ### fq\_to_fa.py
 is a python script that takes a fastq file (could be compressed) and print to screen the fasta format of it. Use in combinaiton with | gzip >> \*.fa.gz  
 
+### GC_filter.py
+
+filters reads based on a gc range.
+
 ### mergeUnmapped.py
 In the FlyWolbachia pipeline, I pull unmapped reads from different samples of the same population together for assembly. Before putting all reads in one file, I modifie their tags so it is clear which read is from which sample. This python script generates a shell script that actually does the job.
 
