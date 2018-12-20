@@ -37,7 +37,7 @@ args = parser.parse_args()
 # main
 
 fh = smartopen(args.read)
-with open(args.read.split('.')[0] + '_cut.fq','wt') as outfh:
+with open(args.read.split('.')[0] + '_cut.fq.gz','wt') as outfh:
     original_reads = SeqIO.parse(fh, "fastq")
     trimmed_reads = trim_primers(original_reads, args.primer)
     SeqIO.write(trimmed_reads, outfh, 'fastq')
