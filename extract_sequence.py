@@ -36,8 +36,10 @@ else:
 
 # process m6 file
 
-df = pd.read_table(m6, names = ['qseqid','sseqid','pident','length','mismatch','gapopen','qstart','qend',
-                  'sstart','send','evalue','bitscore'])
+df = pd.read_csv(m6, names = ['qseqid','sseqid','pident','length','mismatch','gapopen','qstart','qend',
+                  'sstart','send','evalue','bitscore'], sep = '\t')
+
+df.to_csv(m6, index = False)
 
 with open(new_name + '.fa','w') as fh:
      sub_df = df[df['bitscore'] == max(df['bitscore'])]
