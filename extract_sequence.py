@@ -38,12 +38,13 @@ else:
 
 df = pd.read_table(m6, names = ['qseqid','sseqid','pident','length','mismatch','gapopen','qstart','qend',
                   'sstart','send','evalue','bitscore'])
-for contig in df.sseqid.unique():
-     sub_df = df.loc[df['sseqid'] == contig]
-     sub_df = sub_df[sub_df['bitscore'] == max(sub_df['bitscore'])]
-     sstart = list(sub_df['sstart'])[0]
-     send = list(sub_df['send'])[0]
-     with open(new_name + '.fa','w') as fh:
+
+with open(new_name + '.fa','w') as fh:
+     sub_df = df[df['bitscore'] == max(df['bitscore'])]
+     for i in range(len(sub_df)):
+         sstart = list(sub_df['sstart'])[i]
+         send = list(sub_df['send'])[i]
+         contig = list(sub_df['sseqid'])[i]
          for record in SeqIO.parse(genome_file, 'fasta'):
              if record.id == contig:
                  if sstart > send:
