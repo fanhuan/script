@@ -1,0 +1,8 @@
+#!/bin/bash
+#PBS -q normal
+#PBS -l select=1:ncpus=3:mem=12G
+#PBS -l walltime=71:59:59
+#PBS -N awk
+#PBS -P Personal
+cd $PBS_O_WORKDIR/data/oilpalm/RADseq/TS3_mpileup_2/
+zcat $PBS_O_WORKDIR/data/oilpalm/RADseq/TS3.mpileup.gz | awk '{print >> $1; close( $1)}'

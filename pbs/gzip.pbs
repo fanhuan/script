@@ -1,0 +1,8 @@
+#!/bin/bash
+#PBS -q normal
+#PBS -l select=1:ncpus=4:mem=2G
+#PBS -l walltime=23:59:59
+#PBS -N gzip
+#PBS -P Personal
+cd $PBS_O_WORKDIR/data/oilpalm/RADseq/TS3_mpileup/
+gzip $PBS_O_WORKDIR/data/oilpalm/RADseq/TS3_mpileup/EG5_Chr1

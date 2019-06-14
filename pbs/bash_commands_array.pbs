@@ -1,0 +1,15 @@
+#!/bin/bash
+#PBS -q normal
+#PBS -J 1-4
+#PBS -l select=1:ncpus=24:mem=96G
+#PBS -l walltime=20:59:59
+#PBS -N humann2
+#PBS -P Personal
+#module load bwa
+base=$(head -n $PBS_ARRAY_INDEX $PBS_O_WORKDIR/data/feed/whole_genome/base_list | tail -1)
+cd $PBS_O_WORKDIR/data/feed/whole_genome/
+#tar zxvf $file
+humann2 --input ${base}_R1.fastq.gz --output ${base}_humann2 --thread 24 --taxonomic-profile $PBS_O_WORKDIR/data/feed/whole_genome/${base}_R1.metaphlan.txt --nucleotide-database $PBS_O_WORKDIR/ref/humann2/full_chocophlan_plus_viral
+#metaphlan2.py --input_type fastq $base.IS300_Clean.1.fq.gz --nproc 20 > ${base}_1.metaphlan.txt
+#bwa mem $PBS_O_WORKDIR/data/feed/BGI/soybean/GCA_002905335.1_glyma.Lee.gnm1_genomic.fna.gz $base/$base.IS300_Clean.1.fq.gz $base/$base.IS300_Clean.2.fq.gz > $base.sam
+#samtools view -b $base.sam | samtools sort > $base.sorted.bam

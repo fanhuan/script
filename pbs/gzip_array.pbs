@@ -1,0 +1,12 @@
+#!/bin/bash
+#PBS -q normal
+#PBS -J 1-7
+#PBS -l select=1:ncpus=2:mem=2G
+#PBS -l walltime=23:59:59
+#PBS -N gzip_array
+#PBS -P Personal
+
+file=$(head -n $PBS_ARRAY_INDEX $PBS_O_WORKDIR/data/oilpalm/RADseq/TS3_mpileup/file_list | tail -1)
+
+cd $PBS_O_WORKDIR/data/oilpalm/RADseq/TS3_mpileup/
+gzip $file

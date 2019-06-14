@@ -1,0 +1,12 @@
+#!/bin/bash
+#PBS -q normal
+#PBS -l select=1:ncpus=24:mem=10G
+#PBS -l walltime=1:00:00
+#PBS -N metaphlan2
+#PBS -P Personal
+cd $PBS_O_WORKDIR/data/feed/BGI/solid_metagenome/
+tar zxvf FL0H.tar.gz
+cd FL0H
+mv 1.Cleandata/*.fq.gz ./
+metaphlan2.py --input_type fastq FL0H.IS300_Clean.1.fq.gz --nproc 24 > FL0H_1.metaphlan.txt
+
