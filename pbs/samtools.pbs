@@ -1,0 +1,8 @@
+#!/bin/bash
+#PBS -q normal
+#PBS -l select=1:ncpus=24:mem=50G
+#PBS -l walltime=23:59:59
+#PBS -N samtools_mpileup
+#PBS -P Personal
+
+samtools mpileup -f $PBS_O_WORKDIR/data/oilpalm/reference/pisifera/EG5_linked.na -s -b $PBS_O_WORKDIR/data/oilpalm/RADseq/bam_list | gzip > $PBS_O_WORKDIR/data/oilpalm/RADseq/TS3.mpileup.gz

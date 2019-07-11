@@ -1,0 +1,11 @@
+#!/bin/bash
+#PBS -q normal
+#PBS -J 1-10
+#PBS -l select=1:ncpus=1:mem=1G
+#PBS -l walltime=0:10:00
+#PBS -N test
+#PBS -P Personal
+
+
+file=$(sed -n $PBS_ARRAY_INDEX $PBS_O_WORKDIR/data/oilpalm/RADseq/TS3/file_list)
+bowtie2 -p 10 -x $PBS_O_WORKDIR/data/oilpalm/reference/pisifera/pisifera_EG5_ref -U $PBS_O_WORKDIR/data/oilpalm/RADseq/TS3/$file -S $file.sam

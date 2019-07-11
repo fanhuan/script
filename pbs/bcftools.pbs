@@ -1,0 +1,17 @@
+#!/bin/bash
+#PBS -q normal
+#PBS -J 1-50
+#PBS -l select=1:ncpus=10:mem=20G
+#PBS -l walltime=2:00:00
+#PBS -N bcftools_filter
+#PBS -P Personal
+
+#module_load bowtie2/2.29 samtools/1.3
+
+#Ran in interavtive mode:
+#bowtie2-build bowtie2-build genome.fasta dura_ref
+#bowtie2 -p 10 -x $PBS_O_WORKDIR/data/oilpalm/reference/dura/picifera_ref/dura_ref -1 $PBS_O_WORKDIR/data/oilpalm/trimmomatic/${PBS_ARRAY_INDEX}_R1_paired.fq.gz -2  $PBS_O_WORKDIR/data/oilpalm/trimmomatic/${PBS_ARRAY_INDEX}_R2_paired.fq.gz -U $PBS_O_WORKDIR/data/oilpalm/trimmomatic/${PBS_ARRAY_INDEX}_R1_unpaired.fq.gz -U $PBS_O_WORKDIR/data/oilpalm/trimmomatic/${PBS_ARRAY_INDEX}_R2_unpaired.fq.gz -S $PBS_O_WORKDIR/data/oilpalm/bcf/$PBS_ARRAY_INDEX.sam
+#samtools view -bS $PBS_O_WORKDIR/data/oilpalm/bcf/$PBS_ARRAY_INDEX.sam > $PBS_O_WORKDIR/data/oilpalm/bcf/$PBS_ARRAY_INDEX.bam
+#samtools sort $PBS_O_WORKDIR/data/oilpalm/bcf/$PBS_ARRAY_INDEX.bam -o $PBS_O_WORKDIR/data/oilpalm/bcf/$PBS_ARRAY_INDEX.sorted.bam
+#samtools mpileup -uf $PBS_O_WORKDIR/data/oilpalm/reference/dura/picifera_ref/genome.fasta $PBS_O_WORKDIR/data/oilpalm/bcf/$PBS_ARRAY_INDEX.sorted.bam | bcftools view -Ov - > $PBS_O_WORKDIR/data/oilpalm/bcf/$PBS_ARRAY_INDEX.raw.bcf
+/home/users/nus/bchcnh/bin/bin/bcftools view -i '%QUAL>=30' --threads 10 $PBS_O_WORKDIR/data/oilpalm/bcf/raw_bcf/$PBS_ARRAY_INDEX.raw.bcf > $PBS_O_WORKDIR/data/oilpalm/bcf/raw_bcf/$PBS_ARRAY_INDEX.30.bcf

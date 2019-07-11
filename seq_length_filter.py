@@ -66,8 +66,6 @@ if options.dir:
 		for seq_record in SeqIO.parse(input_handle,options.format):
 			if len(seq_record.seq) >= min_len:
 				output_handle.write('>'+seq_record.id)
-                output_handle.write(seq_record.seq)
-        input_handle.close()
-        output_handle.close()
-
-
+				output_handle.write(seq_record.seq)
+		input_handle.close()
+		soutput_handle.close()

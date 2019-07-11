@@ -1,0 +1,16 @@
+#!/bin/bash
+#PBS -q normal
+#PBS -l select=1:ncpus=10:mem=20G
+#PBS -l walltime=5:00:00
+#PBS -N sample_116
+#PBS -P Personal
+
+file=sample_005.fq.gz
+
+#bowtie2 -p 10 -x $PBS_O_WORKDIR/data/oilpalm/reference/pisifera/pisifera_EG5_ref -U $PBS_O_WORKDIR/data/oilpalm/RADseq/TS3/$file -S $PBS_O_WORKDIR/data/oilpalm/RADseq/$file.sam
+
+samtools view -bS $PBS_O_WORKDIR/data/oilpalm/RADseq/$file.sam | samtools sort > $PBS_O_WORKDIR/data/oilpalm/RADseq/$file.sorted.bam
+
+#bcftools mpileup -Ou -f $PBS_O_WORKDIR/data/oilpalm/reference/pisifera/EG5_linked.na $PBS_O_WORKDIR/data/oilpalm/RADseq/$file.sorted.bam | bcftools call --threads 10 -mv -Ob -o $PBS_O_WORKDIR/data/oilpalm/RADseq/$file.raw.bcf
+
+#bcftools view -i '%QUAL>=30' --threads 10 $PBS_O_WORKDIR/data/oilpalm/RADseq/$file.raw.bcf > $PBS_O_WORKDIR/data/oilpalm/RADseq/$file.Q30.bcf
