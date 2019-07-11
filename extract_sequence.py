@@ -11,14 +11,16 @@ from collections import Counter
 
 #第二段：设定参数
 Usage = "extract_sequence.py [ -g <genome file>][ -q <query file>]"
-version = '%prog 20181120.1'
+version = '%prog 20190305.1'
 parser = OptionParser(Usage)
 parser.add_option( "-g", dest="genome", help="input the fasta genome assembly")
 parser.add_option( "-q", dest="query", help="query file")
+parser.add_option( "-f", dest="flank", default=0, type=int, help="size of flanking region")
 (options, args) = parser.parse_args()
 #第三段：传参
 genome_file = options.genome
 query= options.query
+flank = options.flank
 
 #第四段：问题算法
 
@@ -51,6 +53,8 @@ with open(new_name + '.fa','w') as fh:
              if record.id == contig:
                  if sstart > send:
                      sstart,send = send, sstart
+                     seq = str(record.seq[sstart-1-flank:send+flank].reverse_complement())
+                 else:
+                     seq = str(record.seq[sstart-1-flank:send+flank])
                  fh.write('>{} {}-{}\n'.format(record.id,sstart,send))
-                 seq = str(record.seq[sstart-1:send])
                  fh.write(seq + '\n')
