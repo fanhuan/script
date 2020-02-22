@@ -10,7 +10,7 @@ def consecutive(data_list, stepsize=1):
     return np.split(data, np.where(np.diff(data) != stepsize)[0]+1)
 
 Usage = "%prog [options] mpileup_s_file <threshold>"
-version = '%prog 20180801.1'
+version = '%prog 20200222.1'
 
 # this assumes the mpileip file is only from one contig so no dictionary is needed
 
@@ -26,12 +26,12 @@ bp_list = []
 # positional argument
 with smartopen(sys.argv[1]) as fh:
     for line in fh:
-        line = line.split()
+        line = line.split('\t')
         i = 3
         depth = 0
         while i < len(line):
             try:
-        	    depth += int(line[i])
+                depth += int(line[i])
             except ValueError:
                 print(line,i,line[i])
             i += 4
@@ -40,8 +40,9 @@ with smartopen(sys.argv[1]) as fh:
         	    bp_list.append(int(line[1]))
 
 for array in consecutive(bp_list):
-    outfile.write('%s\t%d\t%d\t%d\n'%(prefix.split('_')[1]),array[0],array[-1],len(array))
+    outfile.write('%s\t%d\t%d\t%d\n'%(prefix.split('_')[1],array[0],array[-1],len(array)))
     coverage.append(len(array))
 
 outfile.close()
+print(
 print('%s\t%f\t%f\t%f'%(prefix.split('_')[1],np.mean(depth_list),np.std(depth_list),sum(coverage)))

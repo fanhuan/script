@@ -23,6 +23,9 @@ takes .pkdat.gz and compute the hist file with the same prefix.
 ### coverage2region_multi.py
 takes a mpileup file and returns the region covered on the reference genome.
 
+### coverage2region_contig.py
+this assumes the mpileip file is only from one contig so no dictionary is needed
+
 ### extract_sequence.py
 takes a genome file and a query (usually a collection of representative sequences of this gene close to this genome) and find the most similar sequence in the genome.
 
