@@ -23,8 +23,14 @@ takes .pkdat.gz and compute the hist file with the same prefix.
 ### coverage2region_multi.py
 takes a mpileup file and returns the region covered on the reference genome.
 
+### coverage2region_contig.py
+this assumes the mpileip file is only from one contig so no dictionary is needed
+
 ### extract_sequence.py
 takes a genome file and a query (usually a collection of representative sequences of this gene close to this genome) and find the most similar sequence in the genome.
+
+### fastqSpliter.py
+takes a fasta file (can be compressed) and output multiple files with one seq_record per file. The file names are the first two words in the seq.description, usually the genus and species name.
 
 ### fq\_to\_fa_stdout.pl
 is a perl script that takes a fastq file (not compressed) and print to screen the fasta format of it.

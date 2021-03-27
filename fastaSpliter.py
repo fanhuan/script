@@ -23,33 +23,37 @@
 #  
 
 
-import sys,os,argparse
+import sys,os
+from optparse import OptionParser
 
-def smartopen(filename,*args,**kwargs):
+def smartopen(filename, mode = 'rt'):
 	'''opens with open unless file ends in .gz, then use gzip.open
-		in theory should transparently allow reading of files regardless of
-		compression'''
+		default mode open as text, not binary'''
+	import gzip, bz2
+		
 	if filename.endswith('.gz'):
-		return gzip.open(filename,*args,**kwargs)
+		return gzip.open(filename,mode)
+	elif filename.endswith('bz2'):
+		return bz2.BZ2File(filename, mode)
 	else:
-		return open(filename,*args,**kwargs)
+		return open(filename,mode)
 
 Usage = "%prog [options] -i <input filename>"
-version = '%prog 20151130.1'
-parser = argparse.ArgumentParser(Usage, version = version)
-parser.add_argument("-i", dest = "iptf",
+version = '%prog 20200306.1'
+parser = OptionParser(Usage, version = version)
+parser.add_option("-i", dest = "iptf",
 				  help = "input file")
-parser.add_argument("-d", dest = "dir",default = './',
+parser.add_option("-d", dest = "dir",default = './',
 				  help = "output director, default = ./")
 
-args = parser.parse_args()
+(options, args) = parser.parse_args()
 
-seq = smartopen(args.iptf)
+seq = smartopen(options.iptf)
 
 from Bio import SeqIO
 for seq_record in SeqIO.parse(seq,"fasta"):
-	file_id=seq_record.id
-	outfile = open(os.path.join(args.dir,file_id+'.fa'),'w')
+	file_id='_'.join(seq_record.description.split()[1:3])
+	outfile = open(os.path.join(options.dir,file_id+'.fa'),'w')
 	SeqIO.write(seq_record,outfile,"fasta")
 	outfile.close()
 
