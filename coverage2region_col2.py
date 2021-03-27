@@ -40,7 +40,7 @@ with smartopen(sys.argv[1]) as fh:
         	    bp_list.append(int(line[1]))
 
 for array in consecutive(bp_list):
-    outfile.write('%s\t%d\t%d\t%d\n'%(prefix.split('_')[1]),array[0],array[-1],len(array))
+    outfile.write('%s\t%d\t%d\t%d\n'%(prefix.split('_')[1],array[0],array[-1],len(array))
     coverage.append(len(array))
 
 outfile.close()
