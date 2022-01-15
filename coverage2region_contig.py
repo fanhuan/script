@@ -40,7 +40,11 @@ with smartopen(sys.argv[1]) as fh:
         	    bp_list.append(int(line[1]))
 
 for array in consecutive(bp_list):
+<<<<<<< HEAD:coverage2region_col2.py
+    outfile.write('%s\t%d\t%d\t%d\n'%(prefix.split('_')[1],array[0],array[-1],len(array))
+=======
     outfile.write('%s\t%d\t%d\t%d\n'%(prefix.split('_')[1],array[0],array[-1],len(array)))
+>>>>>>> 4d6b028385ab50f467e5eeea6ae2e049b50222f5:coverage2region_contig.py
     coverage.append(len(array))
 
 outfile.close()
