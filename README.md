@@ -14,9 +14,6 @@ is a variation of aaf_phylokmer.py to process simulated alignments from phylosim
 ### aaf\_phylokmer_sba.py
 is a variation of aaf_phylokmer.py. It does everything aaf_phylokmer.py does plus generate a sh file containing the kmer_merge command for generating shared-by-all kmers.
 
-### contigtrimmer.py
-takes a fasta file and returns only contigs no shorter than the given length
-
 ### count2hist.py
 takes .pkdat.gz and compute the hist file with the same prefix.
 
@@ -41,6 +38,13 @@ is a python script that takes a fastq file (could be compressed) and print to sc
 ### GC_filter.py
 
 filters reads based on a gc range.
+
+### kraken2_fastq.py
+
+selects short reads (in fastq format) that fall into a perticular kraken2 classification.
+
+### length_filter.py
+takes a fasta file and returns only contigs no shorter than the given length
 
 ### mergeUnmapped.py
 In the FlyWolbachia pipeline, I pull unmapped reads from different samples of the same population together for assembly. Before putting all reads in one file, I modifie their tags so it is clear which read is from which sample. This python script generates a shell script that actually does the job.

@@ -23,7 +23,7 @@
 #  
 
 
-import sys,os
+import sys,os, gzip
 from optparse import OptionParser
 
 def smartopen(filename, mode = 'rt'):
