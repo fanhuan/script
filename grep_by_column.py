@@ -1,7 +1,7 @@
 import os,argparse
 
 
-def grep_by_column(file1, file2, col, sep = '\t'):
+def grep_by_column(file1, file2, col1, col2, sep = '\t'):
     dic = {}
     with open(file2, "r") as query:
         for line in query:
