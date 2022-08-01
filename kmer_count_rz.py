@@ -6,7 +6,7 @@ def get_seq(infile,file_type='fasta'):
     seq = ''
     for record in SeqIO.parse(infile, file_type):
         seq = 'N'.join([seq, record.seq])
-    return(seq)
+    return(str(seq))
 
 def run_command(command):
     print(command)
