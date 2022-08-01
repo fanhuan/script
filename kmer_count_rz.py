@@ -1,8 +1,8 @@
-import os,argparse, time
+import os,argparse, time, sys
 from Bio import SeqIO
 
 
-def get_seq(infile,file_type):
+def get_seq(infile,file_type='fasta'):
     seq = ''
     for record in SeqIO.parse(infile, file_type):
         seq = 'N'.join(seq, record.seq)
@@ -29,7 +29,7 @@ if __name__ == "__main__":
     parser.add_argument("-k", "--k_len", required=True, type=int, help="kmer size")
     parser.add_argument("-s", "--skip", required=True, type=int, help="column number of in big file")
     parser.add_argument("-f", "--file_type", required=True, type=str,
-        default='fasta', help="field delimiter, default is tab")
+        default='fasta', help="file_type, default is fasta")
 
     Args = parser.parse_args()
     kmerCount = './kmer_count_rz'
