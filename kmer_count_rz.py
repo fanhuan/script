@@ -1,6 +1,5 @@
 import os,argparse, time
 from Bio import SeqIO
-from AAF import is_exe, run_command
 
 
 def get_seq(infile,file_type):
@@ -9,6 +8,17 @@ def get_seq(infile,file_type):
         seq = 'N'.join(seq, record.seq)
     return(seq)
 
+def run_command(command):
+    print(command)
+    print(time.strftime('%c'))
+    try:
+        os.system(command)
+    except:
+        print("Unexpected error:", sys.exc_info()[0])
+        raise
+
+def is_exe(fpath):
+    return os.path.isfile(fpath) and os.access(fpath, os.X_OK)
 
 
 
@@ -30,7 +40,4 @@ if __name__ == "__main__":
     seq = get_seq(Args.input, Args.file_type)
     command = ' '.join([kmerCount, '-i', seq, '-n', Args.k_len, '-s', Args.skip,
     '>', Args.output])
-    print(time.strftime('%c'), 'start running jobs')
-    print(command)
-    print(print time.strftime('%c'), 'jobs finished')
-    os.system(command)
+    run_command(command)
