@@ -30,6 +30,6 @@ if __name__ == "__main__":
 
     Args = parser.parse_args()
     seq = get_seq(Args.input, Args.file_type)
-    command = ' '.join(['kmer_count_rz', '-i', seq, '-n', Args.k_len, '-s', Args.skip,
+    command = ' '.join(['kmer_count_rz', '-i', seq, '-n', str(Args.k_len), '-s', str(Args.skip),
     '>', Args.output])
     run_command(command)
