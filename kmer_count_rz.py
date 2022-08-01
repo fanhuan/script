@@ -32,5 +32,5 @@ if __name__ == "__main__":
     '>', Args.output])
     print(time.strftime('%c'), 'start running jobs')
     print(command)
-    print(print time.strftime('%c'), 'jobs finished')
+    print(time.strftime('%c'), 'jobs finished')
     os.system(command)
