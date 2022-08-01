@@ -5,7 +5,7 @@ from Bio import SeqIO
 def get_seq(infile,file_type='fasta'):
     seq = ''
     for record in SeqIO.parse(infile, file_type):
-        seq = 'N'.join(seq, record.seq)
+        seq = 'N'.join([seq, record.seq])
     return(seq)
 
 def run_command(command):
