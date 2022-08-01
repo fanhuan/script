@@ -17,9 +17,6 @@ def run_command(command):
         print("Unexpected error:", sys.exc_info()[0])
         raise
 
-def is_exe(fpath):
-    return os.path.isfile(fpath) and os.access(fpath, os.X_OK)
-
 
 
 if __name__ == "__main__":
@@ -32,12 +29,7 @@ if __name__ == "__main__":
         default='fasta', help="file_type, default is fasta")
 
     Args = parser.parse_args()
-    kmerCount = './kmer_count_rz'
-    if not is_exe(kmerCount):
-        print('kmer_count_rz not found. Make sure it is in your PATH or the')
-        print('current directory, and that it is executable')
-        sys.exit(1)
     seq = get_seq(Args.input, Args.file_type)
-    command = ' '.join([kmerCount, '-i', seq, '-n', Args.k_len, '-s', Args.skip,
+    command = ' '.join(['kmer_count_rz', '-i', seq, '-n', Args.k_len, '-s', Args.skip,
     '>', Args.output])
     run_command(command)
