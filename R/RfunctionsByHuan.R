@@ -41,13 +41,4 @@ read_bracken <- function(files, level, col2read = 'fraction_total_reads'){
     data[is.na(data)] <- 0  
     return(data)
 }
-library(readr)
-read_bracken_single <- function(file){
-    sample <- strsplit(strsplit(file,'/')[[1]][length(strsplit(file,'/')[[1]])],'\\.')[[1]][1]
-    design <- strsplit(sample,'-')[[1]][1]
-    data <- data.frame(read_delim(file, "\t", escape_double = FALSE, trim_ws = TRUE))
-    data$sample <- sample
-    data$design <- design
-    return(data)
-    }
 
