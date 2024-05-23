@@ -49,6 +49,8 @@ takes a fasta file and returns only contigs no shorter than the given length
 ### mergeUnmapped.py
 In the FlyWolbachia pipeline, I pull unmapped reads from different samples of the same population together for assembly. Before putting all reads in one file, I modifie their tags so it is clear which read is from which sample. This python script generates a shell script that actually does the job.
 
+### merge_gff_out.sh
+RepeatMasker generates a .gff file but the third column all says dispersed_repeats. The categories are given in the .out file. This script replaces the dispersed_repeats column with the more informative repeat class/family column in the .out file. 
 ### ReadsSelector_0407.cpp
 This is the script that would compile into ReadsSelector
 
