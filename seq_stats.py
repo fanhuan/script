@@ -3,7 +3,7 @@
 #
 #  seq_stats.py
 #
-#  Copyright 2016 Huan Fan <hfan22@wisc.edu>
+#  Copyright 2024 Huan Fan <huan.fan@wisc.edu>
 #
 #  This program is free software; you can redistribute it and/or modify
 #  it under the terms of the GNU General Public License as published by
@@ -82,6 +82,7 @@ if options.input:
 			outfile.write('%s\t%d\n'%(seq_record.id,len(seq_record.seq)))
 			length.append(len(seq_record.seq))
 	input_handle.close()
+	length = sorted(length)
 	print(options.input,len(length),sum(length),np.mean(length),np.std(length),
 		  min(length),max(length),calcNXX(length,50),calcNXX(length,90))
 
