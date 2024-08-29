@@ -23,4 +23,4 @@ fh = smartopen(sys.argv[1])
 for seq_record in SeqIO.parse(fh, "fasta"):
     n += seq_record.seq.count('N')
     total += len(seq_record.seq)
-print(total, n, total - n)
+print(total, n, n/total*100, '% N')
