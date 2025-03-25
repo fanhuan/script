@@ -10,7 +10,7 @@ def parse_hisat2_log(file_path):
         "Overall Alignment Rate": r"^(\d+\.\d+)% overall alignment rate",
         "Concordant Unique Pairs": r"(\d+) \([\d\.]+%\) aligned concordantly exactly 1 time",
         "Concordant Multi-mapped": r"(\d+) \([\d\.]+%\) aligned concordantly >1 times",
-        "Unaligned Concordant Pairs": r"(\d+) \([\d\.]+%\) aligned concordantly 0 times",
+        "Non-Concordant Pairs": r"(\d+) \([\d\.]+%\) aligned concordantly 0 times",
         "Discordant Alignments": r"^\s+(\d+) \([\d\.]+%\) aligned discordantly 1 time",
         "Unaligned Pairs Total": r"\s+(\d+) pairs aligned 0 times concordantly or discordantly",
         "Single-end Unaligned": r"^\s+(\d+) \([\d\.]+%\) aligned 0 times",
