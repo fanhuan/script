@@ -17,7 +17,7 @@ def plink_fam_to_lepmap3(fam_file, output_file):
         
         # Create Lep-MAP3 structure (6 rows)
         rows = [
-            ["CHR", "POS"] + ["family_name"] * len(fam["IID"]),  # Row 1: Header
+            ["CHR", "POS"] + fam["FID"].tolist(),                # Row 1: Family IDs
             ["CHR", "POS"] + fam["IID"].tolist(),                # Row 2: Individual IDs
             ["CHR", "POS"] + ["0" if pd.isna(id_) else id_ for id_ in fam["FatherID"]],  # Row 3: Fathers
             ["CHR", "POS"] + ["0" if pd.isna(id_) else id_ for id_ in fam["MotherID"]],  # Row 4: Mothers
